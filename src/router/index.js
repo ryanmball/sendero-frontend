@@ -4,6 +4,8 @@ import Profile from "../views/Users/Profile.vue";
 import Signup from "../views/Users/Signup.vue";
 import Login from "../views/Users/Login.vue";
 import Logout from "../views/Users/Logout.vue";
+import Collections from "../views/Collections.vue";
+import Records from "../views/Records.vue";
 
 Vue.use(VueRouter);
 
@@ -24,9 +26,19 @@ const routes = [
     component: Login,
   },
   {
-    path: "/Logout",
-    name: "Logout",
+    path: "/logout",
+    name: "logout",
     component: Logout,
+  },
+  {
+    path: "/collections",
+    name: "collections-index",
+    component: Collections,
+  },
+  {
+    path: "/records",
+    name: "records-index",
+    component: Records,
   },
 ];
 

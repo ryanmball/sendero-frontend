@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Profile</router-link> |
       <span v-if="isLoggedIn()">
+        <router-link to="/">Profile</router-link> |
         <router-link to="/logout">Logout</router-link>
       </span>
       <span v-else>
@@ -15,7 +15,7 @@
 </template>
 
 <style>
-#app {
+/* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -34,7 +34,7 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
-}
+} */
 </style>
 
 <script>
