@@ -33,16 +33,15 @@ export default {
       message: "Welcome to your profile page!",
       collections: [],
       records: [],
+      userID: 0,
     };
   },
   created: function () {
-    axios.get("/collections").then((response) => {
+    this.userID = localStorage.getItem("user_id");
+    axios.get(`/users/${this.userID}`).then((response) => {
       console.log(response.data);
-      this.collections = response.data;
-    });
-    axios.get("/records").then((response) => {
-      console.log(response.data);
-      this.records = response.data;
+      this.collections = response.data.collections;
+      this.records = response.data.records;
     });
   },
   methods: {},
