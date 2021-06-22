@@ -8,8 +8,20 @@
         </li>
       </ul>
       <div class="form-group">
-        <label>Name:</label>
-        <input type="text" class="form-control" v-model="newUserParams.name" />
+        <label>First name:</label>
+        <input
+          type="text"
+          class="form-control"
+          v-model="newUserParams.first_name"
+        />
+      </div>
+      <div class="form-group">
+        <label>Last name:</label>
+        <input
+          type="text"
+          class="form-control"
+          v-model="newUserParams.last_name"
+        />
       </div>
       <div class="form-group">
         <label>Email:</label>
@@ -41,27 +53,27 @@
 </template>
 
 <script>
-  import axios from "axios";
+import axios from "axios";
 
-  export default {
-    data: function () {
-      return {
-        newUserParams: {},
-        errors: []
-      };
+export default {
+  data: function () {
+    return {
+      newUserParams: {},
+      errors: [],
+    };
+  },
+  methods: {
+    submit: function () {
+      axios
+        .post("/users", this.newUserParams)
+        .then((response) => {
+          console.log(response.data);
+          this.$router.push("/login");
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+        });
     },
-    methods: {
-      submit: function () {
-        axios
-          .post("/users", this.newUserParams)
-          .then((response) => {
-            console.log(response.data);
-            this.$router.push("/login");
-          })
-          .catch((error) => {
-            this.errors = error.response.data.errors;
-          });
-      }
-    }
-  };
+  },
+};
 </script>
