@@ -2,18 +2,118 @@
   <div class="records-index">
     <div class="container">
       <h3>Route Records:</h3>
-      <!-- Button trigger modal -->
-      <button
+
+      <!-- Record Create -->
+      <form v-on:submit.prevent="recordCreate()">
+        <ul style="list-style-type: none">
+          <li class="text-danger" v-for="error in errors" v-bind:key="error">
+            {{ error }}
+          </li>
+        </ul>
+        <small class="text-danger">This will be in a modal</small>
+        <div class="form-group">
+          <label>Date:</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="newRecordParams.date"
+          />
+        </div>
+        <div class="form-group">
+          <label>Route:</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="newRecordParams.route_id"
+          />
+        </div>
+        <div class="form-group">
+          <label>Crag:</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Autopopulate based on Route"
+          />
+        </div>
+        <div class="form-group">
+          <label>Area:</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Autopopulate based on Route"
+          />
+        </div>
+        <div class="form-group">
+          <label>Grade:</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="newRecordParams.grade"
+          />
+        </div>
+        <div class="form-group">
+          <label>Result:</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="newRecordParams.result"
+          />
+        </div>
+        <div class="form-group">
+          <label>In progress:</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="newRecordParams.in_progress"
+          />
+        </div>
+        <div class="form-group">
+          <label>Rating:</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="newRecordParams.rating"
+          />
+        </div>
+        <div class="form-group">
+          <label>Partner:</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="newRecordParams.partner"
+          />
+        </div>
+        <div class="form-group">
+          <label>Comments:</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="newRecordParams.comments"
+          />
+        </div>
+        <div class="form-group">
+          <label>Collection:</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="newRecordParams.collection_id"
+          />
+        </div>
+        <input type="submit" class="btn btn-primary" value="Create" />
+      </form>
+
+      <!-- Bootstrap Button trigger modal -->
+      <!-- <button
         type="button"
         class="btn btn-primary"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >
         Create New
-      </button>
+      </button> -->
 
-      <!-- Modal -->
-      <div
+      <!-- Bootstrap Modal -->
+      <!-- <div
         class="modal fade"
         id="staticBackdrop"
         data-bs-backdrop="static"
@@ -37,7 +137,7 @@
                 <div class="row">
                   <div class="col-md-4">
                     <div class="input-group mb-3">
-                      <!-- <input type="text" id="datepicker" name="prevent_autofill" /> ADD DATE PICKER -->
+                      <input type="text" id="datepicker" name="prevent_autofill" /> ADD DATE PICKER
                       <span
                         class="input-group-text"
                         id="inputGroup-sizing-default"
@@ -73,7 +173,7 @@
                         id="inputGroup-sizing-default"
                         >Route</span
                       >
-                      <!-- ADD AUTOCOMPLETE FROM FULL ROUTE LISTING IN DATABASE -->
+                      ADD AUTOCOMPLETE FROM FULL ROUTE LISTING IN DATABASE
                       <input
                         type="text"
                         class="form-control"
@@ -164,7 +264,7 @@
                       ></textarea>
                     </div>
                   </div>
-                  <!-- CREATE ADD TO COLLECTION OPTION -->
+                  CREATE ADD TO COLLECTION OPTION
                 </div>
               </div>
             </div>
@@ -179,38 +279,102 @@
               <button
                 type="button"
                 class="btn btn-primary"
-                @click="recordCreate()"
+                @click="recordCreate(), showAlert()"
               >
                 Save
               </button>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
+
       <div
         v-for="record in orderBy(records, 'date', -1)"
         v-bind:key="record.id"
       >
         <p>
-          {{ record.date }} <br />
-          {{ record.route.name }} <br />
-          {{ record.route.location }} <br />
-          {{ record.grade }} <br />
-          {{ record.result }} <br />
+          <strong>Date:</strong>{{ record.date }}
+          <small class="text-danger">pikaday</small> <br />
+          <strong>Route:</strong>{{ record.route.name }}
+          <small class="text-danger">autocomplete</small> <br />
+          <strong>Location:</strong>{{ record.route.location }}
+          <small class="text-danger">populates from route selected</small>
+          <br />
+          <strong>Grade:</strong>{{ record.grade }} <br />
+          <strong>Result:</strong>{{ record.result }}
+          <small class="text-danger">dropdown</small> <br />
+          <strong>In progress:</strong>{{ record.in_progress }}
+          <small class="text-danger">v-if (result) dropdown (T/F)</small> <br />
+          <strong>Rating:</strong>{{ record.rating }}
+          <small class="text-danger">v-if (result) dropdown (0.0-4.0)</small
+          ><br />
+          <strong>Partner:</strong>{{ record.partner }} <br />
+          <strong>Comments:</strong>{{ record.comments }} <br />
+
           <!-- replace this link with a small MP logo -->
-          <a :href="record.route.mp_url" target="_blank">MP URL</a>
+          <a :href="record.route.mp_url" target="_blank">MP URL</a
+          ><small class="text-danger">small MP logo for link</small> <br />
+          <button v-on:click="recordShow(record)">Edit/Delete</button>
         </p>
+
+        <!-- Record Edit/Delete -->
+        <dialog id="record-details">
+          <form method="dialog">
+            <h1>Edit Route Record</h1>
+            <ul style="list-style-type: none">
+              <li
+                class="text-danger"
+                v-for="editError in editErrors"
+                v-bind:key="editError"
+              >
+                {{ error }}
+              </li>
+            </ul>
+            <p>Date: <input type="text" v-model="editRecordParams.date" /></p>
+            <p>
+              Route:
+              <input type="text" v-model="editRecordParams.route_id" />
+              <!-- NEED THIS TO SHOW ROUTE NAME, BUT PASS ROUTE_ID -->
+            </p>
+            <p>Grade: <input type="text" v-model="editRecordParams.grade" /></p>
+            <p>
+              Result:
+              <input type="text" v-model="editRecordParams.result" />
+            </p>
+            <p>
+              In progress:
+              <input type="text" v-model="editRecordParams.in_progress" />
+            </p>
+            <p>
+              Rating: <input type="text" v-model="editRecordParams.rating" />
+            </p>
+            <p>
+              Partner: <input type="text" v-model="editRecordParams.partner" />
+            </p>
+            <p>
+              Comments:
+              <input type="text" v-model="editRecordParams.comments" />
+            </p>
+            <button v-on:click="recordUpdate()">Update</button>
+            <button v-on:click="recordDestroy()">Delete</button>
+            <button>Close</button>
+          </form>
+        </dialog>
       </div>
     </div>
   </div>
 </template>
 
-<style></style>
+<style>
+.text-danger {
+  color: red;
+}
+</style>
 
 <script>
 import axios from "axios";
 import Vue2Filters from "vue2-filters";
-
+/* global Swal */
 export default {
   mixins: [Vue2Filters.mixin],
   data: function () {
@@ -218,6 +382,8 @@ export default {
       records: [],
       newRecordParams: {},
       errors: [],
+      editRecordParams: {},
+      editErrors: [],
     };
   },
   created: function () {
@@ -232,10 +398,44 @@ export default {
         .post("/records", this.newRecordParams)
         .then((response) => {
           console.log(response.data);
+          this.records.push(response.data);
+          this.newRecordParams = {};
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
         });
+    },
+    recordShow: function (record) {
+      console.log(record);
+      this.editRecordParams = record;
+      document.querySelector("#record-details").showModal();
+    },
+    recordUpdate: function () {
+      axios
+        .patch(`/records/${this.editRecordParams.id}`, this.editRecordParams)
+        .then((response) => {
+          console.log(response.data);
+          var index = this.records.indexOf(this.editRecordParams);
+          this.records.splice(index, 1, response.data);
+        })
+        .catch((error) => {
+          this.editErrors = error.response.data.errors;
+        });
+    },
+    recordDestroy: function () {
+      axios.delete(`/records/${this.editRecordParams.id}`).then((response) => {
+        console.log(response.data);
+        var index = this.records.indexOf(this.editRecordParams);
+        this.records.splice(index, 1);
+      });
+    },
+    showAlert() {
+      Swal.fire({
+        title: "Hello!",
+        text: "Hello from SweetAlerts!",
+        icon: "success",
+        confirmButtonText: "Rad",
+      });
     },
   },
 };
