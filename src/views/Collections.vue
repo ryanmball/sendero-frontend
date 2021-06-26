@@ -45,9 +45,30 @@
           {{ collection.name }} <br />
           {{ collection.partners }} <br />
           {{ collection.highlights }} <br />
+          <button v-on:click="collectionImages(collection)">Photos</button>
+          <br />
           <button v-on:click="collectionShow(collection)">Edit/Delete</button>
         </p>
       </div>
+
+      <!-- Collection Images -->
+      <dialog id="collection-images">
+        <form method="dialog">
+          <h3>{{ collection.name }} Photos</h3>
+          <input
+            type="text"
+            v-model="newImageParams.url"
+            placeholder="Photo URL"
+          />
+          <button @click="imageCreate(collection)">Upload Photo</button>
+          <div v-for="image in images" v-bind:key="image.id">
+            <br />
+            <img class="image" :src="image.url" alt="photo" />
+            <button @click="imageDestroy(image)">Delete Photo</button>
+          </div>
+          <button>Close</button>
+        </form>
+      </dialog>
 
       <!-- Collection Edit/Delete -->
       <dialog id="collection-details">
@@ -84,6 +105,10 @@
 .text-danger {
   color: red;
 }
+.image {
+  width: 350px;
+  height: auto;
+}
 </style>
 
 <script>
@@ -99,6 +124,9 @@ export default {
       errors: [],
       editCollectionParams: {},
       editErrors: [],
+      images: [],
+      newImageParams: {},
+      collection: {},
     };
   },
   created: function () {
@@ -125,6 +153,34 @@ export default {
       this.editCollectionParams = collection;
       document.querySelector("#collection-details").showModal();
     },
+    collectionImages: function (collection) {
+      console.log(collection);
+      this.collection = collection;
+      this.images = collection.images;
+      document.querySelector("#collection-images").showModal();
+    },
+    imageCreate: function (collection) {
+      this.newImageParams.collection_id = collection.id;
+      axios
+        .post("/images", this.newImageParams)
+        .then((response) => {
+          console.log(response.data);
+          this.images.push(response.data);
+          this.newImageParams = {};
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+        });
+    },
+    imageDestroy: function (image) {
+      if (confirm("Are you sure you want to delete this image?")) {
+        axios.delete(`/images/${image.id}`).then((response) => {
+          console.log(response.data);
+          var index = this.images.indexOf(image);
+          this.images.splice(index, 1);
+        });
+      }
+    },
     collectionUpdate: function () {
       axios
         .patch(
@@ -141,13 +197,15 @@ export default {
         });
     },
     collectionDestroy: function () {
-      axios
-        .delete(`/collections/${this.editCollectionParams.id}`)
-        .then((response) => {
-          console.log(response.data);
-          var index = this.collections.indexOf(this.editCollectionParams);
-          this.collections.splice(index, 1);
-        });
+      if (confirm("Are you sure you want to delete this collection?")) {
+        axios
+          .delete(`/collections/${this.editCollectionParams.id}`)
+          .then((response) => {
+            console.log(response.data);
+            var index = this.collections.indexOf(this.editCollectionParams);
+            this.collections.splice(index, 1);
+          });
+      }
     },
   },
 };

@@ -288,6 +288,11 @@
         </div>
       </div> -->
 
+      <p class="text-danger">
+        **sorting and filtering will go here** <br />
+        <small>default will be date descending</small>
+      </p>
+      <small></small>
       <div
         v-for="record in orderBy(records, 'date', -1)"
         v-bind:key="record.id"
