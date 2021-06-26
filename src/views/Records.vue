@@ -298,23 +298,27 @@
         v-bind:key="record.id"
       >
         <p>
-          <strong>Date:</strong>{{ record.date }}
+          <strong>Date: </strong>{{ record.date }}
           <small class="text-danger">pikaday</small> <br />
-          <strong>Route:</strong>{{ record.route.name }}
+          <strong>Route: </strong>{{ record.route.name }}
           <small class="text-danger">autocomplete</small> <br />
-          <strong>Location:</strong>{{ record.route.location }}
-          <small class="text-danger">populates from route selected</small>
+          <strong>Location: </strong>{{ record.route.location }}
+          <small class="text-danger"
+            >populates from route selected - need to break into Crag and
+            Area</small
+          >
           <br />
-          <strong>Grade:</strong>{{ record.grade }} <br />
-          <strong>Result:</strong>{{ record.result }}
+          <strong>Grade: </strong>{{ record.grade }}
+          <small class="text-danger">dropdown and autocomplete</small> <br />
+          <strong>Result: </strong>{{ record.result }}
           <small class="text-danger">dropdown</small> <br />
-          <strong>In progress:</strong>{{ record.in_progress }}
+          <strong>In progress: </strong>{{ record.in_progress }}
           <small class="text-danger">v-if (result) dropdown (T/F)</small> <br />
-          <strong>Rating:</strong>{{ record.rating }}
+          <strong>Rating: </strong>{{ record.rating }}
           <small class="text-danger">v-if (result) dropdown (0.0-4.0)</small
           ><br />
-          <strong>Partner:</strong>{{ record.partner }} <br />
-          <strong>Comments:</strong>{{ record.comments }} <br />
+          <strong>Partner: </strong>{{ record.partner }} <br />
+          <strong>Comments: </strong>{{ record.comments }} <br />
 
           <!-- replace this link with a small MP logo -->
           <a :href="record.route.mp_url" target="_blank">MP URL</a

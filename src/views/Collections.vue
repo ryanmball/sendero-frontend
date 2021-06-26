@@ -42,14 +42,41 @@
       <!-- Collection Index -->
       <div v-for="collection in collections" v-bind:key="collection.id">
         <p>
-          {{ collection.name }} <br />
-          {{ collection.partners }} <br />
-          {{ collection.highlights }} <br />
+          <strong>Name: </strong>{{ collection.name }} <br />
+          <strong>Partners: </strong>{{ collection.partners }} <br />
+          <strong>Highlights: </strong>{{ collection.highlights }} <br />
+          <button v-on:click="collectionRecords(collection)">Routes</button>
+          <br />
           <button v-on:click="collectionImages(collection)">Photos</button>
           <br />
           <button v-on:click="collectionShow(collection)">Edit/Delete</button>
         </p>
       </div>
+
+      <!-- Collection Records -->
+      <dialog id="collection-records">
+        <form method="dialog">
+          <h3>{{ collection.name }} Routes</h3>
+          <div
+            v-for="record in orderBy(records, 'date', -1)"
+            v-bind:key="record.id"
+          >
+            <p>
+              <strong>Date: </strong>{{ record.date }} <br />
+              <strong>Route: </strong>{{ record.route.name }} <br />
+              <strong>Location: </strong>{{ record.route.location }}<br />
+              <strong>Grade: </strong>{{ record.grade }} <br />
+              <strong>Partner: </strong>{{ record.partner }} <br />
+              <strong>Comments: </strong>{{ record.comments }} <br />
+
+              <!-- replace this link with a small MP logo -->
+              <a :href="record.route.mp_url" target="_blank">MP URL</a
+              ><small class="text-danger">small MP logo for link</small> <br />
+            </p>
+          </div>
+          <button>Close</button>
+        </form>
+      </dialog>
 
       <!-- Collection Images -->
       <dialog id="collection-images">
@@ -127,6 +154,7 @@ export default {
       images: [],
       newImageParams: {},
       collection: {},
+      records: [],
     };
   },
   created: function () {
@@ -153,6 +181,12 @@ export default {
       this.editCollectionParams = collection;
       document.querySelector("#collection-details").showModal();
     },
+    collectionRecords: function (collection) {
+      console.log(collection);
+      this.collection = collection;
+      this.records = collection.records;
+      document.querySelector("#collection-records").showModal();
+    },
     collectionImages: function (collection) {
       console.log(collection);
       this.collection = collection;
@@ -173,7 +207,7 @@ export default {
         });
     },
     imageDestroy: function (image) {
-      if (confirm("Are you sure you want to delete this image?")) {
+      if (confirm("Are you sure you want to delete this photo?")) {
         axios.delete(`/images/${image.id}`).then((response) => {
           console.log(response.data);
           var index = this.images.indexOf(image);
@@ -197,7 +231,11 @@ export default {
         });
     },
     collectionDestroy: function () {
-      if (confirm("Are you sure you want to delete this collection?")) {
+      if (
+        confirm(
+          "Are you sure you want to delete this collection? \r\nAll associated photos will also be deleted."
+        )
+      ) {
         axios
           .delete(`/collections/${this.editCollectionParams.id}`)
           .then((response) => {
