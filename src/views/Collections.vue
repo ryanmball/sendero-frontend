@@ -36,6 +36,11 @@
           />
         </div>
         <strong>UPLOAD IMAGES</strong> <br />
+        <small class="text-danger"
+          >will be able to upload multiple images in collection create
+          modal</small
+        >
+        <br />
         <input type="submit" class="btn btn-primary" value="Create" />
       </form>
 

@@ -17,6 +17,7 @@
             type="text"
             class="form-control"
             v-model="newRecordParams.date"
+            placeholder="pikaday"
           />
         </div>
         <div class="form-group">
@@ -25,6 +26,7 @@
             type="text"
             class="form-control"
             v-model="newRecordParams.route_id"
+            placeholder="autocomplete"
           />
         </div>
         <div class="form-group">
@@ -32,7 +34,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Autopopulate based on Route"
+            placeholder="autopopulate based on Route"
           />
         </div>
         <div class="form-group">
@@ -40,7 +42,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Autopopulate based on Route"
+            placeholder="autopopulate based on Route"
           />
         </div>
         <div class="form-group">
@@ -49,6 +51,7 @@
             type="text"
             class="form-control"
             v-model="newRecordParams.grade"
+            placeholder="dropdown and autocomplete"
           />
         </div>
         <div class="form-group">
@@ -57,6 +60,7 @@
             type="text"
             class="form-control"
             v-model="newRecordParams.result"
+            placeholder="dropdown"
           />
         </div>
         <div class="form-group">
@@ -65,6 +69,7 @@
             type="text"
             class="form-control"
             v-model="newRecordParams.in_progress"
+            placeholder="v-if (result) dropdown (T/F)"
           />
         </div>
         <div class="form-group">
@@ -73,6 +78,7 @@
             type="text"
             class="form-control"
             v-model="newRecordParams.rating"
+            placeholder="v-if (result) dropdown (0.0-4.0)"
           />
         </div>
         <div class="form-group">
@@ -97,6 +103,7 @@
             type="text"
             class="form-control"
             v-model="newRecordParams.collection_id"
+            placeholder="optional - dropdown"
           />
         </div>
         <input type="submit" class="btn btn-primary" value="Create" />
@@ -288,87 +295,93 @@
         </div>
       </div> -->
 
-      <p class="text-danger">
-        **sorting and filtering will go here** <br />
-        <small>default will be date descending</small>
-      </p>
-      <small></small>
-      <div
-        v-for="record in orderBy(records, 'date', -1)"
-        v-bind:key="record.id"
-      >
-        <p>
-          <strong>Date: </strong>{{ record.date }}
-          <small class="text-danger">pikaday</small> <br />
-          <strong>Route: </strong>{{ record.route.name }}
-          <small class="text-danger">autocomplete</small> <br />
-          <strong>Location: </strong>{{ record.route.location }}
-          <small class="text-danger"
-            >populates from route selected - need to break into Crag and
-            Area</small
-          >
-          <br />
-          <strong>Grade: </strong>{{ record.grade }}
-          <small class="text-danger">dropdown and autocomplete</small> <br />
-          <strong>Result: </strong>{{ record.result }}
-          <small class="text-danger">dropdown</small> <br />
-          <strong>In progress: </strong>{{ record.in_progress }}
-          <small class="text-danger">v-if (result) dropdown (T/F)</small> <br />
-          <strong>Rating: </strong>{{ record.rating }}
-          <small class="text-danger">v-if (result) dropdown (0.0-4.0)</small
-          ><br />
-          <strong>Partner: </strong>{{ record.partner }} <br />
-          <strong>Comments: </strong>{{ record.comments }} <br />
-
-          <!-- replace this link with a small MP logo -->
-          <a :href="record.route.mp_url" target="_blank">MP URL</a
-          ><small class="text-danger">small MP logo for link</small> <br />
-          <button v-on:click="recordShow(record)">Edit/Delete</button>
+      <!-- Records Index & Record Edit/Delete -->
+      <div>
+        <p class="text-danger">
+          **sorting and filtering will go here** <br />
+          <small>default will be date descending</small>
         </p>
+        <small></small>
+        <div
+          v-for="record in orderBy(records, 'date', -1)"
+          v-bind:key="record.id"
+        >
+          <p>
+            <strong>Date: </strong>{{ record.date }}
+            <small class="text-danger">pikaday</small> <br />
+            <strong>Route: </strong>{{ record.route.name }}
+            <small class="text-danger">autocomplete</small> <br />
+            <strong>Location: </strong>{{ record.route.location }}
+            <small class="text-danger"
+              >populates from route selected - need to break into Crag and
+              Area</small
+            >
+            <br />
+            <strong>Grade: </strong>{{ record.grade }}
+            <small class="text-danger">dropdown and autocomplete</small> <br />
+            <strong>Result: </strong>{{ record.result }}
+            <small class="text-danger">dropdown</small> <br />
+            <strong>In progress: </strong>{{ record.in_progress }}
+            <small class="text-danger">v-if (result) dropdown (T/F)</small>
+            <br />
+            <strong>Rating: </strong>{{ record.rating }}
+            <small class="text-danger">v-if (result) dropdown (0.0-4.0)</small
+            ><br />
+            <strong>Partner: </strong>{{ record.partner }} <br />
+            <strong>Comments: </strong>{{ record.comments }} <br />
 
-        <!-- Record Edit/Delete -->
-        <dialog id="record-details">
-          <form method="dialog">
-            <h1>Edit Route Record</h1>
-            <ul style="list-style-type: none">
-              <li
-                class="text-danger"
-                v-for="editError in editErrors"
-                v-bind:key="editError"
-              >
-                {{ error }}
-              </li>
-            </ul>
-            <p>Date: <input type="text" v-model="editRecordParams.date" /></p>
-            <p>
-              Route:
-              <input type="text" v-model="editRecordParams.route_id" />
-              <!-- NEED THIS TO SHOW ROUTE NAME, BUT PASS ROUTE_ID -->
-            </p>
-            <p>Grade: <input type="text" v-model="editRecordParams.grade" /></p>
-            <p>
-              Result:
-              <input type="text" v-model="editRecordParams.result" />
-            </p>
-            <p>
-              In progress:
-              <input type="text" v-model="editRecordParams.in_progress" />
-            </p>
-            <p>
-              Rating: <input type="text" v-model="editRecordParams.rating" />
-            </p>
-            <p>
-              Partner: <input type="text" v-model="editRecordParams.partner" />
-            </p>
-            <p>
-              Comments:
-              <input type="text" v-model="editRecordParams.comments" />
-            </p>
-            <button v-on:click="recordUpdate()">Update</button>
-            <button v-on:click="recordDestroy()">Delete</button>
-            <button>Close</button>
-          </form>
-        </dialog>
+            <a :href="record.route.mp_url" target="_blank">MP URL</a
+            ><small class="text-danger">small MP logo for link</small> <br />
+            <button v-on:click="recordShow(record)">Edit/Delete</button>
+          </p>
+
+          <!-- Record Edit/Delete -->
+          <dialog id="record-details">
+            <form method="dialog">
+              <h1>Edit Route Record</h1>
+              <ul style="list-style-type: none">
+                <li
+                  class="text-danger"
+                  v-for="editError in editErrors"
+                  v-bind:key="editError"
+                >
+                  {{ error }}
+                </li>
+              </ul>
+              <p>Date: <input type="text" v-model="editRecordParams.date" /></p>
+              <p>
+                Route:
+                <input type="text" v-model="editRecordParams.route_id" />
+                <!-- NEED THIS TO SHOW ROUTE NAME, BUT PASS ROUTE_ID -->
+              </p>
+              <p>
+                Grade: <input type="text" v-model="editRecordParams.grade" />
+              </p>
+              <p>
+                Result:
+                <input type="text" v-model="editRecordParams.result" />
+              </p>
+              <p>
+                In progress:
+                <input type="text" v-model="editRecordParams.in_progress" />
+              </p>
+              <p>
+                Rating: <input type="text" v-model="editRecordParams.rating" />
+              </p>
+              <p>
+                Partner:
+                <input type="text" v-model="editRecordParams.partner" />
+              </p>
+              <p>
+                Comments:
+                <input type="text" v-model="editRecordParams.comments" />
+              </p>
+              <button v-on:click="recordUpdate()">Update</button>
+              <button v-on:click="recordDestroy()">Delete</button>
+              <button>Close</button>
+            </form>
+          </dialog>
+        </div>
       </div>
     </div>
   </div>
@@ -432,11 +445,15 @@ export default {
         });
     },
     recordDestroy: function () {
-      axios.delete(`/records/${this.editRecordParams.id}`).then((response) => {
-        console.log(response.data);
-        var index = this.records.indexOf(this.editRecordParams);
-        this.records.splice(index, 1);
-      });
+      if (confirm("Are you sure you want to delete this record?")) {
+        axios
+          .delete(`/records/${this.editRecordParams.id}`)
+          .then((response) => {
+            console.log(response.data);
+            var index = this.records.indexOf(this.editRecordParams);
+            this.records.splice(index, 1);
+          });
+      }
     },
     showAlert() {
       Swal.fire({
