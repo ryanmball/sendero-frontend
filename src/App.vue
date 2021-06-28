@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <span v-if="isLoggedIn()">
-        <router-link to="/">Profile</router-link> |
+        <router-link :to="`/users/${userID()}`">Profile</router-link> |
         <router-link to="/logout">Logout</router-link>
       </span>
       <span v-else>
@@ -45,6 +45,9 @@ export default {
   methods: {
     isLoggedIn: function () {
       return localStorage.getItem("jwt");
+    },
+    userID: function () {
+      return localStorage.getItem("user_id");
     },
   },
 };

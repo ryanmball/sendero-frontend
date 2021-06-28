@@ -11,7 +11,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/users/:id",
     name: "profile",
     component: Profile,
   },

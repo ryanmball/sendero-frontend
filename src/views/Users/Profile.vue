@@ -7,7 +7,7 @@
         ><input class="btn btn-primary" type="button" value="See All"
       /></router-link>
       <div
-        v-for="record in orderBy(records, 'date', -1).slice(0, 3)"
+        v-for="record in orderBy(user.records, 'date', -1).slice(0, 3)"
         v-bind:key="record.id"
       >
         <p>
@@ -27,7 +27,7 @@
         ><input class="btn btn-primary" type="button" value="See All"
       /></router-link>
       <div
-        v-for="collection in collections.slice(0, 3)"
+        v-for="collection in user.collections.slice(0, 3)"
         v-bind:key="collection.id"
       >
         <p>
@@ -51,15 +51,13 @@ export default {
   data: function () {
     return {
       message: "Welcome to your profile page!",
-      collections: [],
-      records: [],
-      userID: 0,
+      user: { collections: [], records: [] },
     };
   },
   created: function () {
-    this.userID = localStorage.getItem("user_id");
-    axios.get(`/users/${this.userID}`).then((response) => {
+    axios.get(`/users/${localStorage.getItem("user_id")}`).then((response) => {
       console.log(response.data);
+      this.user = response.data;
       this.collections = response.data.collections;
       this.records = response.data.records;
     });
