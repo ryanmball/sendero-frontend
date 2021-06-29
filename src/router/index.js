@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Profile from "../views/Users/Profile.vue";
+import UserShow from "../views/Users/UserShow.vue";
 import Signup from "../views/Users/Signup.vue";
 import Login from "../views/Users/Login.vue";
 import Logout from "../views/Users/Logout.vue";
@@ -12,8 +12,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/users/:id",
-    name: "profile",
-    component: Profile,
+    name: "user-show",
+    component: UserShow,
   },
   {
     path: "/signup",
