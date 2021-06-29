@@ -2,7 +2,7 @@
   <div class="profile">
     <h1>{{ message }}</h1>
 
-    <img :src="user.profile_pic" alt="Profile Pic" />
+    <img class="profile-pic" :src="user.profile_pic" alt="Profile Pic" />
     <h1>{{ user.first_name }} {{ user.last_name }}</h1>
 
     <!-- Account Info / Edit & Delete -->
@@ -95,7 +95,7 @@
 </template>
 
 <style>
-img {
+.profile-pic {
   border-radius: 50%;
   width: 100px;
   height: auto;
