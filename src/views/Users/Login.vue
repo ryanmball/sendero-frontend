@@ -2,8 +2,10 @@
   <div class="login">
     <form v-on:submit.prevent="submit()">
       <h1>Login</h1>
-      <ul>
-        <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+      <ul style="list-style-type: none">
+        <li class="text-danger" v-for="error in errors" v-bind:key="error">
+          {{ error }}
+        </li>
       </ul>
       <div>
         <label>Email:</label>
@@ -17,6 +19,12 @@
     </form>
   </div>
 </template>
+
+<style>
+.text-danger {
+  color: red;
+}
+</style>
 
 <script>
 import axios from "axios";
@@ -47,7 +55,7 @@ export default {
         })
         .catch((error) => {
           console.log(error.response);
-          this.errors = ["Invalid email or password."];
+          this.errors = ["Invalid email or password"];
           this.email = "";
           this.password = "";
         });

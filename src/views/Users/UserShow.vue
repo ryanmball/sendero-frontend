@@ -42,6 +42,17 @@
           />
         </p>
         <p>
+          <strong>Password: </strong>
+          <input type="password" v-model="editUserParams.password" />
+        </p>
+        <p>
+          <strong>Confirm password: </strong>
+          <input
+            type="password"
+            v-model="editUserParams.password_confirmation"
+          />
+        </p>
+        <p>
           <strong>Profile picture: </strong>
           <input type="text" v-model="editUserParams.profile_pic" />
         </p>
