@@ -1,7 +1,6 @@
 <template>
   <div class="collections-show">
     <div class="container">
-      <small class="text-danger">FIGURE OUT VARIBLE ISSUE</small>
       <!-- Collection Show -->
       <div v-if="!edit">
         <h3>{{ collection.name }} Collection</h3>
@@ -101,7 +100,6 @@ export default {
     axios.get(`/collections/${this.$route.params.id}`).then((response) => {
       console.log(response.data);
       this.collection = response.data;
-      this.editCollectionParams = response.data;
     });
   },
   methods: {
@@ -142,6 +140,10 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.edit = !this.edit;
+          this.collection = Object.assign(
+            this.collection,
+            this.editCollectionParams
+          );
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
@@ -163,8 +165,10 @@ export default {
     },
     editToggle: function () {
       this.edit = !this.edit;
-      console.log(this.collection);
-      console.log(this.editCollectionParams);
+      this.editCollectionParams = Object.assign(
+        this.editCollectionParams,
+        this.collection
+      );
     },
   },
 };
