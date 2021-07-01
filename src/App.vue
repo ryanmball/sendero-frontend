@@ -3,6 +3,8 @@
     <div id="nav">
       <span v-if="isLoggedIn()">
         <router-link :to="`/users/${userID()}`">Profile</router-link> |
+        <router-link to="/records">Records</router-link> |
+        <router-link to="/collections">Collections</router-link> |
         <router-link to="/logout">Logout</router-link>
       </span>
       <span v-else>
