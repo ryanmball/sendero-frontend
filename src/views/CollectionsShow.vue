@@ -1,44 +1,6 @@
 <template>
-  <div class="collections-index">
+  <div class="collections-show">
     <div class="container">
-      <!-- Collection Create -->
-      <form v-on:submit.prevent="collectionCreate()">
-        <ul style="list-style-type: none">
-          <li class="text-danger" v-for="error in errors" v-bind:key="error">
-            {{ error }}
-          </li>
-        </ul>
-        <strong>Create collection</strong><br />
-        <small class="text-danger">This will be in a modal</small>
-        <div class="form-group">
-          <label>Name:</label>
-          <input
-            type="text"
-            class="form-control"
-            v-model="newCollectionParams.name"
-          />
-        </div>
-        <div class="form-group">
-          <label>Partners:</label>
-          <input
-            type="text"
-            class="form-control"
-            v-model="newCollectionParams.partners"
-          />
-        </div>
-        <div class="form-group">
-          <label>Highlights:</label>
-          <input
-            type="text"
-            class="form-control"
-            v-model="newCollectionParams.highlights"
-          />
-        </div>
-        <input type="submit" class="btn btn-primary" value="Create" />
-        <br />
-      </form>
-      <br />
-      <small class="text-danger">This will be in a second modal</small>
       <br />
       <strong>Upload images</strong> <br />
       <input type="text" v-model="newImageParams.url" placeholder="Photo URL" />
@@ -59,21 +21,8 @@
         <br />
         will upload images. This will use the collection id from the collection
         <br />
-        create response data. Dropdown is temporary
+        create response data
       </small>
-
-      <!-- Collection Index -->
-      <h3>Collections:</h3>
-      <div v-for="collection in collections" v-bind:key="collection.id">
-        <p>
-          <strong>Name: </strong>{{ collection.name }} <br />
-          <strong>Partners: </strong>{{ collection.partners }} <br />
-          <strong>Highlights: </strong>{{ collection.highlights }} <br />
-          <router-link :to="`/collections/${collection.id}`">
-            <button>More</button>
-          </router-link>
-        </p>
-      </div>
 
       <!-- Collection Records -->
       <dialog id="collection-records">
@@ -168,7 +117,6 @@ export default {
   mixins: [Vue2Filters.mixin],
   data: function () {
     return {
-      collections: [],
       newCollectionParams: {},
       errors: [],
       editCollectionParams: {},
@@ -180,24 +128,12 @@ export default {
     };
   },
   created: function () {
-    axios.get("/collections").then((response) => {
+    axios.get(`/collections/${this.$route.params.id}`).then((response) => {
       console.log(response.data);
-      this.collections = response.data;
+      this.collection = response.data;
     });
   },
   methods: {
-    collectionCreate: function () {
-      axios
-        .post("/collections", this.newCollectionParams)
-        .then((response) => {
-          console.log(response.data);
-          this.collections.push(response.data);
-          this.newCollectionParams = {};
-        })
-        .catch((error) => {
-          this.errors = error.response.data.errors;
-        });
-    },
     collectionShow: function (collection) {
       console.log(collection);
       this.editCollectionParams = collection;
