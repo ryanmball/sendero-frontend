@@ -117,6 +117,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.collection.images.push(response.data);
+          this.image = "";
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
@@ -126,7 +127,7 @@ export default {
       if (confirm("Are you sure you want to delete this photo?")) {
         axios.delete(`/images/${image.id}`).then((response) => {
           console.log(response.data);
-          var index = this.images.indexOf(image);
+          var index = this.collection.images.indexOf(image);
           this.collection.images.splice(index, 1);
         });
       }

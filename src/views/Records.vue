@@ -297,13 +297,73 @@
 
       <!-- Records Index & Record Edit/Delete -->
       <div>
-        <p class="text-danger">
-          **sorting and filtering will go here** <br />
-          <small>default will be date descending</small>
-        </p>
-        <small></small>
+        <!-- Filters -->
+        <div>
+          <p class="text-danger">
+            **sorting and filtering will go here** <br />
+            USE JUST TELL ME TO FIGURE OUT HOW TO FILTER NESTED AND THE BEST WAY TO HAVE MULTIPLE FILTERS <br />
+            <small>default will be date descending</small>
+          </p>
+          Grade:
+          <select v-model="filter">
+            <option value=""></option>
+            <option v-for="grade in grades" v-bind:key="grade">
+              {{ grade }}
+            </option>
+          </select>
+          Result:
+          <select v-model="filter">
+            <option value=""></option>
+            <option value="onsight">onsight</option>
+            <option value="flash">flash</option>
+            <option value="redpoint">redpoint</option>
+            <option value="1 fall">1 fall</option>
+            <option value="2 falls">2 falls</option>
+            <option value="beta">beta</option>
+          </select>
+          Rating:
+          <select v-model="filter">
+            <option value=""></option>
+            <option value="0.0">0.0</option>
+            <option value="0.5">0.5</option>
+            <option value="1.0">1.0</option>
+            <option value="1.5">1.5</option>
+            <option value="2.0">2.0</option>
+            <option value="2.5">2.5</option>
+            <option value="3.0">3.0</option>
+            <option value="3.5">3.5</option>
+            <option value="4.0">4.0</option>
+          </select>
+          Partner:
+          <select v-model="filter">
+            <option value=""></option>
+            <option v-for="partner in partners" v-bind:key="partner">
+              {{ partner }}
+            </option>
+          </select>
+          <!-- Crag:
+          <select v-model="filter">
+            <option value=""></option>
+            <option v-for="crag in crags" v-bind:key="crag">
+              {{ crag }}
+            </option>
+          </select>
+          Area:
+          <select v-model="filter">
+            <option value=""></option>
+            <option v-for="area in areas" v-bind:key="area">
+              {{ area }}
+            </option>
+          </select> -->
+          <br />
+          <button @click="clearFilters">Clear Filters</button>
+        </div>
         <div
-          v-for="record in orderBy(records, 'date', -1)"
+          v-for="record in orderBy(
+            filterBy(records, filter, 'grade', 'result', 'rating', 'partner'),
+            'date',
+            -1
+          )"
           v-bind:key="record.id"
         >
           <p>
@@ -406,13 +466,34 @@ export default {
       errors: [],
       editRecordParams: {},
       editErrors: [],
+      filter: "",
+      grades: [],
+      partners: [],
+      // crags: [],
+      // areas: [],
     };
   },
   created: function () {
     axios.get("/records").then((response) => {
-      console.log(response.data);
+      console.log("Records", response.data);
       this.records = response.data;
     });
+    axios.get("/grades").then((response) => {
+      console.log("Grades", response.data);
+      this.grades = response.data;
+    });
+    axios.get("/partners").then((response) => {
+      console.log("Partners", response.data);
+      this.partners = response.data;
+    });
+    // axios.get("/crags").then((response) => {
+    //   console.log("Crags", response.data);
+    //   this.crags = response.data;
+    // });
+    // axios.get("/areas").then((response) => {
+    //   console.log("Areas", response.data);
+    //   this.areas = response.data;
+    // });
   },
   methods: {
     recordCreate: function () {
@@ -454,6 +535,9 @@ export default {
             this.records.splice(index, 1);
           });
       }
+    },
+    clearFilters: function () {
+      this.filter = "";
     },
     showAlert() {
       Swal.fire({

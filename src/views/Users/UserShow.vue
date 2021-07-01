@@ -54,7 +54,11 @@
         </p>
         <p>
           <strong>Profile picture: </strong>
-          <input type="text" v-model="editUserParams.profile_pic" />
+          <input
+            type="text"
+            v-model="editUserParams.profile_pic"
+            placeholder="ADD CLOUDINARY"
+          />
         </p>
       </span>
       <button v-if="!edit" v-on:click="editUser()">Edit/Delete</button>
