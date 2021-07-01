@@ -56,13 +56,12 @@
 
       <!-- Collection Images -->
       <div>
-        <h3>Photos</h3>
-        <input
-          type="text"
-          v-model="newImageParams.url"
-          placeholder="Photo URL"
-        />
-        <button @click="imageCreate()">Upload Photo</button>
+        <form v-on:submit.prevent="imageCreate()">
+          <h3>Photos</h3>
+          <input type="file" v-on:change="setFile($event)" ref="fileInput" />
+          <br />
+          <input type="submit" value="Upload Photo" />
+        </form>
         <div v-for="image in collection.images" v-bind:key="image.id">
           <br />
           <img class="image" :src="image.url" alt="photo" />
@@ -93,9 +92,9 @@ export default {
     return {
       editCollectionParams: {},
       errors: [],
-      newImageParams: {},
       collection: {},
       edit: false,
+      image: "",
     };
   },
   created: function () {
@@ -106,14 +105,20 @@ export default {
     });
   },
   methods: {
+    setFile: function (event) {
+      if (event.target.files.length > 0) {
+        this.image = event.target.files[0];
+      }
+    },
     imageCreate: function () {
-      this.newImageParams.collection_id = this.collection.id;
+      var formData = new FormData();
+      formData.append("image", this.image);
+      formData.append("collection_id", this.$route.params.id);
       axios
-        .post("/images", this.newImageParams)
+        .post("/images", formData)
         .then((response) => {
           console.log(response.data);
           this.collection.images.push(response.data);
-          this.newImageParams = {};
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
