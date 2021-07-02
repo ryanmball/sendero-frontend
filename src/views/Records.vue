@@ -368,6 +368,16 @@
               {{ partner }}
             </option>
           </select>
+          In progress:
+          <!-- <input type="hidden" name="inProgress" v-model="filter" value="0" /> -->
+          <!-- FIGURE OUT HOW TO GET FILTER TO RESET WHEN BOX IS UNCHECKED -->
+          <input
+            type="checkbox"
+            name="inProgress"
+            v-model="filter"
+            value="true"
+          />
+          <br />
           Crag:
           <select v-model="filter">
             <option value=""></option>
@@ -389,7 +399,15 @@
         <!-- Records Index -->
         <div
           v-for="record in orderBy(
-            filterBy(records, filter, 'grade', 'result', 'rating', 'partner'),
+            filterBy(
+              records,
+              filter,
+              'grade',
+              'result',
+              'rating',
+              'partner',
+              'in_progress'
+            ),
             'date',
             -1
           )"
@@ -452,10 +470,25 @@
               </p>
               <p>
                 In progress:
-                <input type="text" v-model="editRecordParams.in_progress" />
+                <select v-model="editRecordParams.in_progress">
+                  <option value="false"></option>
+                  <option value="true">true</option>
+                </select>
               </p>
               <p>
-                Rating: <input type="text" v-model="editRecordParams.rating" />
+                Rating:
+                <select v-model="editRecordParams.rating">
+                  <option value=""></option>
+                  <option value="0.0">0.0</option>
+                  <option value="0.5">0.5</option>
+                  <option value="1.0">1.0</option>
+                  <option value="1.5">1.5</option>
+                  <option value="2.0">2.0</option>
+                  <option value="2.5">2.5</option>
+                  <option value="3.0">3.0</option>
+                  <option value="3.5">3.5</option>
+                  <option value="4.0">4.0</option>
+                </select>
               </p>
               <p>
                 Partner:
@@ -501,6 +534,7 @@ export default {
       crags: [],
       areas: [],
       collections: [],
+      currentRecord: {},
     };
   },
   created: function () {
@@ -543,8 +577,8 @@ export default {
         });
     },
     recordShow: function (record) {
-      console.log(record);
-      this.editRecordParams = record;
+      this.currentRecord = Object.assign(this.currentRecord, record);
+      this.editRecordParams = this.currentRecord;
       document.querySelector("#record-details").showModal();
     },
     recordUpdate: function () {
