@@ -56,30 +56,51 @@
         </div>
         <div class="form-group">
           <label>Result:</label>
-          <input
-            type="text"
-            class="form-control"
-            v-model="newRecordParams.result"
-            placeholder="dropdown"
-          />
+          <select v-model="newRecordParams.result">
+            <option value=""></option>
+            <option value="onsight">onsight</option>
+            <option value="flash">flash</option>
+            <option value="redpoint">redpoint</option>
+            <option value="1 fall">1 fall</option>
+            <option value="2 falls">2 falls</option>
+            <option value="beta">beta</option>
+          </select>
         </div>
-        <div class="form-group">
+        <div
+          class="form-group"
+          v-if="
+            newRecordParams.result === '1 fall' ||
+            newRecordParams.result === '2 falls' ||
+            newRecordParams.result === 'beta'
+          "
+        >
           <label>In progress:</label>
-          <input
-            type="text"
-            class="form-control"
-            v-model="newRecordParams.in_progress"
-            placeholder="v-if (result) dropdown (T/F)"
-          />
+          <select v-model="newRecordParams.in_progress">
+            <option value="false"></option>
+            <option value="true">true</option>
+          </select>
         </div>
-        <div class="form-group">
+        <div
+          class="form-group"
+          v-if="
+            newRecordParams.result === 'onsight' ||
+            newRecordParams.result === 'flash' ||
+            newRecordParams.result === 'redpoint'
+          "
+        >
           <label>Rating:</label>
-          <input
-            type="text"
-            class="form-control"
-            v-model="newRecordParams.rating"
-            placeholder="v-if (result) dropdown (0.0-4.0)"
-          />
+          <select v-model="newRecordParams.rating">
+            <option value=""></option>
+            <option value="0.0">0.0</option>
+            <option value="0.5">0.5</option>
+            <option value="1.0">1.0</option>
+            <option value="1.5">1.5</option>
+            <option value="2.0">2.0</option>
+            <option value="2.5">2.5</option>
+            <option value="3.0">3.0</option>
+            <option value="3.5">3.5</option>
+            <option value="4.0">4.0</option>
+          </select>
         </div>
         <div class="form-group">
           <label>Partner:</label>
@@ -99,15 +120,20 @@
         </div>
         <div class="form-group">
           <label>Collection:</label>
-          <input
-            type="text"
-            class="form-control"
-            v-model="newRecordParams.collection_id"
-            placeholder="optional - dropdown"
-          />
+          <select v-model="newRecordParams.collection_id">
+            <option value=""></option>
+            <option
+              v-for="collection in collections"
+              v-bind:key="collection.id"
+              :value="collection.id"
+            >
+              {{ collection.name }}
+            </option>
+          </select>
         </div>
         <input type="submit" class="btn btn-primary" value="Create" />
       </form>
+      <button @click="clearNewParams()">Clear</button>
 
       <!-- Bootstrap Button trigger modal -->
       <!-- <button
@@ -301,7 +327,8 @@
         <div>
           <p class="text-danger">
             **sorting and filtering will go here** <br />
-            USE JUST TELL ME TO FIGURE OUT HOW TO FILTER NESTED AND THE BEST WAY TO HAVE MULTIPLE FILTERS <br />
+            USE JUST TELL ME TO FIGURE OUT HOW TO FILTER NESTED AND THE BEST WAY
+            TO HAVE MULTIPLE FILTERS <br />
             <small>default will be date descending</small>
           </p>
           Grade:
@@ -341,7 +368,7 @@
               {{ partner }}
             </option>
           </select>
-          <!-- Crag:
+          Crag:
           <select v-model="filter">
             <option value=""></option>
             <option v-for="crag in crags" v-bind:key="crag">
@@ -354,10 +381,12 @@
             <option v-for="area in areas" v-bind:key="area">
               {{ area }}
             </option>
-          </select> -->
+          </select>
           <br />
           <button @click="clearFilters">Clear Filters</button>
         </div>
+
+        <!-- Records Index -->
         <div
           v-for="record in orderBy(
             filterBy(records, filter, 'grade', 'result', 'rating', 'partner'),
@@ -367,26 +396,18 @@
           v-bind:key="record.id"
         >
           <p>
-            <strong>Date: </strong>{{ record.date }}
-            <small class="text-danger">pikaday</small> <br />
-            <strong>Route: </strong>{{ record.route.name }}
-            <small class="text-danger">autocomplete</small> <br />
+            <strong>Date: </strong>{{ record.date }} <br />
+            <strong>Route: </strong>{{ record.route.name }} <br />
             <strong>Location: </strong>{{ record.route.location }}
-            <small class="text-danger"
-              >populates from route selected - need to break into Crag and
-              Area</small
-            >
             <br />
-            <strong>Grade: </strong>{{ record.grade }}
-            <small class="text-danger">dropdown and autocomplete</small> <br />
-            <strong>Result: </strong>{{ record.result }}
-            <small class="text-danger">dropdown</small> <br />
-            <strong>In progress: </strong>{{ record.in_progress }}
-            <small class="text-danger">v-if (result) dropdown (T/F)</small>
-            <br />
-            <strong>Rating: </strong>{{ record.rating }}
-            <small class="text-danger">v-if (result) dropdown (0.0-4.0)</small
-            ><br />
+            <strong>Grade: </strong>{{ record.grade }} <br />
+            <strong>Result: </strong>{{ record.result }} <br />
+            <span v-if="record.in_progress">
+              <strong>In progress: </strong>{{ record.in_progress }} <br />
+            </span>
+            <span v-if="record.rating">
+              <strong>Rating: </strong>{{ record.rating }} <br />
+            </span>
             <strong>Partner: </strong>{{ record.partner }} <br />
             <strong>Comments: </strong>{{ record.comments }} <br />
 
@@ -419,7 +440,15 @@
               </p>
               <p>
                 Result:
-                <input type="text" v-model="editRecordParams.result" />
+                <select v-model="editRecordParams.result">
+                  <option value=""></option>
+                  <option value="onsight">onsight</option>
+                  <option value="flash">flash</option>
+                  <option value="redpoint">redpoint</option>
+                  <option value="1 fall">1 fall</option>
+                  <option value="2 falls">2 falls</option>
+                  <option value="beta">beta</option>
+                </select>
               </p>
               <p>
                 In progress:
@@ -438,7 +467,7 @@
               </p>
               <button v-on:click="recordUpdate()">Update</button>
               <button v-on:click="recordDestroy()">Delete</button>
-              <button>Close</button>
+              <button @click="clearEditParams()">Close</button>
             </form>
           </dialog>
         </div>
@@ -469,8 +498,9 @@ export default {
       filter: "",
       grades: [],
       partners: [],
-      // crags: [],
-      // areas: [],
+      crags: [],
+      areas: [],
+      collections: [],
     };
   },
   created: function () {
@@ -486,14 +516,18 @@ export default {
       console.log("Partners", response.data);
       this.partners = response.data;
     });
-    // axios.get("/crags").then((response) => {
-    //   console.log("Crags", response.data);
-    //   this.crags = response.data;
-    // });
-    // axios.get("/areas").then((response) => {
-    //   console.log("Areas", response.data);
-    //   this.areas = response.data;
-    // });
+    axios.get("/crags").then((response) => {
+      console.log("Crags", response.data);
+      this.crags = response.data;
+    });
+    axios.get("/areas").then((response) => {
+      console.log("Areas", response.data);
+      this.areas = response.data;
+    });
+    axios.get("/collections").then((response) => {
+      console.log("Collections", response.data);
+      this.collections = response.data;
+    });
   },
   methods: {
     recordCreate: function () {
@@ -538,6 +572,12 @@ export default {
     },
     clearFilters: function () {
       this.filter = "";
+    },
+    clearNewParams: function () {
+      this.newRecordParams = {};
+    },
+    clearEditParams: function () {
+      this.editRecordParams = {};
     },
     showAlert() {
       Swal.fire({
