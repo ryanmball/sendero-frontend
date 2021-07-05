@@ -569,6 +569,7 @@ export default {
       collections: [],
       currentRecord: {},
       addToCollection: false,
+      index: 0,
     };
   },
   created: function () {
@@ -618,6 +619,8 @@ export default {
     recordShow: function (record) {
       this.currentRecord = Object.assign(this.currentRecord, record);
       this.editRecordParams = this.currentRecord;
+      this.index = this.records.indexOf(record);
+      console.log(this.index);
       document.querySelector("#record-details").showModal();
     },
     recordUpdate: function () {
@@ -625,8 +628,7 @@ export default {
         .patch(`/records/${this.editRecordParams.id}`, this.editRecordParams)
         .then((response) => {
           console.log(response.data);
-          var index = this.records.indexOf(this.currentRecord);
-          this.records.splice(index, 1, this.editRecordParams);
+          this.records.splice(this.index, 1, response.data);
           this.editRecordParams = {};
           this.addToCollection = false;
         })
@@ -638,8 +640,7 @@ export default {
       if (confirm("Are you sure you want to delete this record?")) {
         axios.delete(`/records/${this.currentRecord.id}`).then((response) => {
           console.log(response.data);
-          var index = this.records.indexOf(this.currentRecord);
-          this.records.splice(index, 1);
+          this.records.splice(this.index, 1);
         });
       }
     },
