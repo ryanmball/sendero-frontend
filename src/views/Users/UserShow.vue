@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div id="show" class="profile">
     <h1>{{ message }}</h1>
 
     <img class="profile-pic" :src="user.profile_pic" alt="Profile Pic" />
@@ -106,6 +106,13 @@
         </p>
       </div>
     </div>
+
+    <GChart
+      :settings="{ packages: ['bar'] }"
+      :data="chartData"
+      :options="chartOptions"
+      :createChart="(el, google) => new google.charts.Bar(el)"
+    />
   </div>
 </template>
 
@@ -125,18 +132,27 @@ export default {
   mixins: [Vue2Filters.mixin],
   data: function () {
     return {
+      chartData: [
+        ["Year", "Sales", "Expenses", "Profit"],
+        ["2014", 10, 40, 50],
+        ["2015", 11, 46, 25],
+        ["2016", 66, 11, 30],
+        ["2017", 10, 54, 35],
+      ],
+      chartOptions: {
+        legend: { position: "none" },
+      },
       message: "Welcome to your profile page!",
       user: { collections: [], records: [] },
       editUserParams: {},
       edit: false,
     };
   },
+
   created: function () {
     axios.get(`/users/${localStorage.getItem("user_id")}`).then((response) => {
       console.log(response.data);
       this.user = response.data;
-      this.collections = response.data.collections;
-      this.records = response.data.records;
     });
   },
   methods: {

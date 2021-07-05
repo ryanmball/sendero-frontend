@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "pikaday": "^1.8.2",
     "vue": "^2.6.11",
+    "vue-google-charts": "^0.3.3",
     "vue-router": "^3.2.0",
     "vue2-filters": "^0.13.0"
   },
