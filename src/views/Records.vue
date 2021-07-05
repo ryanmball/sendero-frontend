@@ -526,7 +526,7 @@
                 </button>
                 <span v-if="addToCollection">
                   Collection:
-                  <select v-model="newRecordParams.collection_id">
+                  <select v-model="editRecordParams.collection_id">
                     <option value=""></option>
                     <option
                       v-for="collection in collections"
@@ -681,6 +681,7 @@ export default {
     },
     clearEditParams: function () {
       this.editRecordParams = {};
+      this.addToCollection = false;
     },
     addCollection: function () {
       this.addToCollection = true;

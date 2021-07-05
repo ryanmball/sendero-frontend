@@ -147,6 +147,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.collection = {};
+          this.image = "";
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
