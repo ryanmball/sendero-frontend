@@ -368,16 +368,16 @@
               {{ partner }}
             </option>
           </select>
-          In progress:
+          <!-- In progress: -->
           <!-- <input type="hidden" name="inProgress" v-model="filter" value="0" /> -->
           <!-- FIGURE OUT HOW TO GET FILTER TO RESET WHEN BOX IS UNCHECKED -->
-          <input
+          <!-- <input
             type="checkbox"
             name="inProgress"
             v-model="filter"
             value="true"
           />
-          <br />
+          <br /> -->
           Crag:
           <select v-model="filter">
             <option value=""></option>
@@ -498,6 +498,19 @@
                 Comments:
                 <input type="text" v-model="editRecordParams.comments" />
               </p>
+              <!-- <p>
+                Collection:
+                <select v-model="newRecordParams.collection_id">
+                  <option value=""></option>
+                  <option
+                    v-for="collection in collections"
+                    v-bind:key="collection.id"
+                    :value="collection.id"
+                  >
+                    {{ collection.name }}
+                  </option>
+                </select>
+              </p> -->
               <button v-on:click="recordUpdate()">Update</button>
               <button v-on:click="recordDestroy()">Delete</button>
               <button @click="clearEditParams()">Close</button>
@@ -586,8 +599,9 @@ export default {
         .patch(`/records/${this.editRecordParams.id}`, this.editRecordParams)
         .then((response) => {
           console.log(response.data);
-          var index = this.records.indexOf(this.editRecordParams);
-          this.records.splice(index, 1, response.data);
+          var index = this.records.indexOf(this.currentRecord);
+          this.records.splice(index, 1, this.editRecordParams);
+          this.editRecordParams = {};
         })
         .catch((error) => {
           this.editErrors = error.response.data.errors;
@@ -595,13 +609,11 @@ export default {
     },
     recordDestroy: function () {
       if (confirm("Are you sure you want to delete this record?")) {
-        axios
-          .delete(`/records/${this.editRecordParams.id}`)
-          .then((response) => {
-            console.log(response.data);
-            var index = this.records.indexOf(this.editRecordParams);
-            this.records.splice(index, 1);
-          });
+        axios.delete(`/records/${this.currentRecord.id}`).then((response) => {
+          console.log(response.data);
+          var index = this.records.indexOf(this.currentRecord);
+          this.records.splice(index, 1);
+        });
       }
     },
     clearFilters: function () {
