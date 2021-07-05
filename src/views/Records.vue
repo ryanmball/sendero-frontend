@@ -325,21 +325,16 @@
       <div>
         <!-- Filters -->
         <div>
-          <p class="text-danger">
-            **sorting and filtering will go here** <br />
-            USE JUST TELL ME TO FIGURE OUT HOW TO FILTER NESTED AND THE BEST WAY
-            TO HAVE MULTIPLE FILTERS <br />
-            <small>default will be date descending</small>
-          </p>
+          <br />
           Grade:
-          <select v-model="filter">
+          <select v-model="gradeFilter">
             <option value=""></option>
             <option v-for="grade in grades" v-bind:key="grade">
               {{ grade }}
             </option>
           </select>
           Result:
-          <select v-model="filter">
+          <select v-model="resultFilter">
             <option value=""></option>
             <option value="onsight">onsight</option>
             <option value="flash">flash</option>
@@ -349,7 +344,7 @@
             <option value="beta">beta</option>
           </select>
           Rating:
-          <select v-model="filter">
+          <select v-model="ratingFilter">
             <option value=""></option>
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -362,31 +357,28 @@
             <option value="4.0">4.0</option>
           </select>
           Partner:
-          <select v-model="filter">
+          <select v-model="partnerFilter">
             <option value=""></option>
             <option v-for="partner in partners" v-bind:key="partner">
               {{ partner }}
             </option>
           </select>
-          <!-- In progress: -->
-          <!-- <input type="hidden" name="inProgress" v-model="filter" value="0" /> -->
-          <!-- FIGURE OUT HOW TO GET FILTER TO RESET WHEN BOX IS UNCHECKED -->
-          <!-- <input
+          In progress:
+          <input
             type="checkbox"
             name="inProgress"
-            v-model="filter"
-            value="true"
+            @click="changeProgressFilter()"
           />
-          <br /> -->
+          <br />
           Crag:
-          <select v-model="filter">
+          <select v-model="cragFilter">
             <option value=""></option>
             <option v-for="crag in crags" v-bind:key="crag">
               {{ crag }}
             </option>
           </select>
           Area:
-          <select v-model="filter">
+          <select v-model="areaFilter">
             <option value=""></option>
             <option v-for="area in areas" v-bind:key="area">
               {{ area }}
@@ -400,13 +392,29 @@
         <div
           v-for="record in orderBy(
             filterBy(
-              records,
-              filter,
-              'grade',
-              'result',
-              'rating',
-              'partner',
-              'in_progress'
+              filterBy(
+                filterBy(
+                  filterBy(
+                    filterBy(
+                      filterBy(
+                        filterBy(records, areaFilter, 'route'),
+                        cragFilter,
+                        'route'
+                      ),
+                      progressFilter,
+                      'in_progress'
+                    ),
+                    partnerFilter,
+                    'partner'
+                  ),
+                  ratingFilter,
+                  'rating'
+                ),
+                resultFilter,
+                'result'
+              ),
+              gradeFilter,
+              'grade'
             ),
             'date',
             -1
@@ -498,19 +506,24 @@
                 Comments:
                 <input type="text" v-model="editRecordParams.comments" />
               </p>
-              <!-- <p>
-                Collection:
-                <select v-model="newRecordParams.collection_id">
-                  <option value=""></option>
-                  <option
-                    v-for="collection in collections"
-                    v-bind:key="collection.id"
-                    :value="collection.id"
-                  >
-                    {{ collection.name }}
-                  </option>
-                </select>
-              </p> -->
+              <p v-if="!currentRecord.collection">
+                <button @click="addCollection()" v-if="!addToCollection">
+                  Add to collection
+                </button>
+                <span v-if="addToCollection">
+                  Collection:
+                  <select v-model="newRecordParams.collection_id">
+                    <option value=""></option>
+                    <option
+                      v-for="collection in collections"
+                      v-bind:key="collection.id"
+                      :value="collection.id"
+                    >
+                      {{ collection.name }}
+                    </option>
+                  </select>
+                </span>
+              </p>
               <button v-on:click="recordUpdate()">Update</button>
               <button v-on:click="recordDestroy()">Delete</button>
               <button @click="clearEditParams()">Close</button>
@@ -542,12 +555,20 @@ export default {
       editRecordParams: {},
       editErrors: [],
       filter: "",
+      gradeFilter: "",
+      resultFilter: "",
+      ratingFilter: null,
+      partnerFilter: "",
+      progressFilter: null,
+      cragFilter: "",
+      areaFilter: "",
       grades: [],
       partners: [],
       crags: [],
       areas: [],
       collections: [],
       currentRecord: {},
+      addToCollection: false,
     };
   },
   created: function () {
@@ -576,6 +597,11 @@ export default {
       this.collections = response.data;
     });
   },
+  computed: {
+    filteredRecords: function () {
+      return this.records;
+    },
+  },
   methods: {
     recordCreate: function () {
       axios
@@ -602,6 +628,7 @@ export default {
           var index = this.records.indexOf(this.currentRecord);
           this.records.splice(index, 1, this.editRecordParams);
           this.editRecordParams = {};
+          this.addToCollection = false;
         })
         .catch((error) => {
           this.editErrors = error.response.data.errors;
@@ -617,13 +644,35 @@ export default {
       }
     },
     clearFilters: function () {
-      this.filter = "";
+      this.gradeFilter = "";
+      this.resultFilter = "";
+      this.ratingFilter = null;
+      this.partnerFilter = "";
+      this.progressFilter = null;
+      this.cragFilter = "";
+      this.areaFilter = "";
+      var inputs = document.getElementsByTagName("input");
+      for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].type === "checkbox") {
+          inputs[i].checked = false;
+        }
+      }
     },
     clearNewParams: function () {
       this.newRecordParams = {};
     },
     clearEditParams: function () {
       this.editRecordParams = {};
+    },
+    addCollection: function () {
+      this.addToCollection = true;
+    },
+    changeProgressFilter: function () {
+      if (this.progressFilter === null) {
+        this.progressFilter = true;
+      } else {
+        this.progressFilter = null;
+      }
     },
     showAlert() {
       Swal.fire({
