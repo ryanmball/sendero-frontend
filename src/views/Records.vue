@@ -51,7 +51,6 @@
             type="text"
             class="form-control"
             v-model="newRecordParams.grade"
-            placeholder="dropdown and autocomplete"
           />
         </div>
         <div class="form-group">
@@ -458,7 +457,10 @@
               <p>Date: <input type="text" v-model="editRecordParams.date" /></p>
               <p>
                 Route:
-                <input type="text" v-model="editRecordParams.route_id" />
+                <input type="text" v-model="editRecordParams.route_id" /> <br />
+                <small class="text-danger">
+                  this will show route name instead of id
+                </small>
                 <!-- NEED THIS TO SHOW ROUTE NAME, BUT PASS ROUTE_ID -->
               </p>
               <p>
@@ -476,14 +478,26 @@
                   <option value="beta">beta</option>
                 </select>
               </p>
-              <p>
+              <p
+                v-if="
+                  editRecordParams.result === '1 fall' ||
+                  editRecordParams.result === '2 falls' ||
+                  editRecordParams.result === 'beta'
+                "
+              >
                 In progress:
                 <select v-model="editRecordParams.in_progress">
                   <option value="false"></option>
                   <option value="true">true</option>
                 </select>
               </p>
-              <p>
+              <p
+                v-if="
+                  editRecordParams.result === 'onsight' ||
+                  editRecordParams.result === 'flash' ||
+                  editRecordParams.result === 'redpoint'
+                "
+              >
                 Rating:
                 <select v-model="editRecordParams.rating">
                   <option value=""></option>
@@ -523,6 +537,9 @@
                     </option>
                   </select>
                 </span>
+              </p>
+              <p v-if="currentRecord.collection">
+                Collection: {{ currentRecord.collection.name }} <br />
               </p>
               <button v-on:click="recordUpdate()">Update</button>
               <button v-on:click="recordDestroy()">Delete</button>
