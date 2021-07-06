@@ -109,7 +109,7 @@
 
     <div>
       <h1>Graphs</h1>
-      <strong>All climbs by grade</strong>
+      <strong>All Climbs</strong>
       <GChart
         :settings="{ packages: ['bar'] }"
         :data="allClimbs"
@@ -117,10 +117,39 @@
         :createChart="(el, google) => new google.charts.Bar(el)"
       />
       <br />
-      <strong>Sent climbs by grade</strong>
+      <strong>Sent Climbs</strong>
       <GChart
         :settings="{ packages: ['bar'] }"
         :data="sentClimbs"
+        :options="chartOptions"
+        :createChart="(el, google) => new google.charts.Bar(el)"
+      />
+      <br />
+      <strong>Climbing Days Per Year</strong> <br />
+      <select v-model="chartYear">
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
+        <option value="2019">2019</option>
+      </select>
+      {{ totalDays[chartYear] }} Days
+      <GChart
+        v-if="chartYear === '2019'"
+        :settings="{ packages: ['bar'] }"
+        :data="days2019"
+        :options="chartOptions"
+        :createChart="(el, google) => new google.charts.Bar(el)"
+      />
+      <GChart
+        v-if="chartYear === '2020'"
+        :settings="{ packages: ['bar'] }"
+        :data="days2020"
+        :options="chartOptions"
+        :createChart="(el, google) => new google.charts.Bar(el)"
+      />
+      <GChart
+        v-if="chartYear === '2021'"
+        :settings="{ packages: ['bar'] }"
+        :data="days2021"
         :options="chartOptions"
         :createChart="(el, google) => new google.charts.Bar(el)"
       />
@@ -146,6 +175,11 @@ export default {
     return {
       allClimbs: [],
       sentClimbs: [],
+      days2019: [],
+      days2020: [],
+      days2021: [],
+      totalDays: {},
+      chartYear: "2021",
       chartOptions: {
         legend: { position: "none" },
         hAxis: { position: "none" },
@@ -170,9 +204,15 @@ export default {
       console.log("Sent grades array", response.data);
       this.sentClimbs = response.data;
     });
-    axios.get("/climbing_days").then((response) => {
-      console.log("Climbing days", response.data);
-      // this.sentClimbs = response.data;
+    axios.get("/days_per_month").then((response) => {
+      console.log("Climbing days per month", response.data);
+      this.days2019 = response.data["2019"];
+      this.days2020 = response.data["2020"];
+      this.days2021 = response.data["2021"];
+    });
+    axios.get("/days_per_year").then((response) => {
+      console.log("Climbing days per year", response.data);
+      this.totalDays = response.data;
     });
   },
   methods: {
