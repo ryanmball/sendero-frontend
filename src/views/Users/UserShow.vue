@@ -170,6 +170,10 @@ export default {
       console.log("Sent grades array", response.data);
       this.sentClimbs = response.data;
     });
+    axios.get("/climbing_days").then((response) => {
+      console.log("Climbing days", response.data);
+      // this.sentClimbs = response.data;
+    });
   },
   methods: {
     userUpdate: function (user_id) {
