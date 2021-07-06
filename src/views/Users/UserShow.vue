@@ -107,12 +107,24 @@
       </div>
     </div>
 
-    <GChart
-      :settings="{ packages: ['bar'] }"
-      :data="chartData"
-      :options="chartOptions"
-      :createChart="(el, google) => new google.charts.Bar(el)"
-    />
+    <div>
+      <h1>Graphs</h1>
+      <strong>All climbs by grade</strong>
+      <GChart
+        :settings="{ packages: ['bar'] }"
+        :data="allClimbs"
+        :options="chartOptions"
+        :createChart="(el, google) => new google.charts.Bar(el)"
+      />
+      <br />
+      <strong>Sent climbs by grade</strong>
+      <GChart
+        :settings="{ packages: ['bar'] }"
+        :data="sentClimbs"
+        :options="chartOptions"
+        :createChart="(el, google) => new google.charts.Bar(el)"
+      />
+    </div>
   </div>
 </template>
 
@@ -132,15 +144,11 @@ export default {
   mixins: [Vue2Filters.mixin],
   data: function () {
     return {
-      chartData: [
-        ["Year", "Sales", "Expenses", "Profit"],
-        ["2014", 10, 40, 50],
-        ["2015", 11, 46, 25],
-        ["2016", 66, 11, 30],
-        ["2017", 10, 54, 35],
-      ],
+      allClimbs: [],
+      sentClimbs: [],
       chartOptions: {
         legend: { position: "none" },
+        hAxis: { position: "none" },
       },
       message: "Welcome to your profile page!",
       user: { collections: [], records: [] },
@@ -153,6 +161,14 @@ export default {
     axios.get(`/users/${localStorage.getItem("user_id")}`).then((response) => {
       console.log(response.data);
       this.user = response.data;
+    });
+    axios.get("/grades_all").then((response) => {
+      console.log("All grades array", response.data);
+      this.allClimbs = response.data;
+    });
+    axios.get("/grades_sent").then((response) => {
+      console.log("Sent grades array", response.data);
+      this.sentClimbs = response.data;
     });
   },
   methods: {
