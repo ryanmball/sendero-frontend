@@ -615,11 +615,6 @@ export default {
       this.collections = response.data;
     });
   },
-  computed: {
-    filteredRecords: function () {
-      return this.records;
-    },
-  },
   methods: {
     recordCreate: function () {
       axios

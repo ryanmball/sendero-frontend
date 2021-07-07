@@ -204,15 +204,12 @@ export default {
       console.log("Sent grades array", response.data);
       this.sentClimbs = response.data;
     });
-    axios.get("/days_per_month").then((response) => {
-      console.log("Climbing days per month", response.data);
-      this.days2019 = response.data["2019"];
-      this.days2020 = response.data["2020"];
-      this.days2021 = response.data["2021"];
-    });
-    axios.get("/days_per_year").then((response) => {
-      console.log("Climbing days per year", response.data);
-      this.totalDays = response.data;
+    axios.get("/climbing_days").then((response) => {
+      console.log("Climbing days", response.data);
+      this.days2019 = response.data.days_per_month["2019"];
+      this.days2020 = response.data.days_per_month["2020"];
+      this.days2021 = response.data.days_per_month["2021"];
+      this.totalDays = response.data.days_per_year;
     });
   },
   methods: {
