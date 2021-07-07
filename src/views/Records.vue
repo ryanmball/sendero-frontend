@@ -433,7 +433,9 @@
             <span v-if="record.rating">
               <strong>Rating: </strong>{{ record.rating }} <br />
             </span>
-            <strong>Partner: </strong>{{ record.partner }} <br />
+            <span v-if="record.partner !== 'N/A'">
+              <strong>Partner: </strong>{{ record.partner }} <br />
+            </span>
             <strong>Comments: </strong>{{ record.comments }} <br />
 
             <a :href="record.route.mp_url" target="_blank">MP URL</a
