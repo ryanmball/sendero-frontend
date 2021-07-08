@@ -67,46 +67,6 @@
       <button v-if="edit" v-on:click="editUser()">Cancel</button>
     </div>
 
-    <!-- Route Records on Profile -->
-    <div class="container">
-      <h3>Route Records:</h3>
-      <router-link to="/records"
-        ><input class="btn btn-primary" type="button" value="See All"
-      /></router-link>
-      <div
-        v-for="record in orderBy(user.records, 'date', -1).slice(0, 3)"
-        v-bind:key="record.id"
-      >
-        <p>
-          <strong>Date: </strong>{{ record.date }} <br />
-          <strong>Route: </strong>{{ record.route.name }} <br />
-          <strong>Location: </strong>{{ record.route.location }} <br />
-          <strong>Grade: </strong>{{ record.grade }} <br />
-          <strong>Result: </strong>{{ record.result }} <br />
-          <!-- replace this link with a small MP logo -->
-          <a :href="record.route.mp_url" target="_blank">MP URL</a>
-        </p>
-      </div>
-    </div>
-
-    <!-- Collection on Profile -->
-    <div class="container">
-      <h3>Collections:</h3>
-      <router-link to="/collections"
-        ><input class="btn btn-primary" type="button" value="See All"
-      /></router-link>
-      <div
-        v-for="collection in user.collections.slice(0, 3)"
-        v-bind:key="collection.id"
-      >
-        <p>
-          <strong>Name: </strong>{{ collection.name }} <br />
-          <strong>Partners: </strong>{{ collection.partners }} <br />
-          <strong>Highlights: </strong>{{ collection.highlights }} <br />
-        </p>
-      </div>
-    </div>
-
     <!-- Graphs -->
     <div>
       <h1>Graphs</h1>
@@ -155,7 +115,8 @@
         :createChart="(el, google) => new google.charts.Bar(el)"
       />
     </div>
-
+    {{ type }}
+    {{ places }}
     <!-- Mapbox -->
     <br /><br />
     <h3>Map of Areas Climbed</h3>
@@ -173,7 +134,8 @@
   width: 80%;
   height: 650px;
   margin: 0 auto;
-  border-radius: 5%;
+  border-radius: 2%;
+  transition: 0ms;
 }
 #marker {
   /* background-size: cover; */
@@ -189,6 +151,7 @@
 </style>
 
 <script>
+/* global MapboxGeocoder */
 import axios from "axios";
 import Vue2Filters from "vue2-filters";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -213,6 +176,8 @@ export default {
       user: { collections: [], records: [] },
       editUserParams: {},
       edit: false,
+      climbingAreas: [],
+      type: "",
       places: [
         {
           lat: 48.7596128,
@@ -256,12 +221,25 @@ export default {
     });
   },
   mounted: function () {
+    axios.get("/areas_climbed_map").then((response) => {
+      console.log("Areas climbed", response.data);
+      var places = response.data;
+      places.forEach((place) => {
+        var popup = new mapboxgl.Popup({ offset: 25 }).setText(
+          place.description
+        );
+        new mapboxgl.Marker()
+          .setLngLat([place.lng, place.lat])
+          .setPopup(popup)
+          .addTo(map);
+      });
+    });
     mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_ACCESS_TOKEN;
     var ceuse = [5.937, 44.499];
     var map = new mapboxgl.Map({
       container: "map", // container id
       style: "mapbox://styles/mapbox/streets-v11", // style URL
-      center: ceuse, // starting position [lng, lat]
+      center: this.places[0], // starting position [lng, lat]
       zoom: 10, // starting zoom
     });
     // create the popup
@@ -280,19 +258,12 @@ export default {
       .addTo(map);
     console.log(marker1);
 
-    // Create a default Marker, colored black, rotated 45 degrees.
-    var marker2 = new mapboxgl.Marker({ color: "black", rotation: 45 })
-      .setLngLat([2.697, 48.402])
-      .addTo(map);
-    console.log(marker2);
-
-    this.places.forEach((place) => {
-      var popup = new mapboxgl.Popup({ offset: 25 }).setText(place.description);
-      new mapboxgl.Marker()
-        .setLngLat([place.lng, place.lat])
-        .setPopup(popup)
-        .addTo(map);
-    });
+    map.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+      })
+    );
   },
   methods: {
     userUpdate: function (user_id) {
