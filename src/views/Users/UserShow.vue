@@ -115,8 +115,7 @@
         :createChart="(el, google) => new google.charts.Bar(el)"
       />
     </div>
-    {{ type }}
-    {{ places }}
+
     <!-- Mapbox -->
     <br /><br />
     <h3>Map of Areas Climbed</h3>
@@ -176,26 +175,6 @@ export default {
       user: { collections: [], records: [] },
       editUserParams: {},
       edit: false,
-      climbingAreas: [],
-      type: "",
-      places: [
-        {
-          lat: 48.7596128,
-          lng: -113.7870225,
-          description: "Glacier National Park",
-        },
-        { lat: 37.8651, lng: -119.5383, description: "Yosemite National Park" },
-        {
-          lat: 37.75,
-          lng: -105.5,
-          description: "Great Sand Dunes National Park",
-        },
-        {
-          lat: 40.3428,
-          lng: -105.6836,
-          description: "Rocky Mountain National Park",
-        },
-      ],
     };
   },
 
@@ -235,28 +214,16 @@ export default {
       });
     });
     mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_ACCESS_TOKEN;
-    var ceuse = [5.937, 44.499];
     var map = new mapboxgl.Map({
       container: "map", // container id
       style: "mapbox://styles/mapbox/streets-v11", // style URL
-      center: this.places[0], // starting position [lng, lat]
-      zoom: 10, // starting zoom
+      center: [-104.9903, 39.7392], // starting position [lng, lat]
+      zoom: 4, // starting zoom
     });
-    // create the popup
-    var popup = new mapboxgl.Popup({ offset: 25 }).setText(
-      "Ceuse is a beautiful climbing area in Southern France. The second ever 5.15d/9c route was established here by Alex Megos."
-    );
 
     // create DOM element for the marker
     var el = document.createElement("div");
     el.id = "marker";
-
-    // Create a default Marker and add it to the map.
-    var marker1 = new mapboxgl.Marker()
-      .setLngLat(ceuse)
-      .setPopup(popup)
-      .addTo(map);
-    console.log(marker1);
 
     map.addControl(
       new MapboxGeocoder({
