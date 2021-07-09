@@ -1,8 +1,136 @@
 <template>
   <div class="records-index">
     <div class="container">
-      <h3>Route Records:</h3>
-
+      <h1 class="page-header">Your Climbing Records</h1>
+      <!-- BEGIN row -->
+      <div class="row">
+        <!-- BEGIN col-6 -->
+        <div class="col-xl-12">
+          <!-- BEGIN panel -->
+          <div class="panel panel-inverse" data-sortable-id="table-basic-4">
+            <!-- BEGIN panel-heading -->
+            <div class="panel-heading">
+              <h4 class="panel-title">Responsive Table</h4>
+              <div class="panel-heading-btn">
+                <a
+                  href="javascript:;"
+                  class="btn btn-xs btn-icon btn-default"
+                  data-toggle="panel-expand"
+                  ><i class="fa fa-expand"></i
+                ></a>
+                <a
+                  href="javascript:;"
+                  class="btn btn-xs btn-icon btn-success"
+                  data-toggle="panel-reload"
+                  ><i class="fa fa-redo"></i
+                ></a>
+                <a
+                  href="javascript:;"
+                  class="btn btn-xs btn-icon btn-warning"
+                  data-toggle="panel-collapse"
+                  ><i class="fa fa-minus"></i
+                ></a>
+                <a
+                  href="javascript:;"
+                  class="btn btn-xs btn-icon btn-danger"
+                  data-toggle="panel-remove"
+                  ><i class="fa fa-times"></i
+                ></a>
+              </div>
+            </div>
+            <!-- END panel-heading -->
+            <!-- BEGIN panel-body -->
+            <div class="panel-body">
+              <!-- BEGIN table-responsive -->
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th nowrap>Date</th>
+                      <th nowrap>Route</th>
+                      <th nowrap>Crag</th>
+                      <th nowrap>Area</th>
+                      <th nowrap>Grade</th>
+                      <th nowrap>Result</th>
+                      <th nowrap>Rating</th>
+                      <th nowrap>Partner</th>
+                      <th nowrap></th>
+                      <th nowrap></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="record in orderBy(
+                        filterBy(
+                          filterBy(
+                            filterBy(
+                              filterBy(
+                                filterBy(
+                                  filterBy(
+                                    filterBy(records, areaFilter, 'route'),
+                                    cragFilter,
+                                    'route'
+                                  ),
+                                  progressFilter,
+                                  'in_progress'
+                                ),
+                                partnerFilter,
+                                'partner'
+                              ),
+                              ratingFilter,
+                              'rating'
+                            ),
+                            resultFilter,
+                            'result'
+                          ),
+                          gradeFilter,
+                          'grade'
+                        ),
+                        'date',
+                        -1
+                      )"
+                      v-bind:key="record.id"
+                    >
+                      <td width="6%">{{ record.date }}</td>
+                      <td width="14%">{{ record.route.name }}</td>
+                      <td width="12%">{{ record.route.crag }}</td>
+                      <td width="12%">{{ record.route.area }}</td>
+                      <td width="3%">{{ record.grade }}</td>
+                      <td width="5%">{{ record.result }}</td>
+                      <td width="3%">{{ record.rating }}</td>
+                      <td width="5%">{{ record.partner }}</td>
+                      <td width="3%">
+                        <a :href="record.route.mp_url" target="_blank"
+                          ><img
+                            src="/assets/img/logo/mtnproject.png"
+                            class="rounded h-20px"
+                        /></a>
+                      </td>
+                      <td width="5%" nowrap>
+                        <span
+                          @click="recordShow(record)"
+                          class="btn btn-xs btn-primary w-60px h-20px me-1"
+                          >Edit</span
+                        >
+                        <span
+                          @click="recordDestroy(record)"
+                          class="btn btn-xs btn-white w-60px"
+                          >Delete</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- END table-responsive -->
+            </div>
+            <!-- END panel-body -->
+          </div>
+          <!-- END panel -->
+        </div>
+        <!-- END col-6 -->
+      </div>
+      <!-- END row -->
       <!-- Record Create -->
       <form v-on:submit.prevent="recordCreate()">
         <ul style="list-style-type: none">
@@ -615,6 +743,9 @@ export default {
       console.log("Collections", response.data);
       this.collections = response.data;
     });
+    // $("#data-table-default").DataTable({
+    //   responsive: true,
+    // });
   },
   methods: {
     recordCreate: function () {
@@ -649,9 +780,9 @@ export default {
           this.editErrors = error.response.data.errors;
         });
     },
-    recordDestroy: function () {
+    recordDestroy: function (record) {
       if (confirm("Are you sure you want to delete this record?")) {
-        axios.delete(`/records/${this.currentRecord.id}`).then((response) => {
+        axios.delete(`/records/${record.id}`).then((response) => {
           console.log(response.data);
           this.records.splice(this.index, 1);
         });

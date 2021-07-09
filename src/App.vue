@@ -116,7 +116,7 @@
               <div class="menu-icon">
                 <i class="fab fa-simplybuilt"></i>
               </div>
-              <div class="menu-text">Records</div>
+              <div class="menu-text">Climbing Records</div>
             </router-link>
           </div>
           <div class="menu-item">
