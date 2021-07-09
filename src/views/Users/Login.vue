@@ -1,12 +1,10 @@
 <template>
   <div class="login">
-    <!-- BEGIN login -->
     <div class="login login-with-news-feed">
-      <!-- BEGIN news-feed -->
       <div class="news-feed">
         <div
           class="news-image"
-          style="background-image: url(/assets/img/login-bg/login-bg-11.jpg)"
+          style="background-image: url(/assets/img/login-bg/yosemite.jpeg)"
         ></div>
         <div class="news-caption">
           <h4 class="caption-title"><b>Sendero</b></h4>
@@ -17,28 +15,34 @@
           </p>
         </div>
       </div>
-      <!-- END news-feed -->
 
-      <!-- BEGIN login-container -->
       <div class="login-container">
-        <!-- BEGIN login-header -->
         <div class="login-header mb-30px">
           <div class="brand">
             <div class="d-flex align-items-center">
               <span class="logo"></span>
 
-              <b>Color</b> Admin
+              <b>Sendero</b>
             </div>
-            <small>Bootstrap 5 Responsive Admin Template</small>
           </div>
           <div class="icon">
-            <i class="fa fa-sign-in-alt"></i>
+            <i class="fa fa-kiwi-bird"></i>
           </div>
         </div>
-        <!-- END login-header -->
 
-        <!-- BEGIN login-content -->
         <div class="login-content">
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            v-if="error"
+          >
+            {{ error }}
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              @click="closeAlert"
+            ></button>
+          </div>
           <form v-on:submit.prevent="submit()">
             <div class="form-floating mb-15px">
               <input
@@ -68,7 +72,7 @@
                 >Password</label
               >
             </div>
-            <div class="form-check mb-30px">
+            <!-- <div class="form-check mb-30px">
               <input
                 class="form-check-input"
                 type="checkbox"
@@ -78,39 +82,29 @@
               <label class="form-check-label" for="rememberMe">
                 Remember Me
               </label>
-            </div>
+            </div> -->
             <div class="mb-15px">
               <button
                 type="submit"
                 class="btn btn-success d-block h-45px w-100 btn-lg fs-14px"
               >
-                Sign me in
+                Sign In
               </button>
             </div>
             <div class="mb-40px pb-40px text-inverse">
-              Not a member yet? Click
-              <a href="register_v3.html" class="text-primary">here</a> to
-              register.
+              Don't have an account yet? Click
+              <router-link to="/signup" class="text-primary">here</router-link>
+              to register.
             </div>
             <hr class="bg-gray-600 opacity-2" />
-            <div class="text-gray-600 text-center text-gray-500-darker mb-0">
-              &copy; Color Admin All Right Reserved 2021
-            </div>
           </form>
         </div>
-        <!-- END login-content -->
       </div>
-      <!-- END login-container -->
     </div>
-    <!-- END login -->
   </div>
 </template>
 
-<style>
-.text-danger {
-  color: red;
-}
-</style>
+<style></style>
 
 <script>
 import axios from "axios";
@@ -120,7 +114,7 @@ export default {
     return {
       email: "",
       password: "",
-      errors: [],
+      error: "",
     };
   },
   methods: {
@@ -129,6 +123,7 @@ export default {
         email: this.email,
         password: this.password,
       };
+      this.error = "";
       axios
         .post("/sessions", params)
         .then((response) => {
@@ -141,10 +136,14 @@ export default {
         })
         .catch((error) => {
           console.log(error.response);
-          this.errors = ["Invalid email or password"];
+          this.error =
+            "Invalid email or password. Please enter your login information again.";
           this.email = "";
           this.password = "";
         });
+    },
+    closeAlert: function () {
+      this.error = "";
     },
   },
 };

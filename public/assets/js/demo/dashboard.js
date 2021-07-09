@@ -288,7 +288,7 @@ var Dashboard = function () {
 	return {
 		//main function
 		init: function () {
-			handleDashboardGritterNotification();
+			// handleDashboardGritterNotification();
 			handleInteractiveChart();
 			handleDashboardSparkline();
 			handleDonutChart();
