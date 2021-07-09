@@ -563,7 +563,6 @@
 <script>
 import axios from "axios";
 import Vue2Filters from "vue2-filters";
-/* global Swal */
 export default {
   mixins: [Vue2Filters.mixin],
   data: function () {
@@ -689,14 +688,6 @@ export default {
       } else {
         this.progressFilter = null;
       }
-    },
-    showAlert() {
-      Swal.fire({
-        title: "Hello!",
-        text: "Hello from SweetAlerts!",
-        icon: "success",
-        confirmButtonText: "Rad",
-      });
     },
   },
 };

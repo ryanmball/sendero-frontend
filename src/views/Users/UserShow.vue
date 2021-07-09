@@ -172,7 +172,7 @@ export default {
         hAxis: { position: "none" },
       },
       message: "Welcome to your profile page!",
-      user: { collections: [], records: [] },
+      user: {},
       editUserParams: {},
       edit: false,
     };
