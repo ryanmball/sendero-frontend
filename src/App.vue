@@ -1,12 +1,9 @@
 <template>
-  <div
-    id="app"
-    class="app app-gradient-enabled app-sidebar-fixed app-header-fixed"
-  >
+  <div id="app" class="app app-sidebar-fixed app-header-fixed">
     <!-- BEGIN #header -->
     <div id="header" class="app-header app-header-inverse" v-if="isLoggedIn()">
       <!-- BEGIN navbar-header -->
-      <div class="navbar-header">
+      <div class="navbar-header" v-if="isLoggedIn()">
         <router-link :to="`/users/${userID()}`" class="navbar-brand">
           <span class="navbar-logo"></span> <b>Sendero</b>
         </router-link>
@@ -22,7 +19,7 @@
       </div>
       <!-- END navbar-header -->
       <!-- BEGIN header-nav -->
-      <div class="navbar-nav">
+      <div class="navbar-nav" v-if="isLoggedIn()">
         <div class="navbar-item navbar-user dropdown">
           <a
             href="#"
@@ -146,13 +143,13 @@
       </div>
       <!-- END scrollbar -->
     </div>
-    <div class="app-sidebar-bg"></div>
-    <div class="app-sidebar-mobile-backdrop">
+    <div class="app-sidebar-bg" v-if="isLoggedIn()"></div>
+    <div class="app-sidebar-mobile-backdrop" v-if="isLoggedIn()">
       <a href="#" data-dismiss="app-sidebar-mobile" class="stretched-link"></a>
     </div>
     <!-- END #sidebar -->
 
-    <div id="nav">
+    <!-- <div id="nav">
       <span v-if="isLoggedIn()">
         <router-link :to="`/users/${userID()}`">Profile</router-link> |
         <router-link to="/records">Records</router-link> |
@@ -163,8 +160,11 @@
         <router-link to="/signup">Signup</router-link> |
         <router-link to="/login">Login</router-link>
       </span>
+    </div> -->
+    <div v-if="!isLoggedIn()">
+      <router-view />
     </div>
-    <div id="content" class="app-content">
+    <div id="content" class="app-content" v-if="isLoggedIn()">
       <router-view />
       <!-- BEGIN scroll-top-btn -->
       <a
