@@ -28,9 +28,9 @@
           >
             <img :src="user.profile_pic" alt="Profile Pic" />
             <span>
-              <span class="d-none d-md-inline">
+              <!-- <span class="d-none d-md-inline">
                 {{ user.first_name }} {{ user.last_name }}
-              </span>
+              </span> -->
               <b class="caret"></b>
             </span>
           </a>
@@ -106,7 +106,7 @@
           <div class="menu-item">
             <router-link :to="`/users/${userID()}`" class="menu-link">
               <div class="menu-icon">
-                <i class="fab fa-simplybuilt"></i>
+                <i class="fas fa-mountain"></i>
               </div>
               <div class="menu-text">Profile</div>
             </router-link>
@@ -114,7 +114,7 @@
           <div class="menu-item">
             <router-link to="/records" class="menu-link">
               <div class="menu-icon">
-                <i class="fab fa-simplybuilt"></i>
+                <i class="fas fa-mountain"></i>
               </div>
               <div class="menu-text">Climbing Records</div>
             </router-link>
@@ -122,7 +122,7 @@
           <div class="menu-item">
             <router-link to="/collections" class="menu-link">
               <div class="menu-icon">
-                <i class="fab fa-simplybuilt"></i>
+                <i class="fas fa-mountain"></i>
               </div>
               <div class="menu-text">Collections</div>
             </router-link>

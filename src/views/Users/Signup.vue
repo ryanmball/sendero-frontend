@@ -128,7 +128,7 @@
               </button>
             </div>
             <div class="mb-4 pb-5">
-              Already a member? Click
+              Already have an account? Click
               <router-link to="/login" class="text-primary">here</router-link>
               to login.
             </div>

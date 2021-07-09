@@ -2,15 +2,22 @@
   <div class="records-index">
     <div class="container">
       <h1 class="page-header">Your Climbing Records</h1>
+      <div class="row">
+        <div class="col-xl-3">
+          <button type="button" class="btn btn-primary btn-lg">
+            Create New
+          </button>
+        </div>
+        <div class="col-xl-4">Filters</div>
+        <div class="col-xl-4">Filters</div>
+      </div>
+      <br />
       <!-- BEGIN row -->
       <div class="row">
-        <!-- BEGIN col-6 -->
         <div class="col-xl-12">
-          <!-- BEGIN panel -->
           <div class="panel panel-inverse" data-sortable-id="table-basic-4">
-            <!-- BEGIN panel-heading -->
             <div class="panel-heading">
-              <h4 class="panel-title">Responsive Table</h4>
+              <h4 class="panel-title">All Climbing Records</h4>
               <div class="panel-heading-btn">
                 <a
                   href="javascript:;"
@@ -38,12 +45,9 @@
                 ></a>
               </div>
             </div>
-            <!-- END panel-heading -->
-            <!-- BEGIN panel-body -->
             <div class="panel-body">
-              <!-- BEGIN table-responsive -->
               <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped align-middle">
                   <thead>
                     <tr>
                       <th nowrap>Date</th>
@@ -122,13 +126,9 @@
                   </tbody>
                 </table>
               </div>
-              <!-- END table-responsive -->
             </div>
-            <!-- END panel-body -->
           </div>
-          <!-- END panel -->
         </div>
-        <!-- END col-6 -->
       </div>
       <!-- END row -->
       <!-- Record Create -->
@@ -743,9 +743,6 @@ export default {
       console.log("Collections", response.data);
       this.collections = response.data;
     });
-    // $("#data-table-default").DataTable({
-    //   responsive: true,
-    // });
   },
   methods: {
     recordCreate: function () {
