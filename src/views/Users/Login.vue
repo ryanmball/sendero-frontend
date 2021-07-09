@@ -29,6 +29,9 @@
             <i class="fa fa-kiwi-bird"></i>
           </div>
         </div>
+        <div class="register-header mb-25px h1">
+          <div class="mb-1">Sign In</div>
+        </div>
 
         <div class="login-content">
           <div
