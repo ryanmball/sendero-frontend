@@ -322,7 +322,7 @@
     </div>
     <!-- END section -->
 
-    <!-- Record Show Modal -->
+    <!-- Record Show, Edit, Delete Modal -->
     <div class="modal fade" id="modalDetail">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -347,11 +347,19 @@
                 {{ currentRecord.grade }}
               </div>
             </div>
-            <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
+            <a
+              href="#"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              @click="editClose()"
+            ></a>
           </div>
           <div class="modal-body p-0">
             <div class="row gx-0">
-              <div class="col-md-8 p-4 border-end fs-14px line-h-16">
+              <div
+                class="col-md-8 p-4 border-end fs-14px line-h-16"
+                v-if="!this.editToggle"
+              >
                 <div class="h5 mb-3">Comments:</div>
                 {{ currentRecord.comments }}
                 <hr class="my-4" />
@@ -367,13 +375,180 @@
                   Collection: {{ currentRecord.collection.name }}
                 </div>
               </div>
-              <div class="col-md-4 p-4"></div>
+              <div
+                class="col-md-8 p-4 border-end fs-14px line-h-16"
+                v-if="this.editToggle"
+              >
+                <div class="h5 mb-3">Comments:</div>
+                <div class="mb-20px pb-4px">
+                  <textarea
+                    class="form-control"
+                    rows="5"
+                    v-model="editRecordParams.comments"
+                    name="comments"
+                    placeholder="Comments"
+                  ></textarea>
+                </div>
+                <hr class="my-4" />
+                <div class="h5 mb-3">
+                  Result:
+                  <div class="col-lg-3 mb-2">
+                    <select
+                      class="form-select"
+                      v-model="editRecordParams.result"
+                    >
+                      <option value="onsight">onsight</option>
+                      <option value="flash">flash</option>
+                      <option value="redpoint">redpoint</option>
+                      <option value="1 fall">1 fall</option>
+                      <option value="2 falls">2 falls</option>
+                      <option value="beta">beta</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="h5 mb-3" v-if="editRecordParams.in_progress">
+                  In Progress:
+                  <div
+                    class="col-lg-3 mb-2"
+                    v-if="
+                      editRecordParams.result === '1 fall' ||
+                      editRecordParams.result === '2 falls' ||
+                      editRecordParams.result === 'beta'
+                    "
+                  >
+                    <select
+                      class="form-select"
+                      v-model="editRecordParams.in_progress"
+                    >
+                      <option value="" disabled selected hidden>
+                        In Progress
+                      </option>
+                      <option value="true">true</option>
+                      <option value="false">false</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="h5 mb-3" v-if="editRecordParams.rating">
+                  Rating:
+                  <div
+                    class="col-lg-3 mb-2"
+                    v-if="
+                      editRecordParams.result === 'onsight' ||
+                      editRecordParams.result === 'flash' ||
+                      editRecordParams.result === 'redpoint'
+                    "
+                  >
+                    <select
+                      class="form-select"
+                      v-model="editRecordParams.rating"
+                    >
+                      <option value=""></option>
+                      <option value="0.0">0.0</option>
+                      <option value="0.5">0.5</option>
+                      <option value="1.0">1.0</option>
+                      <option value="1.5">1.5</option>
+                      <option value="2.0">2.0</option>
+                      <option value="2.5">2.5</option>
+                      <option value="3.0">3.0</option>
+                      <option value="3.5">3.5</option>
+                      <option value="4.0">4.0</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="h5 mb-3">
+                  Partner:
+                  <div class="col-lg-3 mb-2">
+                    <input
+                      type="text"
+                      v-model="editRecordParams.partner"
+                      class="form-control form-control-lg rounded-2"
+                      placeholder="Partner"
+                      name="partner"
+                    />
+                  </div>
+                </div>
+                <div class="h5 mb-3" v-if="currentRecord.collection">
+                  Collection: {{ currentRecord.collection.name }}
+                </div>
+              </div>
+              <div class="col-md-8 p-4 border-end fs-14px line-h-16">
+                <hr class="my-4" />
+                <div class="row">
+                  <div class="col-xl-4" v-if="!this.editToggle">
+                    <button
+                      @click="edit()"
+                      type="button"
+                      class="
+                        btn btn-lg btn-primary
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                    >
+                      Edit
+                    </button>
+                  </div>
+                  <div class="col-xl-4" v-if="this.editToggle">
+                    <button
+                      type="button"
+                      class="
+                        btn btn-lg btn-primary
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                      @click="recordUpdate()"
+                      data-bs-dismiss="modal"
+                    >
+                      Update
+                    </button>
+                  </div>
+                  <div class="col-xl-4" v-if="!this.editToggle">
+                    <button
+                      @click="recordDestroy(currentRecord)"
+                      type="button"
+                      class="
+                        btn btn-lg btn-secondary
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                      data-bs-dismiss="modal"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                  <div class="col-xl-4" v-if="this.editToggle">
+                    <button
+                      @click="edit()"
+                      type="button"
+                      class="
+                        btn btn-lg btn-secondary
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 p-4">put a picture or icon here</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- End Record Show Modal -->
+    <!-- End Record Show, Edit, Delete Modal -->
 
     <!-- Record Create Modal -->
     <div class="modal fade" id="modalCreate">
@@ -381,7 +556,12 @@
         <div class="modal-content">
           <div class="modal-header px-4">
             <div class="fs-24px fw-bolder">New Climbing Record</div>
-            <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
+            <a
+              href="#"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              @click="clearNewParams()"
+            ></a>
           </div>
           <div class="modal-body p-0">
             <div class="row gx-0">
@@ -394,7 +574,6 @@
                         class="form-control form-control-lg rounded-2"
                         v-model="newRecordParams.date"
                         placeholder="Date"
-                        name="date"
                       />
                     </div>
                     <div class="col-lg-6 mb-2">
@@ -526,6 +705,7 @@
                       fs-16px
                       py-3
                     "
+                    data-bs-dismiss="modal"
                   >
                     Create Climbing Record
                   </button>
@@ -554,6 +734,7 @@ export default {
       newRecordParams: { result: "", in_progress: "", rating: "" },
       errors: [],
       editRecordParams: {},
+      editToggle: false,
       editErrors: [],
       filter: "",
       gradeFilter: "",
@@ -668,6 +849,12 @@ export default {
     clearEditParams: function () {
       this.editRecordParams = {};
       this.addToCollection = false;
+    },
+    edit: function () {
+      this.editToggle = !this.editToggle;
+    },
+    editClose: function () {
+      this.editToggle = false;
     },
     addCollection: function () {
       this.addToCollection = true;
