@@ -1,5 +1,5 @@
 <template>
-  <div id="show">
+  <div>
     <!-- begin #page-container -->
     <br />
     <br />

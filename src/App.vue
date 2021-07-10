@@ -16,17 +16,17 @@
             <div class="container">
               <div class="header-nav-item">
                 <router-link :to="`/users/${userID()}`" class="header-nav-link"
-                  ><i class="fas fa-mountain"></i> Profile</router-link
+                  >Profile</router-link
                 >
               </div>
               <div class="header-nav-item">
                 <router-link to="/records" class="header-nav-link"
-                  ><i class="fas fa-mountain"></i> Climbing Records</router-link
+                  >Climbing Records</router-link
                 >
               </div>
               <div class="header-nav-item">
                 <router-link to="/collections" class="header-nav-link"
-                  ><i class="fas fa-mountain"></i> Collections</router-link
+                  >Collections</router-link
                 >
               </div>
             </div>

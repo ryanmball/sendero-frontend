@@ -1,22 +1,509 @@
 <template>
   <div class="records-index">
+    <!-- BEGIN section -->
+    <br /><br /><br /><br /><br />
+    <div class="section py-5">
+      <!-- BEGIN section-bg -->
+      <div
+        class="section-bg"
+        style="background-image: url(/assets/img/corporate/mtn3.jpeg)"
+      ></div>
+      <div class="section-bg bg-gray-800 opacity-3"></div>
+      <!-- END section-bg -->
+
+      <!-- BEGIN container -->
+      <div class="container position-relative text-white text-center">
+        <div class="display-6 fw-bolder">Climbing Records</div>
+      </div>
+      <!-- END container -->
+    </div>
+    <!-- END section -->
+
+    <!-- BEGIN section -->
+    <div class="section pt-5">
+      <!-- BEGIN container -->
+      <div class="container">
+        <!-- BEGIN row -->
+        <div class="row gx-5">
+          <!-- BEGIN col-9 -->
+          <div class="col-lg-12 ps-lg-5">
+            <!-- Filters -->
+            <div class="row">
+              <div class="col-xl-2">
+                <select
+                  class="form-select"
+                  v-model="gradeFilter"
+                  placeholder="Grade"
+                >
+                  <option value="" disabled selected hidden>Grade</option>
+                  <option v-for="grade in grades" v-bind:key="grade">
+                    {{ grade }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-xl-2">
+                <select class="form-select" v-model="resultFilter">
+                  <option value="" disabled selected hidden>Result</option>
+                  <option value="onsight">onsight</option>
+                  <option value="flash">flash</option>
+                  <option value="redpoint">redpoint</option>
+                  <option value="1 fall">1 fall</option>
+                  <option value="2 falls">2 falls</option>
+                  <option value="beta">beta</option>
+                </select>
+              </div>
+              <div class="col-xl-2">
+                <select class="form-select" v-model="ratingFilter">
+                  <option value="" disabled selected hidden>Rating</option>
+                  <option value="0.0">0.0</option>
+                  <option value="0.5">0.5</option>
+                  <option value="1.0">1.0</option>
+                  <option value="1.5">1.5</option>
+                  <option value="2.0">2.0</option>
+                  <option value="2.5">2.5</option>
+                  <option value="3.0">3.0</option>
+                  <option value="3.5">3.5</option>
+                  <option value="4.0">4.0</option>
+                </select>
+              </div>
+              <div class="col-xl-2">
+                <select class="form-select" v-model="partnerFilter">
+                  <option value="" disabled selected hidden>Partner</option>
+                  <option v-for="partner in partners" v-bind:key="partner">
+                    {{ partner }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-xl-2">
+                <button
+                  @click="clearFilters"
+                  type="button"
+                  class="
+                    btn btn-lg btn-secondary
+                    d-block
+                    w-100
+                    fw-bold
+                    rounded-2
+                    height-50px
+                  "
+                >
+                  Clear Filters
+                </button>
+              </div>
+              <div class="col-xl-2"></div>
+            </div>
+            <br /><br />
+            <div
+              class="
+                p-4
+                bg-gray-200
+                position-relative
+                border-start border-5 border-info
+                mb-2
+              "
+              v-for="record in orderBy(
+                filterBy(
+                  filterBy(
+                    filterBy(
+                      filterBy(
+                        filterBy(
+                          filterBy(
+                            filterBy(records, areaFilter, 'route'),
+                            cragFilter,
+                            'route'
+                          ),
+                          progressFilter,
+                          'in_progress'
+                        ),
+                        partnerFilter,
+                        'partner'
+                      ),
+                      ratingFilter,
+                      'rating'
+                    ),
+                    resultFilter,
+                    'result'
+                  ),
+                  gradeFilter,
+                  'grade'
+                ),
+                'date',
+                -1
+              )"
+              v-bind:key="record.id"
+            >
+              <!-- BEGIN row -->
+              <div class="row">
+                <!-- BEGIN col-4 -->
+                <div class="col-2">
+                  <div class="d-flex align-items-center">
+                    <div class="fs-18px mb-3 fw-bolder line-h-11">
+                      {{ record.date }}
+                    </div>
+                  </div>
+                </div>
+                <!-- END col-4 -->
+                <!-- BEGIN col-4 -->
+                <div class="col-3">
+                  <div class="d-flex align-items-center">
+                    <div class="fs-18px mb-3 line-h-11">
+                      {{ record.route.name }}
+                    </div>
+                  </div>
+                </div>
+                <!-- END col-4 -->
+                <!-- BEGIN col-4 -->
+                <div class="col-6">
+                  <div class="d-flex align-items-center">
+                    <div class="fs-16px mb-3 line-h-11">
+                      {{ record.route.location }}
+                    </div>
+                  </div>
+                </div>
+                <!-- END col-4 -->
+                <!-- BEGIN col-4 -->
+                <div class="col-1">
+                  <div class="d-flex align-items-center">
+                    <div class="fs-16px line-h-16">
+                      <a
+                        href="#"
+                        @click="recordShow(record)"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDetail"
+                        ><i class="fas fa-external-link-alt h-40px"></i
+                      ></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- END row -->
+              <!-- BEGIN row -->
+              <div class="row">
+                <!-- BEGIN col-4 -->
+                <div class="col-1">
+                  <div class="d-flex align-items-center">
+                    <div class="fs-16px line-h-16">
+                      <a :href="record.route.mp_url" target="_blank"
+                        ><img
+                          src="/assets_admin/img/logo/mtnproject.png"
+                          class="rounded h-40px"
+                      /></a>
+                    </div>
+                  </div>
+                </div>
+                <!-- END col-4 -->
+                <!-- BEGIN col-4 -->
+                <div class="col-1">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                        Grade:
+                      </div>
+                      <div class="fw-bold text-gray-800 fs-16px fs-16px">
+                        {{ record.grade }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- END col-4 -->
+                <!-- BEGIN col-4 -->
+                <div class="col-2">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                        Result:
+                      </div>
+                      <div class="fw-bold text-gray-800 fs-16px">
+                        {{ record.result }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- END col-4 -->
+                <!-- BEGIN col-4 -->
+                <div class="col-2" v-if="record.in_progress">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                        In Progress:
+                      </div>
+                      <div class="fw-bold text-gray-800 fs-16px">
+                        {{ record.in_progress }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- END col-4 -->
+                <!-- BEGIN col-4 -->
+                <div class="col-2" v-if="record.rating">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                        Rating:
+                      </div>
+                      <div class="fw-bold text-gray-800 fs-16px">
+                        {{ record.rating }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- END col-4 -->
+                <!-- BEGIN col-4 -->
+                <div class="col-2">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                        Partner:
+                      </div>
+                      <div class="fw-bold text-gray-800 fs-16px">
+                        {{ record.partner }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- END col-4 -->
+                <!-- BEGIN col-4 -->
+                <div class="col-2" v-if="record.collection">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                        Collection:
+                      </div>
+                      <div class="fw-bold text-gray-800 fs-16px">
+                        {{ record.collection.name }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- END col-4 -->
+              </div>
+              <!-- END row -->
+            </div>
+
+            <hr class="opacity-1" />
+          </div>
+          <!-- END col-9 -->
+        </div>
+        <!-- END row -->
+      </div>
+      <!-- END container -->
+    </div>
+    <!-- END section -->
+
+    <!-- BEGIN modal -->
+    <div class="modal fade" id="modalDetail">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header px-4">
+            <div class="fs-24px fw-bolder">
+              {{ currentRecord.name }}
+            </div>
+            <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
+          </div>
+          <div class="modal-body p-0">
+            <div class="row gx-0">
+              <div class="col-md-8 p-4 border-end fs-14px line-h-16">
+                <p class="mb-0">
+                  The Marketing team is responsible for conceptualizing and
+                  implementing go-to-market activities to achieve increased
+                  usage and visibility. The team covers areas including
+                  Campaigns Management, Community, Public Relations,
+                  Partnerships, Offline Marketing and Design. The Regional
+                  Marketing team is responsible for strategizing and
+                  implementing go-to-market activities and working with local
+                  teams to localize marketing for the specific markets. The
+                  Brand and Growth Marketing team covers all aspects of online
+                  and performance marketing for the region. This team is
+                  responsible for data-driven solutions, tracking and measuring
+                  data to reach the targeted customers.
+                </p>
+                <hr class="my-4" />
+                <div class="h5 mb-3">Job Description:</div>
+                <ul>
+                  <li>
+                    Oversee the livestream online operations team in managing
+                    back-end related matters for live shows (e.g. streamer
+                    management, vouchers, banners, etc.)
+                  </li>
+                  <li>
+                    Supervise back-end admin during official live shows to
+                    ensure smooth flow
+                  </li>
+                  <li>
+                    Plan and manage the workflow of the team to ensure all
+                    submissions and tasks are done in a timely manner
+                  </li>
+                  <li>
+                    Provide support to the commercial team in administrative
+                    duties i.e. vendor registration and payment, inventory
+                    tracking, fulfillment of livestream products post-show
+                  </li>
+                  <li>
+                    Craft and implement improvement plan to improvise day-to-day
+                    operational processes
+                  </li>
+                </ul>
+
+                <div class="h5 mb-3">Requirements:</div>
+                <ul>
+                  <li>
+                    4-5 years of relevant experience with strong operational
+                    background
+                  </li>
+                  <li>Excellent organizational and planning skills</li>
+                  <li>
+                    Strong communication and team management skills to lead and
+                    motivate the team
+                  </li>
+                  <li>
+                    Proactive approach to problem solving, ability to fix issues
+                    quickly while maintaining professionalism
+                  </li>
+                  <li>
+                    Ability to manage multiple projects at once in a fast-paced
+                    environment with shifting priorities and deadlines
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-4 p-4">
+                <hr class="d-block d-md-none mt-n5" />
+                <div class="d-flex align-items-center mb-3">
+                  <div
+                    class="
+                      me-3
+                      w-40px
+                      h-40px
+                      rounded-2
+                      bg-gray-400
+                      text-gray-600
+                      d-md-flex d-none
+                      align-items-center
+                      justify-content-center
+                    "
+                  >
+                    <i class="far fa-fw fa-map fa-lg"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                      Location:
+                    </div>
+                    <div class="fw-bold text-gray-800">Kuala Lumpur</div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                  <div
+                    class="
+                      me-3
+                      w-40px
+                      h-40px
+                      rounded-2
+                      bg-gray-400
+                      text-gray-600
+                      d-md-flex d-none
+                      align-items-center
+                      justify-content-center
+                    "
+                  >
+                    <i class="fa fa-fw fa-code-branch fa-lg"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                      Department:
+                    </div>
+                    <div class="fw-bold text-gray-800">Marketing</div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                  <div
+                    class="
+                      me-3
+                      w-40px
+                      h-40px
+                      rounded-2
+                      bg-gray-400
+                      text-gray-600
+                      d-md-flex d-none
+                      align-items-center
+                      justify-content-center
+                    "
+                  >
+                    <i class="fa fa-fw fa-briefcase fa-lg"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                      Level:
+                    </div>
+                    <div class="fw-bold text-gray-800">Experienced</div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                  <div
+                    class="
+                      me-3
+                      w-40px
+                      h-40px
+                      rounded-2
+                      bg-gray-400
+                      text-gray-600
+                      d-md-flex d-none
+                      align-items-center
+                      justify-content-center
+                    "
+                  >
+                    <i class="fa fa-fw fa-dollar-sign fa-lg"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                      Salary:
+                    </div>
+                    <div class="fw-bold text-gray-800">$1000 - $3000</div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                  <div
+                    class="
+                      me-3
+                      w-40px
+                      h-40px
+                      rounded-2
+                      bg-gray-400
+                      text-gray-600
+                      d-md-flex d-none
+                      align-items-center
+                      justify-content-center
+                    "
+                  >
+                    <i class="far fa-fw fa-clock fa-lg"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                      Working Days:
+                    </div>
+                    <div class="fw-bold text-gray-800">Mon - Fri</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END modal -->
     <div class="container">
       <h1 class="page-header">Your Climbing Records</h1>
       <!-- Filters -->
       <div class="row">
         <div class="col-xl-2">
-          Grade:
           <select class="form-select" v-model="gradeFilter" placeholder="Grade">
-            <option value=""></option>
+            <option value="" disabled selected hidden>Grade</option>
             <option v-for="grade in grades" v-bind:key="grade">
               {{ grade }}
             </option>
           </select>
         </div>
         <div class="col-xl-2">
-          Result:
           <select class="form-select" v-model="resultFilter">
-            <option value=""></option>
+            <option value="" disabled selected hidden>Result</option>
             <option value="onsight">onsight</option>
             <option value="flash">flash</option>
             <option value="redpoint">redpoint</option>
@@ -25,10 +512,9 @@
             <option value="beta">beta</option>
           </select>
         </div>
-        <div class="col-xl-1">
-          Rating:
+        <div class="col-xl-2">
           <select class="form-select" v-model="ratingFilter">
-            <option value=""></option>
+            <option value="" disabled selected hidden>Rating</option>
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -41,15 +527,28 @@
           </select>
         </div>
         <div class="col-xl-2">
-          Partner:
           <select class="form-select" v-model="partnerFilter">
-            <option value=""></option>
+            <option value="" disabled selected hidden>Partner</option>
             <option v-for="partner in partners" v-bind:key="partner">
               {{ partner }}
             </option>
           </select>
         </div>
-        <div class="col-xl-2"></div>
+        <div class="col-xl-2">
+          <button
+            type="button"
+            class="
+              btn btn-lg btn-secondary
+              d-block
+              w-100
+              fw-bold
+              rounded-2
+              height-50px
+            "
+          >
+            Clear Filters
+          </button>
+        </div>
         <div class="col-xl-2"></div>
       </div>
       <div>
@@ -102,125 +601,6 @@
         </div>
       </div>
       <br />
-      <!-- BEGIN row -->
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="panel panel-inverse" data-sortable-id="table-basic-4">
-            <div class="panel-heading">
-              <h4 class="panel-title">All Climbing Records</h4>
-              <div class="panel-heading-btn">
-                <a
-                  href="javascript:;"
-                  class="btn btn-xs btn-icon btn-default"
-                  data-toggle="panel-expand"
-                  ><i class="fa fa-expand"></i
-                ></a>
-                <a
-                  href="javascript:;"
-                  class="btn btn-xs btn-icon btn-success"
-                  data-toggle="panel-reload"
-                  ><i class="fa fa-redo"></i
-                ></a>
-                <a
-                  href="javascript:;"
-                  class="btn btn-xs btn-icon btn-warning"
-                  data-toggle="panel-collapse"
-                  ><i class="fa fa-minus"></i
-                ></a>
-                <a
-                  href="javascript:;"
-                  class="btn btn-xs btn-icon btn-danger"
-                  data-toggle="panel-remove"
-                  ><i class="fa fa-times"></i
-                ></a>
-              </div>
-            </div>
-            <div class="panel-body">
-              <div class="table-responsive">
-                <table class="table table-striped align-middle">
-                  <thead>
-                    <tr>
-                      <th nowrap>Date</th>
-                      <th nowrap>Route</th>
-                      <th nowrap>Crag</th>
-                      <th nowrap>Area</th>
-                      <th nowrap>Grade</th>
-                      <th nowrap>Result</th>
-                      <th nowrap>Rating</th>
-                      <th nowrap>Partner</th>
-                      <th nowrap></th>
-                      <th nowrap></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="record in orderBy(
-                        filterBy(
-                          filterBy(
-                            filterBy(
-                              filterBy(
-                                filterBy(
-                                  filterBy(
-                                    filterBy(records, areaFilter, 'route'),
-                                    cragFilter,
-                                    'route'
-                                  ),
-                                  progressFilter,
-                                  'in_progress'
-                                ),
-                                partnerFilter,
-                                'partner'
-                              ),
-                              ratingFilter,
-                              'rating'
-                            ),
-                            resultFilter,
-                            'result'
-                          ),
-                          gradeFilter,
-                          'grade'
-                        ),
-                        'date',
-                        -1
-                      )"
-                      v-bind:key="record.id"
-                    >
-                      <td width="6%">{{ record.date }}</td>
-                      <td width="14%">{{ record.route.name }}</td>
-                      <td width="12%">{{ record.route.crag }}</td>
-                      <td width="12%">{{ record.route.area }}</td>
-                      <td width="3%">{{ record.grade }}</td>
-                      <td width="5%">{{ record.result }}</td>
-                      <td width="3%">{{ record.rating }}</td>
-                      <td width="5%">{{ record.partner }}</td>
-                      <td width="3%">
-                        <a :href="record.route.mp_url" target="_blank"
-                          ><img
-                            src="/assets_admin/img/logo/mtnproject.png"
-                            class="rounded h-20px"
-                        /></a>
-                      </td>
-                      <td width="5%" nowrap>
-                        <span
-                          @click="recordShow(record)"
-                          class="btn btn-xs btn-primary w-60px h-20px me-1"
-                          >Edit</span
-                        >
-                        <span
-                          @click="recordDestroy(record)"
-                          class="btn btn-xs btn-white w-60px"
-                          >Delete</span
-                        >
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END row -->
       <!-- Record Create -->
       <form v-on:submit.prevent="recordCreate()">
         <ul style="list-style-type: none">
@@ -351,192 +731,6 @@
         <input type="submit" class="btn btn-primary" value="Create" />
       </form>
       <button @click="clearNewParams()">Clear</button>
-
-      <!-- Bootstrap Button trigger modal -->
-      <!-- <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-      >
-        Create New
-      </button> -->
-
-      <!-- Bootstrap Modal -->
-      <!-- <div
-        class="modal fade"
-        id="staticBackdrop"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">
-                New Route Record
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="input-group mb-3">
-                      <input type="text" id="datepicker" name="prevent_autofill" /> ADD DATE PICKER
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                        >Date</span
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="newRecordParams.date"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-4 ms-auto">
-                    <div class="input-group mb-3">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                        >Partner</span
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="newRecordParams.partner"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-8">
-                    <div class="input-group mb-3">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                        >Route</span
-                      >
-                      ADD AUTOCOMPLETE FROM FULL ROUTE LISTING IN DATABASE
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="newRecordParams.route_id"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="input-group mb-3">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                        >Crag</span
-                      >
-                      <input type="text" class="form-control" />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="input-group mb-3">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                        >Area</span
-                      >
-                      <input type="text" class="form-control" />
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="input-group mb-3">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                        >Grade</span
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="newRecordParams.grade"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-5">
-                    <div class="input-group mb-3">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                        >Result</span
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="newRecordParams.result"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="input-group mb-3">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                        >In Progress</span
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="newRecordParams.in_progress"
-                      />
-                    </div>
-                    <div class="input-group mb-3">
-                      <span
-                        class="input-group-text"
-                        id="inputGroup-sizing-default"
-                        >Rating</span
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="newRecordParams.rating"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="input-group">
-                      <span class="input-group-text">Comments</span>
-                      <textarea
-                        class="form-control"
-                        v-model="newRecordParams.comments"
-                      ></textarea>
-                    </div>
-                  </div>
-                  CREATE ADD TO COLLECTION OPTION
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                @click="recordCreate(), showAlert()"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> -->
 
       <!-- Records Index & Record Edit/Delete -->
       <div>
@@ -729,7 +923,7 @@ export default {
       filter: "",
       gradeFilter: "",
       resultFilter: "",
-      ratingFilter: null,
+      ratingFilter: "",
       partnerFilter: "",
       progressFilter: null,
       cragFilter: "",
@@ -748,6 +942,7 @@ export default {
     axios.get("/records").then((response) => {
       console.log("Records", response.data);
       this.records = response.data;
+      console.log(this.records[476].collection.name);
     });
     axios.get("/grades").then((response) => {
       console.log("Grades", response.data);
@@ -761,7 +956,6 @@ export default {
       console.log("Crags", response.data);
       this.crags = response.data;
       var cragListing = this.crags;
-      console.log(cragListing);
       $(() => {
         $("#jquery-autocomplete").autocomplete({
           source: cragListing,
@@ -795,7 +989,6 @@ export default {
       this.editRecordParams = this.currentRecord;
       this.index = this.records.indexOf(record);
       console.log(this.index);
-      document.querySelector("#record-details").showModal();
     },
     recordUpdate: function () {
       axios
