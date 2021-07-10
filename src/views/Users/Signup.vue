@@ -4,7 +4,9 @@
       <div class="news-feed">
         <div
           class="news-image"
-          style="background-image: url(/assets/img/login-bg/dolomites.jpeg)"
+          style="
+            background-image: url(/assets_admin/img/login-bg/dolomites.jpeg);
+          "
         ></div>
         <div class="news-caption">
           <h4 class="caption-title"><b>Sendero</b></h4>

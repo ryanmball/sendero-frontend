@@ -196,7 +196,7 @@
                       <td width="3%">
                         <a :href="record.route.mp_url" target="_blank"
                           ><img
-                            src="/assets/img/logo/mtnproject.png"
+                            src="/assets_admin/img/logo/mtnproject.png"
                             class="rounded h-20px"
                         /></a>
                       </td>
