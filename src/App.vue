@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app app-sidebar-fixed app-header-fixed">
+  <div id="app">
     <div id="nav" v-if="isLoggedIn()">
       <span v-if="isLoggedIn()">
         <router-link :to="`/users/${userID()}`">Profile</router-link> |
@@ -12,12 +12,7 @@
         <router-link to="/login">Login</router-link>
       </span>
     </div>
-    <div v-if="!isLoggedIn()">
-      <router-view />
-    </div>
-    <div id="content" class="app-content" v-if="isLoggedIn()">
-      <router-view />
-    </div>
+    <router-view />
   </div>
 </template>
 
