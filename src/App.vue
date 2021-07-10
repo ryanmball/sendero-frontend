@@ -1,35 +1,42 @@
 <template>
   <div id="app">
     <div id="page-container">
-      <!-- BEGIN header -->
-      <div class="header header-float">
+      <div
+        class="header header-float"
+        style="background-color: #000000"
+        v-if="isLoggedIn()"
+      >
         <div class="container d-flex">
           <div class="header-logo">
-              <router-link :to="`/users/${userID()}`" class="logo-link"><span class="logo"></span><b>Sendero</b></router-link>
+            <router-link :to="`/users/${userID()}`" class="logo-link"
+              ><span class="logo"></span><b>Sendero</b></router-link
+            >
           </div>
           <div class="header-nav">
             <div class="container">
               <div class="header-nav-item">
-                <a href="about.html" class="header-nav-link">Who We Are</a>
+                <router-link :to="`/users/${userID()}`" class="header-nav-link"
+                  ><i class="fas fa-mountain"></i> Profile</router-link
+                >
               </div>
               <div class="header-nav-item">
-                <a href="products.html" class="header-nav-link">Our Products</a>
+                <router-link to="/records" class="header-nav-link"
+                  ><i class="fas fa-mountain"></i> Climbing Records</router-link
+                >
               </div>
               <div class="header-nav-item">
-                <a href="newsroom.html" class="header-nav-link">Newsroom</a>
-              </div>
-              <div class="header-nav-item">
-                <a href="careers.html" class="header-nav-link">Our Careers</a>
-              </div>
-              <div class="header-nav-item">
-                <a href="contact_us.html" class="header-nav-link">Contact Us</a>
+                <router-link to="/collections" class="header-nav-link"
+                  ><i class="fas fa-mountain"></i> Collections</router-link
+                >
               </div>
             </div>
           </div>
           <div class="header-btn">
-            <a href="#" class="btn btn-primary fw-bold rounded-pill"
-              >Get started <i class="fa fa-arrow-right ms-1 opacity-5"></i
-            ></a>
+            <router-link
+              to="/logout"
+              class="btn btn-primary fw-bold rounded-pill"
+              >Log Out <i class="fas fa-sign-out-alt ms-1"></i
+            ></router-link>
           </div>
           <button
             class="header-mobile-nav-toggler"
@@ -40,19 +47,6 @@
           </button>
         </div>
       </div>
-      <!-- END header -->
-      <!-- <div id="nav">
-        <span v-if="isLoggedIn()">
-          <router-link :to="`/users/${userID()}`">Profile</router-link> |
-          <router-link to="/records">Records</router-link> |
-          <router-link to="/collections">Collections</router-link> |
-          <router-link to="/logout">Logout</router-link>
-        </span>
-        <span v-else>
-          <router-link to="/signup">Signup</router-link> |
-          <router-link to="/login">Login</router-link>
-        </span>
-      </div> -->
       <router-view />
     </div>
   </div>

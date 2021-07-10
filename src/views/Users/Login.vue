@@ -11,7 +11,8 @@
         <div class="news-caption">
           <h4 class="caption-title"><b>Sendero</b></h4>
           <p>
-            Look back on the <b>path</b> you have taken in your climbing journey
+            Look back on the <b>path</b> you have taken during your climbing
+            journey
             <br />
             Blaze a <b>trail</b> forward to your next adventure
           </p>
