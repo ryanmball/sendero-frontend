@@ -2,14 +2,104 @@
   <div class="records-index">
     <div class="container">
       <h1 class="page-header">Your Climbing Records</h1>
+      <!-- Filters -->
+      <div class="row">
+        <div class="col-xl-2">
+          Grade:
+          <select class="form-select" v-model="gradeFilter" placeholder="Grade">
+            <option value=""></option>
+            <option v-for="grade in grades" v-bind:key="grade">
+              {{ grade }}
+            </option>
+          </select>
+        </div>
+        <div class="col-xl-2">
+          Result:
+          <select class="form-select" v-model="resultFilter">
+            <option value=""></option>
+            <option value="onsight">onsight</option>
+            <option value="flash">flash</option>
+            <option value="redpoint">redpoint</option>
+            <option value="1 fall">1 fall</option>
+            <option value="2 falls">2 falls</option>
+            <option value="beta">beta</option>
+          </select>
+        </div>
+        <div class="col-xl-1">
+          Rating:
+          <select class="form-select" v-model="ratingFilter">
+            <option value=""></option>
+            <option value="0.0">0.0</option>
+            <option value="0.5">0.5</option>
+            <option value="1.0">1.0</option>
+            <option value="1.5">1.5</option>
+            <option value="2.0">2.0</option>
+            <option value="2.5">2.5</option>
+            <option value="3.0">3.0</option>
+            <option value="3.5">3.5</option>
+            <option value="4.0">4.0</option>
+          </select>
+        </div>
+        <div class="col-xl-2">
+          Partner:
+          <select class="form-select" v-model="partnerFilter">
+            <option value=""></option>
+            <option v-for="partner in partners" v-bind:key="partner">
+              {{ partner }}
+            </option>
+          </select>
+        </div>
+        <div class="col-xl-2"></div>
+        <div class="col-xl-2"></div>
+      </div>
+      <div>
+        <!-- Crag:
+        <select class="form-select" v-model="cragFilter">
+          <option value=""></option>
+          <option v-for="crag in crags" v-bind:key="crag">
+            {{ crag }}
+          </option>
+        </select>
+        Area:
+        <select class="form-select" v-model="areaFilter">
+          <option value=""></option>
+          <option v-for="area in areas" v-bind:key="area">
+            {{ area }}
+          </option>
+        </select> -->
+        <div class="form-group row">
+          <label class="form-label col-form-label col-lg-1">Crag</label>
+          <div class="col-lg-5">
+            <input
+              type="text"
+              name=""
+              id="jquery-autocomplete"
+              class="form-control"
+              placeholder="autocomplete"
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="form-label col-form-label col-lg-1">Area</label>
+          <div class="col-lg-5">
+            <input
+              type="text"
+              name=""
+              id="jquery-autocomplete"
+              class="form-control"
+              placeholder="autocomplete"
+            />
+          </div>
+        </div>
+        <button @click="clearFilters">Clear Filters</button>
+      </div>
+      <br />
       <div class="row">
         <div class="col-xl-3">
           <button type="button" class="btn btn-primary btn-lg">
             Create New
           </button>
         </div>
-        <div class="col-xl-4">Filters</div>
-        <div class="col-xl-4">Filters</div>
       </div>
       <br />
       <!-- BEGIN row -->
@@ -450,71 +540,6 @@
 
       <!-- Records Index & Record Edit/Delete -->
       <div>
-        <!-- Filters -->
-        <div>
-          <br />
-          Grade:
-          <select v-model="gradeFilter">
-            <option value=""></option>
-            <option v-for="grade in grades" v-bind:key="grade">
-              {{ grade }}
-            </option>
-          </select>
-          Result:
-          <select v-model="resultFilter">
-            <option value=""></option>
-            <option value="onsight">onsight</option>
-            <option value="flash">flash</option>
-            <option value="redpoint">redpoint</option>
-            <option value="1 fall">1 fall</option>
-            <option value="2 falls">2 falls</option>
-            <option value="beta">beta</option>
-          </select>
-          Rating:
-          <select v-model="ratingFilter">
-            <option value=""></option>
-            <option value="0.0">0.0</option>
-            <option value="0.5">0.5</option>
-            <option value="1.0">1.0</option>
-            <option value="1.5">1.5</option>
-            <option value="2.0">2.0</option>
-            <option value="2.5">2.5</option>
-            <option value="3.0">3.0</option>
-            <option value="3.5">3.5</option>
-            <option value="4.0">4.0</option>
-          </select>
-          Partner:
-          <select v-model="partnerFilter">
-            <option value=""></option>
-            <option v-for="partner in partners" v-bind:key="partner">
-              {{ partner }}
-            </option>
-          </select>
-          In progress:
-          <input
-            type="checkbox"
-            name="inProgress"
-            @click="changeProgressFilter()"
-          />
-          <br />
-          Crag:
-          <select v-model="cragFilter">
-            <option value=""></option>
-            <option v-for="crag in crags" v-bind:key="crag">
-              {{ crag }}
-            </option>
-          </select>
-          Area:
-          <select v-model="areaFilter">
-            <option value=""></option>
-            <option v-for="area in areas" v-bind:key="area">
-              {{ area }}
-            </option>
-          </select>
-          <br />
-          <button @click="clearFilters">Clear Filters</button>
-        </div>
-
         <!-- Records Index -->
         <div
           v-for="record in orderBy(
@@ -689,6 +714,7 @@
 </style>
 
 <script>
+import $ from "jquery";
 import axios from "axios";
 import Vue2Filters from "vue2-filters";
 export default {
@@ -734,6 +760,13 @@ export default {
     axios.get("/crags").then((response) => {
       console.log("Crags", response.data);
       this.crags = response.data;
+      var cragListing = this.crags;
+      console.log(cragListing);
+      $(() => {
+        $("#jquery-autocomplete").autocomplete({
+          source: cragListing,
+        });
+      });
     });
     axios.get("/areas").then((response) => {
       console.log("Areas", response.data);
