@@ -1,6 +1,6 @@
 <template>
   <div class="records-index">
-    <!-- BEGIN section -->
+    <!-- BEGIN Title -->
     <br /><br /><br /><br /><br />
     <div class="section py-5">
       <!-- BEGIN section-bg -->
@@ -17,7 +17,7 @@
       </div>
       <!-- END container -->
     </div>
-    <!-- END section -->
+    <!-- END Title -->
 
     <!-- BEGIN section -->
     <div class="section pt-5">
@@ -243,12 +243,14 @@
                 </div>
                 <div class="col-1 align-items-center">
                   <div class="d-flex">
-                    <div class="fs-16px line-h-16">
-                      <a :href="record.route.mp_url" target="_blank"
-                        ><img
-                          src="/assets_admin/img/logo/mtnproject.png"
-                          class="rounded h-40px"
-                      /></a>
+                    <div class="container text-center">
+                      <div class="fs-16px line-h-16">
+                        <a :href="record.route.mp_url" target="_blank"
+                          ><img
+                            src="/assets_admin/img/logo/mtnproject.png"
+                            class="rounded h-40px"
+                        /></a>
+                      </div>
                     </div>
                   </div>
                 </div>

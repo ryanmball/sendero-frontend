@@ -1,5 +1,23 @@
 <template>
   <div class="collections-index">
+    <!-- BEGIN Title -->
+    <br /><br /><br /><br /><br />
+    <div class="section py-5">
+      <!-- BEGIN section-bg -->
+      <div
+        class="section-bg"
+        style="background-image: url(/assets/img/corporate/mtn3.jpeg)"
+      ></div>
+      <div class="section-bg bg-gray-800 opacity-3"></div>
+      <!-- END section-bg -->
+
+      <!-- BEGIN container -->
+      <div class="container position-relative text-white text-center">
+        <div class="display-6 fw-bolder">Collections</div>
+      </div>
+      <!-- END container -->
+    </div>
+    <!-- END Title -->
     <div class="container">
       <!-- Collection Create -->
       <div>

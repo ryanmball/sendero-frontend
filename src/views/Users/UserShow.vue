@@ -19,15 +19,190 @@
       <!-- END Header -->
 
       <br /><br />
-      <!-- BEGIN Graphs -->
       <div class="section pt-0">
         <div class="container">
+          <!-- BEGIN panel -->
+          <!-- <div class="panel panel-inverse" data-sortable-id="ui-widget-1">
+            <div class="panel-heading">
+              <h2 class="panel-title"><b>All Climbs</b></h2>
+              <select
+                class="form-select form-select-sm w-80px"
+                v-model="chartYear"
+              >
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+              </select>
+              <div class="panel-heading-btn">
+                <a
+                  href="#"
+                  class="btn btn-m btn-icon btn-primary"
+                  data-toggle="panel-collapse"
+                  ><i class="fa fa-minus"></i
+                ></a>
+              </div>
+            </div>
+            <div class="panel-body">
+              <GChart
+                    :settings="{ packages: ['bar'] }"
+                    :data="allClimbs"
+                    :options="chartOptions"
+                    :createChart="(el, google) => new google.charts.Bar(el)"
+                  />
+            </div>
+          </div> -->
+
+          <!-- BEGIN row -->
+          <div class="row">
+            <!-- BEGIN col-4 -->
+            <div class="col-lg-8">
+              <!-- BEGIN card -->
+              <div class="card shadow border-0 mb-5">
+                <div class="card-body p-4">
+                  <div
+                    class="
+                      mb-3
+                      w-50px
+                      h-50px
+                      rounded-3
+                      bg-indigo
+                      text-white
+                      d-flex
+                      align-items-center
+                      justify-content-center
+                      position-relative
+                    "
+                  >
+                    <i class="fab fa-bootstrap fs-28px"></i>
+                    <span
+                      class="
+                        badge
+                        position-absolute
+                        mt-n5
+                        me-n5
+                        bg-indigo-700
+                        rounded-1
+                      "
+                      >5.0</span
+                    >
+                  </div>
+                  <h4>Bootstrap 5 Template</h4>
+                  <p class="fw-bold text-gray-600 mb-0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </p>
+                  <a href="#" class="stretched-link"></a>
+                </div>
+              </div>
+              <!-- END card -->
+            </div>
+            <!-- END col-4 -->
+            <!-- BEGIN col-4 -->
+            <div class="col-lg-4">
+              <div class="card shadow border-0 mb-5">
+                <div class="card-body p-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+
+                      <!-- Account Info / Edit & Delete -->
+                      <div>
+                        <h3 v-if="!edit">Account Info</h3>
+                        <h3 v-if="edit">Edit Account Info</h3>
+                        <span v-if="!edit">
+                          <p>
+                            <strong>First name: </strong> {{ user.first_name }}
+                            <br />
+                            <strong>Last name: </strong> {{ user.last_name }}
+                            <br />
+                            <strong>Email: </strong> {{ user.email }} <br />
+                          </p>
+                        </span>
+                        <span v-if="edit">
+                          <p>
+                            <strong>First name: </strong>
+                            <input
+                              type="text"
+                              v-model="editUserParams.first_name"
+                              :placeholder="user.first_name"
+                            />
+                          </p>
+                          <p>
+                            <strong>Last name: </strong>
+                            <input
+                              type="text"
+                              v-model="editUserParams.last_name"
+                              :placeholder="user.last_name"
+                            />
+                          </p>
+                          <p>
+                            <strong>Email: </strong>
+                            <input
+                              type="text"
+                              v-model="editUserParams.email"
+                              :placeholder="user.email"
+                            />
+                          </p>
+                          <p>
+                            <strong>Password: </strong>
+                            <input
+                              type="password"
+                              v-model="editUserParams.password"
+                            />
+                          </p>
+                          <p>
+                            <strong>Confirm password: </strong>
+                            <input
+                              type="password"
+                              v-model="editUserParams.password_confirmation"
+                            />
+                          </p>
+                          <p>
+                            <strong>Profile picture: </strong>
+                            <input
+                              type="text"
+                              v-model="editUserParams.profile_pic"
+                              placeholder="ADD CLOUDINARY"
+                            />
+                          </p>
+                        </span>
+                        <button v-if="!edit" v-on:click="editUser()">
+                          Edit/Delete
+                        </button>
+                        <button v-if="edit" v-on:click="userUpdate(user.id)">
+                          Update
+                        </button>
+                        <button v-if="edit" v-on:click="userDestroy(user.id)">
+                          Delete
+                        </button>
+                        <button v-if="edit" v-on:click="editUser()">
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <img
+                        class="profile-pic"
+                        :src="user.profile_pic"
+                        alt="Profile Pic"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END col-4 -->
+          </div>
+          <!-- END row -->
+
+          <!-- BEGIN Graphs -->
           <div class="row">
             <div class="col-lg-12">
               <div class="card shadow border-0 mb-5">
                 <div class="card-body p-4">
                   <div class="container text-center">
-                    <div class="fs-30px fw-bold text-black-400">All Climbs</div>
+                    <div class="ms-5 fs-30px fw-bold text-black-400">
+                      All Climbs
+                    </div>
                   </div>
                   <GChart
                     :settings="{ packages: ['bar'] }"
@@ -42,7 +217,7 @@
               <div class="card shadow border-0 mb-5">
                 <div class="card-body p-4">
                   <div class="container text-center">
-                    <div class="fs-30px fw-bold text-black-400">
+                    <div class="ms-5 fs-30px fw-bold text-black-400">
                       Sent Climbs
                     </div>
                   </div>
@@ -58,17 +233,51 @@
             <div class="col-lg-12">
               <div class="card shadow border-0 mb-5">
                 <div class="card-body p-4">
-                  <div class="container text-center">
-                    <div class="fs-30px fw-bold text-black-400">
-                      Climbing Days Per Year
+                  <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                      <div class="container text-center">
+                        <div class="ms-5 fs-30px fw-bold text-black-400">
+                          Climbing Days Per Year
+                          <div class="d-inline-block">
+                            <div
+                              class="
+                                ms-2
+                                w-65px
+                                h-45px
+                                rounded-2
+                                bg-gray-400
+                                text-gray-600
+                                d-md-flex
+                                align-items-center
+                                justify-content-center
+                              "
+                            >
+                              <div class="fw-bold text-gray-800 fs-16px">
+                                {{ totalDays[chartYear] }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-2">
+                      <div
+                        class="
+                          ms-auto
+                          d-md-flex
+                          align-items-center
+                          justify-content-center
+                        "
+                      >
+                        <select class="form-select w-80px" v-model="chartYear">
+                          <option value="2021">2021</option>
+                          <option value="2020">2020</option>
+                          <option value="2019">2019</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
-                  <select v-model="chartYear">
-                    <option value="2021">2021</option>
-                    <option value="2020">2020</option>
-                    <option value="2019">2019</option>
-                  </select>
-                  {{ totalDays[chartYear] }} Days
                   <GChart
                     v-if="chartYear === '2019'"
                     :settings="{ packages: ['bar'] }"
@@ -94,352 +303,303 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <!-- END Graphs -->
+          <!-- END Graphs -->
 
-      <!-- BEGIN section -->
-      <div class="section pt-0">
-        <!-- BEGIN container -->
-        <div class="container">
-          <!-- BEGIN row -->
+          <!-- BEGIN Maps -->
           <div class="row">
-            <!-- BEGIN col-4 -->
             <div class="col-lg-12">
-              <!-- BEGIN card -->
               <div class="card shadow border-0 mb-5">
                 <div class="card-body p-4">
                   <div class="container text-center">
-                    <div class="fs-30px fw-bold text-black-400">All Climbs</div>
-                  </div>
-                  <GChart
-                    :settings="{ packages: ['bar'] }"
-                    :data="allClimbs"
-                    :options="chartOptions"
-                    :createChart="(el, google) => new google.charts.Bar(el)"
-                  />
-                </div>
-              </div>
-              <!-- END card -->
-            </div>
-            <!-- END col-4 -->
-            <!-- BEGIN col-4 -->
-            <div class="col-lg-12">
-              <!-- BEGIN card -->
-              <div class="card shadow border-0 mb-5">
-                <div class="card-body p-4">
-                  <div class="container text-center">
-                    <div class="fs-30px fw-bold text-black-400">
-                      Sent Climbs
+                    <div class="ms-5 fs-30px fw-bold text-black-400">
+                      Map of Areas Climbed
                     </div>
                   </div>
-                  <GChart
-                    :settings="{ packages: ['bar'] }"
-                    :data="sentClimbs"
-                    :options="chartOptions"
-                    :createChart="(el, google) => new google.charts.Bar(el)"
-                  />
-                </div>
-              </div>
-              <!-- END card -->
-            </div>
-            <!-- END col-4 -->
-            <!-- BEGIN col-4 -->
-            <div class="col-lg-12">
-              <!-- BEGIN card -->
-              <div class="card shadow border-0 mb-5">
-                <div class="card-body p-4"></div>
-              </div>
-              <!-- END card -->
-            </div>
-            <!-- END col-4 -->
-            <!-- BEGIN col-4 -->
-            <div class="col-lg-4">
-              <!-- BEGIN card -->
-              <div class="card shadow border-0 mb-5">
-                <div class="card-body p-4">
-                  <div
-                    class="
-                      mb-3
-                      w-50px
-                      h-50px
-                      rounded-3
-                      bg-teal
-                      text-white
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                      position-relative
-                    "
-                  >
-                    <i class="fa fa-pen fs-28px"></i>
-                  </div>
-                  <h4>Well documented</h4>
-                  <p class="fw-bold text-gray-600 mb-0">
-                    Nulla faucibus, lorem eu placerat mollis, odio velit
-                    efficitur lorem
-                  </p>
-                  <a href="#" class="stretched-link"></a>
-                </div>
-              </div>
-              <!-- END card -->
-            </div>
-            <!-- END col-4 -->
-            <!-- BEGIN col-4 -->
-            <div class="col-lg-4">
-              <!-- BEGIN card -->
-              <div class="card shadow border-0 mb-5">
-                <div class="card-body p-4">
-                  <div
-                    class="
-                      mb-3
-                      w-50px
-                      h-50px
-                      rounded-3
-                      bg-orange
-                      text-white
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                      position-relative
-                    "
-                  >
-                    <i class="fa fa-lightbulb fs-28px"></i>
-                  </div>
-                  <h4>Easy to Understand</h4>
-                  <p class="fw-bold text-gray-600 mb-0">
-                    Sed porttitor odio eu mi sollicitudin scelerisque id sed
-                    lacus.
-                  </p>
-                  <a href="#" class="stretched-link"></a>
-                </div>
-              </div>
-              <!-- END card -->
-            </div>
-            <!-- END col-4 -->
-            <!-- BEGIN col-4 -->
-            <div class="col-lg-4">
-              <!-- BEGIN card -->
-              <div class="card shadow border-0 mb-5">
-                <div class="card-body p-4">
-                  <div
-                    class="
-                      mb-3
-                      w-50px
-                      h-50px
-                      rounded-3
-                      bg-red
-                      text-white
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                      position-relative
-                    "
-                  >
-                    <i class="fa fa-bug fs-28px"></i>
-                  </div>
-                  <h4>Bugs Free</h4>
-                  <p class="fw-bold text-gray-600 mb-0">
-                    Mauris vehicula ultrices arcu, vitae tristique massa egestas
-                    vitae.
-                  </p>
-                  <a href="#" class="stretched-link"></a>
-                </div>
-              </div>
-              <!-- END card -->
-            </div>
-            <!-- END col-4 -->
-            <!-- BEGIN col-4 -->
-            <div class="col-lg-4">
-              <!-- BEGIN card -->
-              <div class="card shadow border-0 mb-5">
-                <div class="card-body p-4">
-                  <div
-                    class="
-                      mb-3
-                      w-50px
-                      h-50px
-                      rounded-3
-                      bg-info
-                      text-white
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                      position-relative
-                    "
-                  >
-                    <i class="fa fa-layer-group fs-28px"></i>
-                  </div>
-                  <h4>Unlimited Widget</h4>
-                  <p class="fw-bold text-gray-600 mb-0">
-                    Suspendisse feugiat lectus ac nulla semper, in tincidunt
-                    odio tempor.
-                  </p>
-                  <a href="#" class="stretched-link"></a>
-                </div>
-              </div>
-              <!-- END card -->
-            </div>
-            <!-- END col-4 -->
-            <!-- BEGIN col-4 -->
-            <div class="col-lg-4">
-              <!-- BEGIN card -->
-              <div class="card shadow border-0 mb-5">
-                <div class="card-body p-4">
-                  <div
-                    class="
-                      mb-3
-                      w-50px
-                      h-50px
-                      rounded-3
-                      bg-yellow
-                      text-black
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                      position-relative
-                    "
-                  >
-                    <i class="fa fa-check fs-28px"></i>
-                  </div>
-                  <h4>JSHint Valid</h4>
-                  <p class="fw-bold text-gray-600 mb-0">
-                    Aenean interdum eros ligula, vitae ornare tortor sagittis
-                    in.
-                  </p>
-                  <a href="#" class="stretched-link"></a>
+                  <div id="map"></div>
                 </div>
               </div>
             </div>
-            <!-- END col-4 -->
           </div>
-          <!-- END row -->
+          <!-- END Maps -->
         </div>
-        <!-- END container -->
       </div>
-      <!-- END section -->
-    </div>
-    <!-- end page container -->
-    <h1>{{ message }}</h1>
-
-    <img class="profile-pic" :src="user.profile_pic" alt="Profile Pic" />
-    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-
-    <!-- Account Info / Edit & Delete -->
-    <div>
-      <h3 v-if="!edit">Account Info</h3>
-      <h3 v-if="edit">Edit Account Info</h3>
-      <span v-if="!edit">
-        <p>
-          <strong>First name: </strong> {{ user.first_name }} <br />
-          <strong>Last name: </strong> {{ user.last_name }} <br />
-          <strong>Email: </strong> {{ user.email }} <br />
-        </p>
-      </span>
-      <span v-if="edit">
-        <p>
-          <strong>First name: </strong>
-          <input
-            type="text"
-            v-model="editUserParams.first_name"
-            :placeholder="user.first_name"
-          />
-        </p>
-        <p>
-          <strong>Last name: </strong>
-          <input
-            type="text"
-            v-model="editUserParams.last_name"
-            :placeholder="user.last_name"
-          />
-        </p>
-        <p>
-          <strong>Email: </strong>
-          <input
-            type="text"
-            v-model="editUserParams.email"
-            :placeholder="user.email"
-          />
-        </p>
-        <p>
-          <strong>Password: </strong>
-          <input type="password" v-model="editUserParams.password" />
-        </p>
-        <p>
-          <strong>Confirm password: </strong>
-          <input
-            type="password"
-            v-model="editUserParams.password_confirmation"
-          />
-        </p>
-        <p>
-          <strong>Profile picture: </strong>
-          <input
-            type="text"
-            v-model="editUserParams.profile_pic"
-            placeholder="ADD CLOUDINARY"
-          />
-        </p>
-      </span>
-      <button v-if="!edit" v-on:click="editUser()">Edit/Delete</button>
-      <button v-if="edit" v-on:click="userUpdate(user.id)">Update</button>
-      <button v-if="edit" v-on:click="userDestroy(user.id)">Delete</button>
-      <button v-if="edit" v-on:click="editUser()">Cancel</button>
     </div>
 
-    <!-- Graphs -->
-    <div>
-      <h1>Graphs</h1>
-      <strong>All Climbs</strong>
-      <GChart
-        :settings="{ packages: ['bar'] }"
-        :data="allClimbs"
-        :options="chartOptions"
-        :createChart="(el, google) => new google.charts.Bar(el)"
-      />
-      <br />
-      <strong>Sent Climbs</strong>
-      <GChart
-        :settings="{ packages: ['bar'] }"
-        :data="sentClimbs"
-        :options="chartOptions"
-        :createChart="(el, google) => new google.charts.Bar(el)"
-      />
-      <br />
-      <strong>Climbing Days Per Year</strong> <br />
-      <select v-model="chartYear">
-        <option value="2021">2021</option>
-        <option value="2020">2020</option>
-        <option value="2019">2019</option>
-      </select>
-      {{ totalDays[chartYear] }} Days
-      <GChart
-        v-if="chartYear === '2019'"
-        :settings="{ packages: ['bar'] }"
-        :data="days2019"
-        :options="chartOptions"
-        :createChart="(el, google) => new google.charts.Bar(el)"
-      />
-      <GChart
-        v-if="chartYear === '2020'"
-        :settings="{ packages: ['bar'] }"
-        :data="days2020"
-        :options="chartOptions"
-        :createChart="(el, google) => new google.charts.Bar(el)"
-      />
-      <GChart
-        v-if="chartYear === '2021'"
-        :settings="{ packages: ['bar'] }"
-        :data="days2021"
-        :options="chartOptions"
-        :createChart="(el, google) => new google.charts.Bar(el)"
-      />
+    <!-- BEGIN section -->
+    <div class="section pt-0">
+      <!-- BEGIN container -->
+      <div class="container">
+        <!-- BEGIN row -->
+        <div class="row">
+          <!-- BEGIN col-4 -->
+          <div class="col-lg-4">
+            <!-- BEGIN card -->
+            <div class="card shadow border-0 mb-5">
+              <div class="card-body p-4">
+                <div
+                  class="
+                    mb-3
+                    w-50px
+                    h-50px
+                    rounded-3
+                    bg-indigo
+                    text-white
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                    position-relative
+                  "
+                >
+                  <i class="fab fa-bootstrap fs-28px"></i>
+                  <span
+                    class="
+                      badge
+                      position-absolute
+                      mt-n5
+                      me-n5
+                      bg-indigo-700
+                      rounded-1
+                    "
+                    >5.0</span
+                  >
+                </div>
+                <h4>Bootstrap 5 Template</h4>
+                <p class="fw-bold text-gray-600 mb-0">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </p>
+                <a href="#" class="stretched-link"></a>
+              </div>
+            </div>
+            <!-- END card -->
+          </div>
+          <!-- END col-4 -->
+          <!-- BEGIN col-4 -->
+          <div class="col-lg-4">
+            <!-- BEGIN card -->
+            <div class="card shadow border-0 mb-5">
+              <div class="card-body p-4">
+                <div
+                  class="
+                    mb-3
+                    w-50px
+                    h-50px
+                    rounded-3
+                    bg-primary
+                    text-white
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                    position-relative
+                  "
+                >
+                  <i class="fa fa-code-branch fs-28px"></i>
+                </div>
+                <h4>Cross Platform Ready</h4>
+                <p class="fw-bold text-gray-600 mb-0">
+                  Sed vehicula eu justo nec rutrum. Vivamus dignissim leo ac
+                  quam iaculis rutrum.
+                </p>
+                <a href="#" class="stretched-link"></a>
+              </div>
+            </div>
+            <!-- END card -->
+          </div>
+          <!-- END col-4 -->
+          <!-- BEGIN col-4 -->
+          <div class="col-lg-4">
+            <!-- BEGIN card -->
+            <div class="card shadow border-0 mb-5">
+              <div class="card-body p-4">
+                <div
+                  class="
+                    mb-3
+                    w-50px
+                    h-50px
+                    rounded-3
+                    bg-gray-500
+                    text-white
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                    position-relative
+                  "
+                >
+                  <i class="fa fa-headset fs-28px"></i>
+                </div>
+                <h4>Continuous Support</h4>
+                <p class="fw-bold text-gray-600 mb-0">
+                  Cras lacus diam, rhoncus et iaculis nec, aliquam id mauris.
+                </p>
+                <a href="#" class="stretched-link"></a>
+              </div>
+            </div>
+            <!-- END card -->
+          </div>
+          <!-- END col-4 -->
+          <!-- BEGIN col-4 -->
+          <div class="col-lg-4">
+            <!-- BEGIN card -->
+            <div class="card shadow border-0 mb-5">
+              <div class="card-body p-4">
+                <div
+                  class="
+                    mb-3
+                    w-50px
+                    h-50px
+                    rounded-3
+                    bg-teal
+                    text-white
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                    position-relative
+                  "
+                >
+                  <i class="fa fa-pen fs-28px"></i>
+                </div>
+                <h4>Well documented</h4>
+                <p class="fw-bold text-gray-600 mb-0">
+                  Nulla faucibus, lorem eu placerat mollis, odio velit efficitur
+                  lorem
+                </p>
+                <a href="#" class="stretched-link"></a>
+              </div>
+            </div>
+            <!-- END card -->
+          </div>
+          <!-- END col-4 -->
+          <!-- BEGIN col-4 -->
+          <div class="col-lg-4">
+            <!-- BEGIN card -->
+            <div class="card shadow border-0 mb-5">
+              <div class="card-body p-4">
+                <div
+                  class="
+                    mb-3
+                    w-50px
+                    h-50px
+                    rounded-3
+                    bg-orange
+                    text-white
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                    position-relative
+                  "
+                >
+                  <i class="fa fa-lightbulb fs-28px"></i>
+                </div>
+                <h4>Easy to Understand</h4>
+                <p class="fw-bold text-gray-600 mb-0">
+                  Sed porttitor odio eu mi sollicitudin scelerisque id sed
+                  lacus.
+                </p>
+                <a href="#" class="stretched-link"></a>
+              </div>
+            </div>
+            <!-- END card -->
+          </div>
+          <!-- END col-4 -->
+          <!-- BEGIN col-4 -->
+          <div class="col-lg-4">
+            <!-- BEGIN card -->
+            <div class="card shadow border-0 mb-5">
+              <div class="card-body p-4">
+                <div
+                  class="
+                    mb-3
+                    w-50px
+                    h-50px
+                    rounded-3
+                    bg-red
+                    text-white
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                    position-relative
+                  "
+                >
+                  <i class="fa fa-bug fs-28px"></i>
+                </div>
+                <h4>Bugs Free</h4>
+                <p class="fw-bold text-gray-600 mb-0">
+                  Mauris vehicula ultrices arcu, vitae tristique massa egestas
+                  vitae.
+                </p>
+                <a href="#" class="stretched-link"></a>
+              </div>
+            </div>
+            <!-- END card -->
+          </div>
+          <!-- END col-4 -->
+          <!-- BEGIN col-4 -->
+          <div class="col-lg-4">
+            <!-- BEGIN card -->
+            <div class="card shadow border-0 mb-5">
+              <div class="card-body p-4">
+                <div
+                  class="
+                    mb-3
+                    w-50px
+                    h-50px
+                    rounded-3
+                    bg-info
+                    text-white
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                    position-relative
+                  "
+                >
+                  <i class="fa fa-layer-group fs-28px"></i>
+                </div>
+                <h4>Unlimited Widget</h4>
+                <p class="fw-bold text-gray-600 mb-0">
+                  Suspendisse feugiat lectus ac nulla semper, in tincidunt odio
+                  tempor.
+                </p>
+                <a href="#" class="stretched-link"></a>
+              </div>
+            </div>
+            <!-- END card -->
+          </div>
+          <!-- END col-4 -->
+          <!-- BEGIN col-4 -->
+          <div class="col-lg-4">
+            <!-- BEGIN card -->
+            <div class="card shadow border-0 mb-5">
+              <div class="card-body p-4">
+                <div
+                  class="
+                    mb-3
+                    w-50px
+                    h-50px
+                    rounded-3
+                    bg-yellow
+                    text-black
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                    position-relative
+                  "
+                >
+                  <i class="fa fa-check fs-28px"></i>
+                </div>
+                <h4>JSHint Valid</h4>
+                <p class="fw-bold text-gray-600 mb-0">
+                  Aenean interdum eros ligula, vitae ornare tortor sagittis in.
+                </p>
+                <a href="#" class="stretched-link"></a>
+              </div>
+            </div>
+          </div>
+          <!-- END col-4 -->
+        </div>
+        <!-- END row -->
+      </div>
+      <!-- END container -->
     </div>
-
-    <!-- Mapbox -->
-    <br /><br />
-    <h3>Map of Areas Climbed</h3>
-    <div id="map"></div>
+    <!-- END section -->
   </div>
 </template>
 
@@ -450,7 +610,7 @@
   height: auto;
 }
 #map {
-  width: 80%;
+  width: 95%;
   height: 650px;
   margin: 0 auto;
   border-radius: 2%;
@@ -537,8 +697,8 @@ export default {
     var map = new mapboxgl.Map({
       container: "map", // container id
       style: "mapbox://styles/mapbox/streets-v11", // style URL
-      center: [-104.9903, 39.7392], // starting position [lng, lat]
-      zoom: 4, // starting zoom
+      center: [-108.8048, 40.0875], // starting position [lng, lat]
+      zoom: 4.2, // starting zoom
     });
 
     // create DOM element for the marker
