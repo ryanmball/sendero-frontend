@@ -70,7 +70,9 @@
                 </div>
                 <div class="col-xl-2">
                   <select class="form-select" v-model="ratingFilter">
-                    <option value="" disabled selected hidden>Rating</option>
+                    <option value="null" disabled selected hidden>
+                      Rating
+                    </option>
                     <option value="0.0">0.0</option>
                     <option value="0.5">0.5</option>
                     <option value="1.0">1.0</option>

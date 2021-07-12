@@ -21,122 +21,13 @@
       <br /><br />
       <div class="section pt-0">
         <div class="container">
-          <!-- BEGIN panel -->
-          <!-- <div class="panel panel-inverse" data-sortable-id="ui-widget-1">
-            <div class="panel-heading">
-              <h2 class="panel-title"><b>All Climbs</b></h2>
-              <select
-                class="form-select form-select-sm w-80px"
-                v-model="chartYear"
-              >
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
-              </select>
-              <div class="panel-heading-btn">
-                <a
-                  href="#"
-                  class="btn btn-m btn-icon btn-primary"
-                  data-toggle="panel-collapse"
-                  ><i class="fa fa-minus"></i
-                ></a>
-              </div>
-            </div>
-            <div class="panel-body">
-              <GChart
-                    :settings="{ packages: ['bar'] }"
-                    :data="allClimbs"
-                    :options="chartOptions"
-                    :createChart="(el, google) => new google.charts.Bar(el)"
-                  />
-            </div>
-          </div> -->
-
           <!-- BEGIN user info and weather card -->
           <div class="row">
-            <!-- BEGIN col-4 -->
+            <!-- BEGIN user info card -->
             <div class="col-lg-4">
               <div class="card shadow border-0 mb-5">
                 <div class="card-body p-4">
                   <div class="row">
-                    <div class="col-lg-6">
-                      <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-
-                      <!-- Account Info / Edit & Delete -->
-                      <div>
-                        <h3 v-if="!edit">Account Info</h3>
-                        <h3 v-if="edit">Edit Account Info</h3>
-                        <span v-if="!edit">
-                          <p>
-                            <strong>First name: </strong> {{ user.first_name }}
-                            <br />
-                            <strong>Last name: </strong> {{ user.last_name }}
-                            <br />
-                            <strong>Email: </strong> {{ user.email }} <br />
-                          </p>
-                        </span>
-                        <span v-if="edit">
-                          <p>
-                            <strong>First name: </strong>
-                            <input
-                              type="text"
-                              v-model="editUserParams.first_name"
-                              :placeholder="user.first_name"
-                            />
-                          </p>
-                          <p>
-                            <strong>Last name: </strong>
-                            <input
-                              type="text"
-                              v-model="editUserParams.last_name"
-                              :placeholder="user.last_name"
-                            />
-                          </p>
-                          <p>
-                            <strong>Email: </strong>
-                            <input
-                              type="text"
-                              v-model="editUserParams.email"
-                              :placeholder="user.email"
-                            />
-                          </p>
-                          <p>
-                            <strong>Password: </strong>
-                            <input
-                              type="password"
-                              v-model="editUserParams.password"
-                            />
-                          </p>
-                          <p>
-                            <strong>Confirm password: </strong>
-                            <input
-                              type="password"
-                              v-model="editUserParams.password_confirmation"
-                            />
-                          </p>
-                          <p>
-                            <strong>Profile picture: </strong>
-                            <input
-                              type="text"
-                              v-model="editUserParams.profile_pic"
-                              placeholder="ADD CLOUDINARY"
-                            />
-                          </p>
-                        </span>
-                        <button v-if="!edit" v-on:click="editUser()">
-                          Edit/Delete
-                        </button>
-                        <button v-if="edit" v-on:click="userUpdate(user.id)">
-                          Update
-                        </button>
-                        <button v-if="edit" v-on:click="userDestroy(user.id)">
-                          Delete
-                        </button>
-                        <button v-if="edit" v-on:click="editUser()">
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
                     <div class="col-lg-6">
                       <img
                         class="profile-pic"
@@ -144,15 +35,26 @@
                         alt="Profile Pic"
                       />
                     </div>
+                    <div class="col-lg-6">
+                      <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                      <div>
+                        <a
+                          href="#"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalDetail"
+                          ><i class="fas fa-external-link-alt h-40px"></i
+                        ></a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- END col-4 -->
-            <!-- BEGIN col-4 -->
+            <!-- END user info card -->
+
+            <!-- BEGIN weather widget -->
             <div class="col-lg-8">
-              <!-- BEGIN nav-tabs -->
-              <ul class="nav nav-tabs">
+              <ul class="nav nav-tabs ms-5">
                 <li class="nav-item">
                   <a
                     href="#default-tab-1"
@@ -184,37 +86,28 @@
                   </a>
                 </li>
               </ul>
-              <!-- END nav-tabs -->
-              <!-- BEGIN tab-content -->
-              <div class="tab-content bg-white p-3">
-                <!-- BEGIN tab-pane -->
+              <!-- <div class="tab-content bg-white p-3 ms-3">
                 <div class="tab-pane fade active show" id="default-tab-1">
                   <div
                     id="openweathermap-widget-1"
                     class="d-flex w-100 mb-3"
                   ></div>
                 </div>
-                <!-- END tab-pane -->
-                <!-- BEGIN tab-pane -->
                 <div class="tab-pane fade" id="default-tab-2">
                   <div
                     id="openweathermap-widget-2"
                     class="d-flex w-100 mb-3"
                   ></div>
                 </div>
-                <!-- END tab-pane -->
-                <!-- BEGIN tab-pane -->
                 <div class="tab-pane fade" id="default-tab-3">
                   <div
                     id="openweathermap-widget-3"
                     class="d-flex w-100 mb-3"
                   ></div>
                 </div>
-                <!-- END tab-pane -->
-              </div>
-              <!-- END tab-content -->
+              </div> -->
             </div>
-            <!-- END col-4 -->
+            <!-- END weather widget -->
           </div>
           <!-- END user info and weather card -->
 
@@ -349,6 +242,259 @@
       </div>
     </div>
 
+    <!-- BEGIN account info and edit/delete modal -->
+    <div class="modal fade" id="modalDetail">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header px-4">
+            <div v-if="!edit" class="fs-24px fw-bolder">Account Info</div>
+            <div v-if="edit" class="fs-24px fw-bolder">Edit Account Info</div>
+            <a
+              href="#"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              @click="stopEdit()"
+            ></a>
+          </div>
+          <div class="modal-body p-0">
+            <div class="row gx-0">
+              <div class="col-md-7 p-4 border-end fs-14px line-h-16">
+                <div v-if="!edit">
+                  <div class="row mb-15px">
+                    <label class="form-label col-form-label col-md-3"
+                      >First name</label
+                    >
+                    <div class="col-md-9">
+                      <div
+                        class="
+                          fw-bold
+                          text-blue-700
+                          fs-20px
+                          col-form-label col-md-9
+                        "
+                      >
+                        {{ user.first_name }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-15px">
+                    <label class="form-label col-form-label col-md-3"
+                      >Last name</label
+                    >
+                    <div class="col-md-9">
+                      <div
+                        class="
+                          fw-bold
+                          text-blue-700
+                          fs-20px
+                          col-form-label col-md-9
+                        "
+                      >
+                        {{ user.last_name }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-15px">
+                    <label class="form-label col-form-label col-md-3"
+                      >Email address</label
+                    >
+                    <div class="col-md-9">
+                      <div
+                        class="
+                          fw-bold
+                          text-blue-700
+                          fs-20px
+                          col-form-label col-md-9
+                        "
+                      >
+                        {{ user.email }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-15px">
+                    <label class="form-label col-form-label col-md-3"
+                      >Account created</label
+                    >
+                    <div class="col-md-9">
+                      <div
+                        class="
+                          fw-bold
+                          text-blue-700
+                          fs-20px
+                          col-form-label col-md-9
+                        "
+                      >
+                        {{ accountCreated(user.created_at) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="edit">
+                  <div class="row mb-15px">
+                    <label class="form-label col-form-label col-md-3"
+                      >First name</label
+                    >
+                    <div class="col-md-9">
+                      <input
+                        type="text"
+                        class="form-control mb-5px"
+                        v-model="editUserParams.first_name"
+                        :placeholder="user.first_name"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-15px">
+                    <label class="form-label col-form-label col-md-3"
+                      >Last name</label
+                    >
+                    <div class="col-md-9">
+                      <input
+                        type="text"
+                        class="form-control mb-5px"
+                        v-model="editUserParams.last_name"
+                        :placeholder="user.last_name"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-15px">
+                    <label class="form-label col-form-label col-md-3"
+                      >Email address</label
+                    >
+                    <div class="col-md-9">
+                      <input
+                        type="email"
+                        class="form-control mb-5px"
+                        v-model="editUserParams.email"
+                        :placeholder="user.email"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-15px">
+                    <label class="form-label col-form-label col-md-3"
+                      >Password</label
+                    >
+                    <div class="col-md-9">
+                      <input
+                        type="password"
+                        class="form-control mb-5px"
+                        v-model="editUserParams.password"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-15px">
+                    <label class="form-label col-form-label col-md-3"
+                      >Confirm password</label
+                    >
+                    <div class="col-md-9">
+                      <input
+                        type="password"
+                        class="form-control mb-5px"
+                        v-model="editUserParams.password_confirmation"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <div class="row">
+                  <div class="col-xl-4" v-if="!edit">
+                    <button
+                      @click="editUser()"
+                      type="button"
+                      class="
+                        btn btn-lg btn-primary
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                    >
+                      Edit
+                    </button>
+                  </div>
+                  <div class="col-xl-4" v-if="!edit">
+                    <button
+                      @click="stopEdit()"
+                      type="button"
+                      class="
+                        btn btn-lg btn-secondary
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                  <div class="col-xl-4" v-if="edit">
+                    <button
+                      type="button"
+                      class="
+                        btn btn-lg btn-primary
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                      @click="userUpdate(user.id)"
+                      data-bs-dismiss="modal"
+                    >
+                      Update
+                    </button>
+                  </div>
+                  <div class="col-xl-4" v-if="edit">
+                    <button
+                      @click="stopEdit()"
+                      type="button"
+                      class="
+                        btn btn-lg btn-secondary
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  <div class="col-xl-4" v-if="edit">
+                    <button
+                      @click="userDestroy(user.id)"
+                      type="button"
+                      class="
+                        btn btn-xs btn-danger
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                      data-bs-dismiss="modal"
+                    >
+                      Delete Account
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 p-4">
+                <img
+                  class="profile-pic"
+                  :src="user.profile_pic"
+                  alt="Profile Pic"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END account info and edit/delete modal -->
+
     <!-- BEGIN section -->
     <div class="section pt-0">
       <!-- BEGIN container -->
@@ -388,7 +534,7 @@
                   >
                 </div>
                 <h4>Bootstrap 5 Template</h4>
-                <p class="fw-bold text-gray-600 mb-0">
+                <p class="fw-bold text-gray-700 mb-0">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </p>
                 <a href="#" class="stretched-link"></a>
@@ -630,8 +776,7 @@
 <style>
 .profile-pic {
   border-radius: 50%;
-  width: 100px;
-  height: auto;
+  width: 100%;
 }
 #map {
   width: 95%;
@@ -659,6 +804,7 @@ import axios from "axios";
 import Vue2Filters from "vue2-filters";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "mapbox-gl";
+import moment from "moment";
 
 export default {
   mixins: [Vue2Filters.mixin],
@@ -679,7 +825,7 @@ export default {
       user: {},
       editUserParams: {},
       edit: false,
-      weatherAPI: process.env.VUE_APP_OPENWEATHER_ACCESS_TOKEN,
+      // weatherAPI: process.env.VUE_APP_OPENWEATHER_ACCESS_TOKEN,
     };
   },
 
@@ -770,6 +916,9 @@ export default {
     );
   },
   methods: {
+    accountCreated: (date) => {
+      return moment(date).format("MMMM Do YYYY");
+    },
     userUpdate: function (user_id) {
       console.log(this.editUserParams);
       axios
@@ -777,7 +926,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.user = response.data;
-          this.editUser();
+          this.stopEdit();
           this.editUserParams = {};
         })
         .catch((error) => {
@@ -795,7 +944,10 @@ export default {
       }
     },
     editUser: function () {
-      this.edit = !this.edit;
+      this.edit = true;
+    },
+    stopEdit: function () {
+      this.edit = false;
     },
   },
 };
