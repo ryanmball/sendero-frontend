@@ -496,14 +496,10 @@
     <!-- END account info and edit/delete modal -->
 
     <!-- BEGIN section -->
-    <div class="section pt-0">
-      <!-- BEGIN container -->
+    <!-- <div class="section pt-0">
       <div class="container">
-        <!-- BEGIN row -->
         <div class="row">
-          <!-- BEGIN col-4 -->
           <div class="col-lg-4">
-            <!-- BEGIN card -->
             <div class="card shadow border-0 mb-5">
               <div class="card-body p-4">
                 <div
@@ -540,12 +536,8 @@
                 <a href="#" class="stretched-link"></a>
               </div>
             </div>
-            <!-- END card -->
           </div>
-          <!-- END col-4 -->
-          <!-- BEGIN col-4 -->
           <div class="col-lg-4">
-            <!-- BEGIN card -->
             <div class="card shadow border-0 mb-5">
               <div class="card-body p-4">
                 <div
@@ -572,12 +564,8 @@
                 <a href="#" class="stretched-link"></a>
               </div>
             </div>
-            <!-- END card -->
           </div>
-          <!-- END col-4 -->
-          <!-- BEGIN col-4 -->
           <div class="col-lg-4">
-            <!-- BEGIN card -->
             <div class="card shadow border-0 mb-5">
               <div class="card-body p-4">
                 <div
@@ -603,12 +591,8 @@
                 <a href="#" class="stretched-link"></a>
               </div>
             </div>
-            <!-- END card -->
           </div>
-          <!-- END col-4 -->
-          <!-- BEGIN col-4 -->
           <div class="col-lg-4">
-            <!-- BEGIN card -->
             <div class="card shadow border-0 mb-5">
               <div class="card-body p-4">
                 <div
@@ -635,12 +619,8 @@
                 <a href="#" class="stretched-link"></a>
               </div>
             </div>
-            <!-- END card -->
           </div>
-          <!-- END col-4 -->
-          <!-- BEGIN col-4 -->
           <div class="col-lg-4">
-            <!-- BEGIN card -->
             <div class="card shadow border-0 mb-5">
               <div class="card-body p-4">
                 <div
@@ -667,12 +647,8 @@
                 <a href="#" class="stretched-link"></a>
               </div>
             </div>
-            <!-- END card -->
           </div>
-          <!-- END col-4 -->
-          <!-- BEGIN col-4 -->
           <div class="col-lg-4">
-            <!-- BEGIN card -->
             <div class="card shadow border-0 mb-5">
               <div class="card-body p-4">
                 <div
@@ -699,12 +675,8 @@
                 <a href="#" class="stretched-link"></a>
               </div>
             </div>
-            <!-- END card -->
           </div>
-          <!-- END col-4 -->
-          <!-- BEGIN col-4 -->
           <div class="col-lg-4">
-            <!-- BEGIN card -->
             <div class="card shadow border-0 mb-5">
               <div class="card-body p-4">
                 <div
@@ -731,12 +703,8 @@
                 <a href="#" class="stretched-link"></a>
               </div>
             </div>
-            <!-- END card -->
           </div>
-          <!-- END col-4 -->
-          <!-- BEGIN col-4 -->
           <div class="col-lg-4">
-            <!-- BEGIN card -->
             <div class="card shadow border-0 mb-5">
               <div class="card-body p-4">
                 <div
@@ -763,12 +731,9 @@
               </div>
             </div>
           </div>
-          <!-- END col-4 -->
         </div>
-        <!-- END row -->
       </div>
-      <!-- END container -->
-    </div>
+    </div> -->
     <!-- END section -->
   </div>
 </template>

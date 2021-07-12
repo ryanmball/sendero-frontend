@@ -586,7 +586,6 @@
                         v-model="newRecordParams.route_id"
                         class="form-control form-control-lg rounded-2"
                         placeholder="Route"
-                        name="route"
                       />
                     </div>
                     <div class="col-lg-3 mb-2">
@@ -595,7 +594,6 @@
                         v-model="newRecordParams.partner"
                         class="form-control form-control-lg rounded-2"
                         placeholder="Partner"
-                        name="partner"
                       />
                     </div>
                   </div>
@@ -605,7 +603,6 @@
                         type="text"
                         class="form-control form-control-lg rounded-2"
                         placeholder="Crag"
-                        name="crag"
                       />
                     </div>
                     <div class="col-lg-6 mb-2">
@@ -613,7 +610,6 @@
                         type="text"
                         class="form-control form-control-lg rounded-2"
                         placeholder="Area"
-                        name="area"
                       />
                     </div>
                   </div>
@@ -624,7 +620,6 @@
                         v-model="newRecordParams.grade"
                         class="form-control form-control-lg rounded-2"
                         placeholder="Grade"
-                        name="grade"
                       />
                     </div>
                     <div class="col-lg-3 mb-2">
@@ -655,11 +650,11 @@
                         class="form-select"
                         v-model="newRecordParams.in_progress"
                       >
-                        <option value="" disabled selected hidden>
+                        <option value="false" disabled selected hidden>
                           In Progress
                         </option>
                         <option value="true">true</option>
-                        <option value="false">false</option>
+                        <option value="false"></option>
                       </select>
                     </div>
                     <div
@@ -848,7 +843,7 @@ export default {
       }
     },
     clearNewParams: function () {
-      this.newRecordParams = {};
+      this.newRecordParams = { result: "", in_progress: false, rating: "" };
     },
     clearEditParams: function () {
       this.editRecordParams = {};
