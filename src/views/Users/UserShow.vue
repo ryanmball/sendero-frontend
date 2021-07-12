@@ -487,6 +487,34 @@
                   :src="user.profile_pic"
                   alt="Profile Pic"
                 />
+                <div class="row gx-0" v-if="edit">
+                  <form v-on:submit.prevent="profilePicUpdate(user.id)">
+                    <label class="form-label col-form-label col-md-12"
+                      >Update profile picture</label
+                    >
+                    <div class="col-md-12">
+                      <input
+                        type="file"
+                        class="form-control mb-5px"
+                        v-on:change="setFile($event)"
+                        ref="fileInput"
+                      />
+                      <button
+                        type="submit"
+                        class="
+                          btn btn-sm btn-primary
+                          d-block
+                          w-50
+                          fw-bold
+                          rounded-2
+                          height-50px
+                        "
+                      >
+                        Upload Photo
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
@@ -786,10 +814,10 @@ export default {
         legend: { position: "none" },
         hAxis: { position: "none" },
       },
-      message: "Welcome to your profile page!",
       user: {},
       editUserParams: {},
       edit: false,
+      image: "",
       // weatherAPI: process.env.VUE_APP_OPENWEATHER_ACCESS_TOKEN,
     };
   },
@@ -896,6 +924,26 @@ export default {
         })
         .catch((error) => {
           this.editErrors = error.response.data.errors;
+        });
+    },
+    setFile: function (event) {
+      if (event.target.files.length > 0) {
+        this.image = event.target.files[0];
+      }
+    },
+    profilePicUpdate: function (user_id) {
+      var formData = new FormData();
+      formData.append("profile_pic", this.image);
+      formData.append("user_id", user_id);
+      axios
+        .patch(`/users/${user_id}`, formData)
+        .then((response) => {
+          console.log(response.data);
+          this.user = response.data;
+          this.image = "";
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
         });
     },
     userDestroy: function (user_id) {
