@@ -125,7 +125,7 @@
             <div class="mb-4">
               <button
                 type="submit"
-                class="btn btn-primary d-block w-100 btn-lg h-45px fs-13px"
+                class="btn btn-success d-block w-100 btn-lg h-45px fs-13px"
               >
                 Sign Up
               </button>

@@ -52,50 +52,8 @@
             </div>
           </div> -->
 
-          <!-- BEGIN row -->
+          <!-- BEGIN user info and weather card -->
           <div class="row">
-            <!-- BEGIN col-4 -->
-            <div class="col-lg-8">
-              <!-- BEGIN card -->
-              <div class="card shadow border-0 mb-5">
-                <div class="card-body p-4">
-                  <div
-                    class="
-                      mb-3
-                      w-50px
-                      h-50px
-                      rounded-3
-                      bg-indigo
-                      text-white
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                      position-relative
-                    "
-                  >
-                    <i class="fab fa-bootstrap fs-28px"></i>
-                    <span
-                      class="
-                        badge
-                        position-absolute
-                        mt-n5
-                        me-n5
-                        bg-indigo-700
-                        rounded-1
-                      "
-                      >5.0</span
-                    >
-                  </div>
-                  <h4>Bootstrap 5 Template</h4>
-                  <p class="fw-bold text-gray-600 mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </p>
-                  <a href="#" class="stretched-link"></a>
-                </div>
-              </div>
-              <!-- END card -->
-            </div>
-            <!-- END col-4 -->
             <!-- BEGIN col-4 -->
             <div class="col-lg-4">
               <div class="card shadow border-0 mb-5">
@@ -191,8 +149,74 @@
               </div>
             </div>
             <!-- END col-4 -->
+            <!-- BEGIN col-4 -->
+            <div class="col-lg-8">
+              <!-- BEGIN nav-tabs -->
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a
+                    href="#default-tab-1"
+                    data-bs-toggle="tab"
+                    class="nav-link active"
+                  >
+                    <span class="d-sm-none">Tab 1</span>
+                    <span class="d-sm-block d-none">Estes Park</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    href="#default-tab-2"
+                    data-bs-toggle="tab"
+                    class="nav-link"
+                  >
+                    <span class="d-sm-none">Tab 2</span>
+                    <span class="d-sm-block d-none">Boulder</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    href="#default-tab-3"
+                    data-bs-toggle="tab"
+                    class="nav-link"
+                  >
+                    <span class="d-sm-none">Tab 3</span>
+                    <span class="d-sm-block d-none">Red Rock Canyon</span>
+                  </a>
+                </li>
+              </ul>
+              <!-- END nav-tabs -->
+              <!-- BEGIN tab-content -->
+              <div class="tab-content bg-white p-3">
+                <!-- BEGIN tab-pane -->
+                <div class="tab-pane fade active show" id="default-tab-1">
+                  <div
+                    id="openweathermap-widget-1"
+                    class="d-flex w-100 mb-3"
+                  ></div>
+                </div>
+                <!-- END tab-pane -->
+                <!-- BEGIN tab-pane -->
+                <div class="tab-pane fade" id="default-tab-2">
+                  <div
+                    id="openweathermap-widget-2"
+                    class="d-flex w-100 mb-3"
+                  ></div>
+                </div>
+                <!-- END tab-pane -->
+                <!-- BEGIN tab-pane -->
+                <div class="tab-pane fade" id="default-tab-3">
+                  <div
+                    id="openweathermap-widget-3"
+                    class="d-flex w-100 mb-3"
+                  ></div>
+                </div>
+                <!-- END tab-pane -->
+              </div>
+              <!-- END tab-content -->
+            </div>
+            <!-- END col-4 -->
           </div>
-          <!-- END row -->
+          <!-- END user info and weather card -->
 
           <!-- BEGIN Graphs -->
           <div class="row">
@@ -655,6 +679,7 @@ export default {
       user: {},
       editUserParams: {},
       edit: false,
+      weatherAPI: process.env.VUE_APP_OPENWEATHER_ACCESS_TOKEN,
     };
   },
 
@@ -670,6 +695,7 @@ export default {
     axios.get("/grades_sent").then((response) => {
       console.log("Sent grades array", response.data);
       this.sentClimbs = response.data;
+      console.log(this.weatherAPI);
     });
     axios.get("/climbing_days").then((response) => {
       console.log("Climbing days", response.data);
@@ -678,6 +704,37 @@ export default {
       this.days2021 = response.data.days_per_month["2021"];
       this.totalDays = response.data.days_per_year;
     });
+    window.myWidgetParam ? window.myWidgetParam : (window.myWidgetParam = []);
+    window.myWidgetParam.push({
+      id: 11,
+      cityid: "5576882",
+      appid: this.weatherAPI,
+      units: "imperial",
+      containerid: "openweathermap-widget-1",
+    });
+    window.myWidgetParam.push({
+      id: 11,
+      cityid: "5574999",
+      appid: this.weatherAPI,
+      units: "imperial",
+      containerid: "openweathermap-widget-2",
+    });
+    window.myWidgetParam.push({
+      id: 11,
+      cityid: "5506956",
+      appid: this.weatherAPI,
+      units: "imperial",
+      containerid: "openweathermap-widget-3",
+    });
+    (function () {
+      var script = document.createElement("script");
+      script.async = true;
+      script.characterSet = "utf-8";
+      script.src =
+        "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(script, s);
+    })();
   },
   mounted: function () {
     axios.get("/areas_climbed_map").then((response) => {
