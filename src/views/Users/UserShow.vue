@@ -1,23 +1,102 @@
 <template>
   <div>
-    <!-- begin #page-container -->
-    <br />
-    <br />
     <div id="page-container">
-      <!-- BEGIN section -->
-      <div class="section">
-        <!-- BEGIN container -->
-        <div class="container text-center">
-          <div class="display-5 fw-bolder mb-2">Our products</div>
-          <div class="fs-20px fw-bold text-gray-600">
-            Powerful solutions to help you build, secure, and deliver
-            <span class="d-lg-inline d-none"><br /></span>enterprise-grade apps
-            / web application in less time.
+      <br /><br /><br /><br /><br />
+      <!-- BEGIN Header -->
+      <div class="section py-5">
+        <div
+          class="section-bg"
+          style="background-image: url(/assets/img/corporate/mtn3.jpeg)"
+        ></div>
+        <div class="section-bg bg-gray-800 opacity-3"></div>
+
+        <div class="container position-relative text-white text-center">
+          <div class="display-6 fw-bolder">
+            {{ user.first_name }}'s Profile Page
           </div>
         </div>
-        <!-- END container -->
       </div>
-      <!-- END section -->
+      <!-- END Header -->
+
+      <br /><br />
+      <!-- BEGIN Graphs -->
+      <div class="section pt-0">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card shadow border-0 mb-5">
+                <div class="card-body p-4">
+                  <div class="container text-center">
+                    <div class="fs-30px fw-bold text-black-400">All Climbs</div>
+                  </div>
+                  <GChart
+                    :settings="{ packages: ['bar'] }"
+                    :data="allClimbs"
+                    :options="chartOptions"
+                    :createChart="(el, google) => new google.charts.Bar(el)"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="card shadow border-0 mb-5">
+                <div class="card-body p-4">
+                  <div class="container text-center">
+                    <div class="fs-30px fw-bold text-black-400">
+                      Sent Climbs
+                    </div>
+                  </div>
+                  <GChart
+                    :settings="{ packages: ['bar'] }"
+                    :data="sentClimbs"
+                    :options="chartOptions"
+                    :createChart="(el, google) => new google.charts.Bar(el)"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="card shadow border-0 mb-5">
+                <div class="card-body p-4">
+                  <div class="container text-center">
+                    <div class="fs-30px fw-bold text-black-400">
+                      Climbing Days Per Year
+                    </div>
+                  </div>
+                  <select v-model="chartYear">
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                  </select>
+                  {{ totalDays[chartYear] }} Days
+                  <GChart
+                    v-if="chartYear === '2019'"
+                    :settings="{ packages: ['bar'] }"
+                    :data="days2019"
+                    :options="chartOptions"
+                    :createChart="(el, google) => new google.charts.Bar(el)"
+                  />
+                  <GChart
+                    v-if="chartYear === '2020'"
+                    :settings="{ packages: ['bar'] }"
+                    :data="days2020"
+                    :options="chartOptions"
+                    :createChart="(el, google) => new google.charts.Bar(el)"
+                  />
+                  <GChart
+                    v-if="chartYear === '2021'"
+                    :settings="{ packages: ['bar'] }"
+                    :data="days2021"
+                    :options="chartOptions"
+                    :createChart="(el, google) => new google.charts.Bar(el)"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END Graphs -->
 
       <!-- BEGIN section -->
       <div class="section pt-0">
@@ -26,106 +105,50 @@
           <!-- BEGIN row -->
           <div class="row">
             <!-- BEGIN col-4 -->
-            <div class="col-lg-4">
+            <div class="col-lg-12">
               <!-- BEGIN card -->
               <div class="card shadow border-0 mb-5">
                 <div class="card-body p-4">
-                  <div
-                    class="
-                      mb-3
-                      w-50px
-                      h-50px
-                      rounded-3
-                      bg-indigo
-                      text-white
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                      position-relative
-                    "
-                  >
-                    <i class="fab fa-bootstrap fs-28px"></i>
-                    <span
-                      class="
-                        badge
-                        position-absolute
-                        mt-n5
-                        me-n5
-                        bg-indigo-700
-                        rounded-1
-                      "
-                      >5.0</span
-                    >
+                  <div class="container text-center">
+                    <div class="fs-30px fw-bold text-black-400">All Climbs</div>
                   </div>
-                  <h4>Bootstrap 5 Template</h4>
-                  <p class="fw-bold text-gray-600 mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </p>
-                  <a href="#" class="stretched-link"></a>
+                  <GChart
+                    :settings="{ packages: ['bar'] }"
+                    :data="allClimbs"
+                    :options="chartOptions"
+                    :createChart="(el, google) => new google.charts.Bar(el)"
+                  />
                 </div>
               </div>
               <!-- END card -->
             </div>
             <!-- END col-4 -->
             <!-- BEGIN col-4 -->
-            <div class="col-lg-4">
+            <div class="col-lg-12">
               <!-- BEGIN card -->
               <div class="card shadow border-0 mb-5">
                 <div class="card-body p-4">
-                  <div
-                    class="
-                      mb-3
-                      w-50px
-                      h-50px
-                      rounded-3
-                      bg-primary
-                      text-white
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                      position-relative
-                    "
-                  >
-                    <i class="fa fa-code-branch fs-28px"></i>
+                  <div class="container text-center">
+                    <div class="fs-30px fw-bold text-black-400">
+                      Sent Climbs
+                    </div>
                   </div>
-                  <h4>Cross Platform Ready</h4>
-                  <p class="fw-bold text-gray-600 mb-0">
-                    Sed vehicula eu justo nec rutrum. Vivamus dignissim leo ac
-                    quam iaculis rutrum.
-                  </p>
-                  <a href="#" class="stretched-link"></a>
+                  <GChart
+                    :settings="{ packages: ['bar'] }"
+                    :data="sentClimbs"
+                    :options="chartOptions"
+                    :createChart="(el, google) => new google.charts.Bar(el)"
+                  />
                 </div>
               </div>
               <!-- END card -->
             </div>
             <!-- END col-4 -->
             <!-- BEGIN col-4 -->
-            <div class="col-lg-4">
+            <div class="col-lg-12">
               <!-- BEGIN card -->
               <div class="card shadow border-0 mb-5">
-                <div class="card-body p-4">
-                  <div
-                    class="
-                      mb-3
-                      w-50px
-                      h-50px
-                      rounded-3
-                      bg-gray-500
-                      text-white
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                      position-relative
-                    "
-                  >
-                    <i class="fa fa-headset fs-28px"></i>
-                  </div>
-                  <h4>Continuous Support</h4>
-                  <p class="fw-bold text-gray-600 mb-0">
-                    Cras lacus diam, rhoncus et iaculis nec, aliquam id mauris.
-                  </p>
-                  <a href="#" class="stretched-link"></a>
-                </div>
+                <div class="card-body p-4"></div>
               </div>
               <!-- END card -->
             </div>
