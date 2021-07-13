@@ -3,29 +3,24 @@
     <!-- BEGIN Title -->
     <br /><br /><br /><br /><br />
     <div class="section py-5">
-      <!-- BEGIN section-bg -->
       <div
         class="section-bg"
         style="background-image: url(/assets/img/corporate/mtn3.jpeg)"
       ></div>
       <div class="section-bg bg-gray-800 opacity-3"></div>
-      <!-- END section-bg -->
 
-      <!-- BEGIN container -->
       <div class="container position-relative text-white text-center">
         <div class="display-6 fw-bolder">Climbing Records</div>
       </div>
-      <!-- END container -->
     </div>
     <!-- END Title -->
 
-    <!-- BEGIN section -->
+    <!-- BEGIN Filters & Index -->
     <div class="section pt-5">
-      <!-- BEGIN container -->
       <div class="container">
         <div class="row gx-5">
           <div class="col-lg-12 ps-lg-5">
-            <!-- Filters -->
+            <!-- BEGIN Filters -->
             <div>
               <div class="row">
                 <div class="col-xl-2">
@@ -34,7 +29,7 @@
                     data-bs-target="#modalCreate"
                     type="button"
                     class="
-                      btn btn-lg btn-primary
+                      btn btn-md btn-primary
                       d-block
                       w-100
                       fw-bold
@@ -44,6 +39,14 @@
                   >
                     Create New
                   </button>
+                </div>
+                <div class="col-xl-4">
+                  <input
+                    type="text"
+                    class="form-control mb-5px"
+                    v-model="search"
+                    placeholder="Search"
+                  />
                 </div>
                 <div class="col-xl-2">
                   <select
@@ -84,20 +87,14 @@
                     <option value="4.0">4.0</option>
                   </select>
                 </div>
-                <div class="col-xl-2">
-                  <select class="form-select" v-model="partnerFilter">
-                    <option value="" disabled selected hidden>Partner</option>
-                    <option v-for="partner in partners" v-bind:key="partner">
-                      {{ partner }}
-                    </option>
-                  </select>
-                </div>
+              </div>
+              <div class="row mt-3">
                 <div class="col-xl-2">
                   <button
                     @click="clearFilters"
                     type="button"
                     class="
-                      btn btn-lg btn-secondary
+                      btn btn-md btn-secondary
                       d-block
                       w-100
                       fw-bold
@@ -108,9 +105,6 @@
                     Clear Filters
                   </button>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-2"></div>
                 <div class="col-xl-4">
                   <select
                     class="form-select"
@@ -135,14 +129,19 @@
                     </option>
                   </select>
                 </div>
+                <div class="col-xl-2">
+                  <select class="form-select" v-model="partnerFilter">
+                    <option value="" disabled selected hidden>Partner</option>
+                    <option v-for="partner in partners" v-bind:key="partner">
+                      {{ partner }}
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
-            <!-- End Filters -->
-            <p class="text-danger">
-              add overall search bar. need to figure out what to do about
-              in_progress display/tracking
-            </p>
-            <!-- Records Index -->
+            <!-- END Filters -->
+
+            <!-- BEGIN Records Index -->
             <br /><br />
             <div
               class="
@@ -163,8 +162,11 @@
                             cragFilter,
                             'route'
                           ),
-                          progressFilter,
-                          'in_progress'
+                          search,
+                          'route',
+                          'result',
+                          'grade',
+                          'partner'
                         ),
                         partnerFilter,
                         'partner'
@@ -256,7 +258,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
                   <div class="d-flex align-items-center">
                     <div>
                       <div class="fw-bold text-gray-600 fs-12px line-h-12">
@@ -268,7 +270,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-2" v-if="record.in_progress">
+                <div class="col-1" v-if="record.in_progress">
                   <div class="d-flex align-items-center">
                     <div>
                       <div class="fw-bold text-gray-600 fs-12px line-h-12">
@@ -280,7 +282,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-2" v-if="record.rating">
+                <div class="col-1" v-if="record.rating">
                   <div class="d-flex align-items-center">
                     <div>
                       <div class="fw-bold text-gray-600 fs-12px line-h-12">
@@ -292,7 +294,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                   <div class="d-flex align-items-center">
                     <div>
                       <div class="fw-bold text-gray-600 fs-12px line-h-12">
@@ -318,13 +320,12 @@
                 </div>
               </div>
             </div>
-            <!-- End Records Index -->
+            <!-- END Records Index -->
           </div>
         </div>
       </div>
-      <!-- END container -->
     </div>
-    <!-- END section -->
+    <!-- END Filters & Index -->
 
     <!-- Record Show, Edit, Delete Modal -->
     <div class="modal fade" id="modalDetail">
@@ -572,64 +573,102 @@
               <div class="col-md-12 p-4 border-end fs-14px line-h-16">
                 <form v-on:submit.prevent="recordCreate()">
                   <div class="row gx-3 mb-2">
+                    <label class="form-label col-form-label col-md-1"
+                      >Date</label
+                    >
                     <div class="col-lg-3 mb-2">
                       <input
                         type="text"
                         class="form-control form-control-lg rounded-2"
+                        placeholder="YYYY-MM-DD"
                         v-model="newRecordParams.date"
-                        placeholder="Date"
                       />
                     </div>
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-3">
+                      <button
+                        @click="clearNewParams()"
+                        type="button"
+                        class="
+                          btn btn-lg btn-secondary
+                          d-block
+                          w-100
+                          fw-bold
+                          rounded-2
+                          height-50px
+                        "
+                      >
+                        Clear All
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row gx-3 mb-2">
+                    <label class="form-label col-form-label col-md-1"
+                      >Route</label
+                    >
                     <div class="col-lg-6 mb-2">
                       <input
                         type="text"
                         v-model="newRecordParams.route_id"
                         class="form-control form-control-lg rounded-2"
-                        placeholder="Route"
-                      />
-                    </div>
-                    <div class="col-lg-3 mb-2">
-                      <input
-                        type="text"
-                        v-model="newRecordParams.partner"
-                        class="form-control form-control-lg rounded-2"
-                        placeholder="Partner"
                       />
                     </div>
                   </div>
                   <div class="row gx-3 mb-2">
-                    <div class="col-lg-6 mb-2">
+                    <label class="form-label col-form-label col-md-1"
+                      >Crag</label
+                    >
+                    <div class="col-lg-5 mb-2">
                       <input
                         type="text"
                         class="form-control form-control-lg rounded-2"
-                        placeholder="Crag"
+                        readonly
                       />
                     </div>
-                    <div class="col-lg-6 mb-2">
+                    <label class="form-label col-form-label col-md-1 text-end"
+                      >Area</label
+                    >
+                    <div class="col-lg-5 mb-2">
                       <input
                         type="text"
                         class="form-control form-control-lg rounded-2"
-                        placeholder="Area"
+                        readonly
                       />
                     </div>
                   </div>
                   <div class="row gx-3 mb-2">
+                    <label class="form-label col-form-label col-md-1"
+                      >Grade</label
+                    >
                     <div class="col-lg-3 mb-2">
                       <input
                         type="text"
                         v-model="newRecordParams.grade"
                         class="form-control form-control-lg rounded-2"
-                        placeholder="Grade"
                       />
                     </div>
+                    <label class="form-label col-form-label col-md-1 text-end"
+                      >Partner</label
+                    >
                     <div class="col-lg-3 mb-2">
+                      <input
+                        type="text"
+                        v-model="newRecordParams.partner"
+                        class="form-control form-control-lg rounded-2"
+                      />
+                    </div>
+                  </div>
+                  <div class="row gx-3 mb-2">
+                    <label class="form-label col-form-label col-md-1"
+                      >Result</label
+                    >
+                    <div class="col-lg-2 mb-2">
                       <select
+                        searchable="search"
                         class="form-select"
                         v-model="newRecordParams.result"
                       >
-                        <option value="" disabled selected hidden>
-                          Result
-                        </option>
+                        <option value=""></option>
                         <option value="onsight">onsight</option>
                         <option value="flash">flash</option>
                         <option value="redpoint">redpoint</option>
@@ -639,49 +678,60 @@
                       </select>
                     </div>
                     <div
-                      class="col-lg-3 mb-2"
+                      class="col-lg-5"
                       v-if="
                         newRecordParams.result === '1 fall' ||
                         newRecordParams.result === '2 falls' ||
                         newRecordParams.result === 'beta'
                       "
                     >
-                      <select
-                        class="form-select"
-                        v-model="newRecordParams.in_progress"
-                      >
-                        <option value="false" disabled selected hidden>
-                          In Progress
-                        </option>
-                        <option value="true">true</option>
-                        <option value="false"></option>
-                      </select>
+                      <div class="row gx-3">
+                        <label
+                          class="form-label col-form-label col-md-4 text-end"
+                          >In progress</label
+                        >
+                        <div class="col-lg-8">
+                          <select
+                            class="form-select"
+                            v-model="newRecordParams.in_progress"
+                          >
+                            <option value="null"></option>
+                            <option value="true">true</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
                     <div
-                      class="col-lg-3 mb-2"
+                      class="col-lg-5"
                       v-if="
                         newRecordParams.result === 'onsight' ||
                         newRecordParams.result === 'flash' ||
                         newRecordParams.result === 'redpoint'
                       "
                     >
-                      <select
-                        class="form-select"
-                        v-model="newRecordParams.rating"
-                      >
-                        <option value="" disabled selected hidden>
-                          Rating
-                        </option>
-                        <option value="0.0">0.0</option>
-                        <option value="0.5">0.5</option>
-                        <option value="1.0">1.0</option>
-                        <option value="1.5">1.5</option>
-                        <option value="2.0">2.0</option>
-                        <option value="2.5">2.5</option>
-                        <option value="3.0">3.0</option>
-                        <option value="3.5">3.5</option>
-                        <option value="4.0">4.0</option>
-                      </select>
+                      <div class="row gx-3">
+                        <label
+                          class="form-label col-form-label col-md-4 text-end"
+                          >Rating</label
+                        >
+                        <div class="col-lg-8">
+                          <select
+                            class="form-select"
+                            v-model="newRecordParams.rating"
+                          >
+                            <option value="null"></option>
+                            <option value="0.0">0.0</option>
+                            <option value="0.5">0.5</option>
+                            <option value="1.0">1.0</option>
+                            <option value="1.5">1.5</option>
+                            <option value="2.0">2.0</option>
+                            <option value="2.5">2.5</option>
+                            <option value="3.0">3.0</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4.0">4.0</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="mb-20px pb-4px">
@@ -722,9 +772,9 @@
 <style></style>
 
 <script>
-import $ from "jquery";
 import axios from "axios";
 import Vue2Filters from "vue2-filters";
+
 export default {
   mixins: [Vue2Filters.mixin],
   data: function () {
@@ -740,7 +790,7 @@ export default {
       resultFilter: "",
       ratingFilter: null,
       partnerFilter: "",
-      progressFilter: null,
+      search: "",
       cragFilter: "",
       areaFilter: "",
       grades: [],
@@ -757,7 +807,6 @@ export default {
     axios.get("/records").then((response) => {
       console.log("Records", response.data);
       this.records = response.data;
-      console.log(this.records[476].collection.name);
     });
     axios.get("/grades").then((response) => {
       console.log("Grades", response.data);
@@ -770,12 +819,6 @@ export default {
     axios.get("/crags").then((response) => {
       console.log("Crags", response.data);
       this.crags = response.data;
-      var cragListing = this.crags;
-      $(() => {
-        $("#jquery-autocomplete").autocomplete({
-          source: cragListing,
-        });
-      });
     });
     axios.get("/areas").then((response) => {
       console.log("Areas", response.data);
@@ -832,7 +875,7 @@ export default {
       this.resultFilter = "";
       this.ratingFilter = null;
       this.partnerFilter = "";
-      this.progressFilter = null;
+      this.serach = "";
       this.cragFilter = "";
       this.areaFilter = "";
       var inputs = document.getElementsByTagName("input");
