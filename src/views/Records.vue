@@ -193,17 +193,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-8">
                   <div class="d-flex align-items-center">
                     <div class="fs-14px mb-3 line-h-11">
                       {{ record.route.location }}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="d-flex align-items-center">
-                    <div class="fs-18px mb-3 line-h-11">
-                      {{ record.date }}
                     </div>
                   </div>
                 </div>
@@ -215,7 +208,7 @@
                         @click="recordShow(record)"
                         data-bs-toggle="modal"
                         data-bs-target="#modalDetail"
-                        ><i class="fas fa-external-link-alt h-40px"></i
+                        ><i class="ps-3 fas fa-external-link-alt h-40px"></i
                       ></a>
                     </div>
                   </div>
@@ -245,15 +238,21 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-1 align-items-center">
-                  <div class="d-flex">
-                    <div class="container text-center">
-                      <div class="fs-16px line-h-16">
-                        <a :href="record.route.mp_url" target="_blank"
-                          ><img
-                            src="/assets_admin/img/logo/mtnproject.png"
-                            class="rounded h-40px"
-                        /></a>
+                <div class="col-2">
+                  <div class="d-flex align-items-center">
+                    <div class="pt-2 ps-5 fs-18px">
+                      {{ recordDate(record.date) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-1">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                        Result
+                      </div>
+                      <div class="fw-bold text-gray-800 fs-16px">
+                        {{ record.result }}
                       </div>
                     </div>
                   </div>
@@ -262,34 +261,40 @@
                   <div class="d-flex align-items-center">
                     <div>
                       <div class="fw-bold text-gray-600 fs-12px line-h-12">
-                        Result:
+                        In Progress
                       </div>
-                      <div class="fw-bold text-gray-800 fs-16px">
-                        {{ record.result }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-1" v-if="record.in_progress">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
-                        In Progress:
-                      </div>
-                      <div class="fw-bold text-gray-800 fs-16px">
+                      <div
+                        v-if="record.in_progress"
+                        class="fw-bold text-gray-800 fs-16px"
+                      >
                         {{ record.in_progress }}
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-1" v-if="record.rating">
+                <div class="col-1">
                   <div class="d-flex align-items-center">
                     <div>
                       <div class="fw-bold text-gray-600 fs-12px line-h-12">
-                        Rating:
+                        Rating
+                      </div>
+                      <div
+                        v-if="record.rating"
+                        class="fw-bold text-gray-800 fs-16px"
+                      >
+                        {{ record.rating }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
+                        Partner
                       </div>
                       <div class="fw-bold text-gray-800 fs-16px">
-                        {{ record.rating }}
+                        {{ record.partner }}
                       </div>
                     </div>
                   </div>
@@ -298,24 +303,24 @@
                   <div class="d-flex align-items-center">
                     <div>
                       <div class="fw-bold text-gray-600 fs-12px line-h-12">
-                        Partner:
+                        Collection
                       </div>
-                      <div class="fw-bold text-gray-800 fs-16px">
-                        {{ record.partner }}
+                      <div
+                        v-if="record.collection"
+                        class="fw-bold text-gray-800 fs-16px"
+                      >
+                        {{ record.collection.name }}
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-2" v-if="record.collection">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
-                        Collection:
-                      </div>
-                      <div class="fw-bold text-gray-800 fs-16px">
-                        {{ record.collection.name }}
-                      </div>
-                    </div>
+                <div class="col-1">
+                  <div class="fs-16px line-h-16">
+                    <a :href="record.route.mp_url" target="_blank"
+                      ><img
+                        src="/assets_admin/img/logo/mtnproject.png"
+                        class="ps-1 rounded h-40px"
+                    /></a>
                   </div>
                 </div>
               </div>
@@ -572,6 +577,11 @@
             <div class="row gx-0">
               <div class="col-md-12 p-4 border-end fs-14px line-h-16">
                 <form v-on:submit.prevent="recordCreate()">
+                  <datalist id="routes">
+                    <option v-for="route in routes" v-bind:key="route.id">
+                      {{ route.name }}
+                    </option>
+                  </datalist>
                   <div class="row gx-3 mb-2">
                     <label class="form-label col-form-label col-md-1"
                       >Date</label
@@ -609,7 +619,9 @@
                     <div class="col-lg-6 mb-2">
                       <input
                         type="text"
-                        v-model="newRecordParams.route_id"
+                        list="routes"
+                        v-model="routeSelected"
+                        @change="setSelectedObject()"
                         class="form-control form-control-lg rounded-2"
                       />
                     </div>
@@ -622,6 +634,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg rounded-2"
+                        v-model="routeSelectedObject.crag"
                         readonly
                       />
                     </div>
@@ -632,6 +645,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg rounded-2"
+                        v-model="routeSelectedObject.area"
                         readonly
                       />
                     </div>
@@ -774,6 +788,7 @@
 <script>
 import axios from "axios";
 import Vue2Filters from "vue2-filters";
+import moment from "moment";
 
 export default {
   mixins: [Vue2Filters.mixin],
@@ -801,6 +816,9 @@ export default {
       currentRecord: { route: { name: "" }, collection: { name: "" } },
       addToCollection: false,
       index: 0,
+      routes: [],
+      routeSelected: "",
+      routeSelectedObject: {},
     };
   },
   created: function () {
@@ -828,15 +846,25 @@ export default {
       console.log("Collections", response.data);
       this.collections = response.data;
     });
+    axios.get("/routes").then((response) => {
+      console.log("Routes", response.data);
+      this.routes = response.data;
+    });
   },
   methods: {
+    recordDate: (date) => {
+      return moment(date).format("l");
+    },
     recordCreate: function () {
+      this.newRecordParams["route_id"] = this.routeSelectedObject.id;
       axios
         .post("/records", this.newRecordParams)
         .then((response) => {
           console.log(response.data);
           this.records.push(response.data);
-          this.newRecordParams = {};
+          this.newRecordParams = { result: "", in_progress: false, rating: "" };
+          this.routeSelected = "";
+          this.routeSelectedObject = {};
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
@@ -887,6 +915,8 @@ export default {
     },
     clearNewParams: function () {
       this.newRecordParams = { result: "", in_progress: false, rating: "" };
+      this.routeSelected = "";
+      this.routeSelectedObject = {};
     },
     clearEditParams: function () {
       this.editRecordParams = {};
@@ -907,6 +937,12 @@ export default {
       } else {
         this.progressFilter = null;
       }
+    },
+    setSelectedObject: function () {
+      this.routeSelectedObject = this.routes.find(
+        (route) => route.name === this.routeSelected
+      );
+      console.log(this.routeSelectedObject);
     },
   },
 };
