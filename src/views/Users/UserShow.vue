@@ -116,26 +116,82 @@
             <div class="col-lg-12">
               <div class="card shadow border-0 mb-5">
                 <div class="card-body p-4">
-                  <div class="container text-center">
-                    <div class="ms-5 fs-30px fw-bold text-black-400">
-                      All Climbs
+                  <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                      <div class="container text-center">
+                        <div class="fs-30px fw-bold text-black-400">
+                          All Climbs
+                        </div>
+                      </div>
                     </div>
+                    <div class="col-lg-3">
+                      <div class="row pb-3">
+                        <div class="col-lg-6"></div>
+                        <div class="col-lg-6">
+                          <div
+                            class="
+                              w-65px
+                              h-40px
+                              rounded-2
+                              bg-gray-400
+                              text-gray-600
+                              d-md-flex
+                              align-items-center
+                              justify-content-center
+                            "
+                          >
+                            <div class="fw-bold text-gray-800 fs-16px">
+                              {{ totalClimbsAll }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <GChart
+                      :settings="{ packages: ['bar'] }"
+                      :data="allClimbs"
+                      :options="chartOptions"
+                      :createChart="(el, google) => new google.charts.Bar(el)"
+                    />
                   </div>
-                  <GChart
-                    :settings="{ packages: ['bar'] }"
-                    :data="allClimbs"
-                    :options="chartOptions"
-                    :createChart="(el, google) => new google.charts.Bar(el)"
-                  />
                 </div>
               </div>
             </div>
             <div class="col-lg-12">
               <div class="card shadow border-0 mb-5">
                 <div class="card-body p-4">
-                  <div class="container text-center">
-                    <div class="ms-5 fs-30px fw-bold text-black-400">
-                      Sent Climbs
+                  <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                      <div class="container text-center">
+                        <div class="fs-30px fw-bold text-black-400">
+                          Sent Climbs
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="row pb-3">
+                        <div class="col-lg-6"></div>
+                        <div class="col-lg-6">
+                          <div
+                            class="
+                              w-65px
+                              h-40px
+                              rounded-2
+                              bg-blue-500
+                              text-white-600
+                              d-md-flex
+                              align-items-center
+                              justify-content-center
+                            "
+                          >
+                            <div class="fw-bold text-white fs-20px">
+                              {{ totalClimbsSent }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <GChart
@@ -151,47 +207,44 @@
               <div class="card shadow border-0 mb-5">
                 <div class="card-body p-4">
                   <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col-8">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
                       <div class="container text-center">
-                        <div class="ms-5 fs-30px fw-bold text-black-400">
+                        <div class="fs-30px fw-bold text-black-400">
                           Climbing Days Per Year
-                          <div class="d-inline-block">
-                            <div
-                              class="
-                                ms-2
-                                w-65px
-                                h-45px
-                                rounded-2
-                                bg-gray-400
-                                text-gray-600
-                                d-md-flex
-                                align-items-center
-                                justify-content-center
-                              "
-                            >
-                              <div class="fw-bold text-gray-800 fs-16px">
-                                {{ totalDays[chartYear] }}
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-2">
-                      <div
-                        class="
-                          ms-auto
-                          d-md-flex
-                          align-items-center
-                          justify-content-center
-                        "
-                      >
-                        <select class="form-select w-80px" v-model="chartYear">
-                          <option value="2021">2021</option>
-                          <option value="2020">2020</option>
-                          <option value="2019">2019</option>
-                        </select>
+                    <div class="col-lg-3">
+                      <div class="row pt-1 pb-3">
+                        <div class="col-lg-6">
+                          <select
+                            class="form-select form-select-lg w-100px"
+                            v-model="chartYear"
+                          >
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-6">
+                          <div
+                            class="
+                              w-65px
+                              h-40px
+                              rounded-2
+                              bg-gray-400
+                              text-gray-600
+                              d-md-flex
+                              align-items-center
+                              justify-content-center
+                            "
+                          >
+                            <div class="fw-bold text-gray-800 fs-16px">
+                              {{ totalDays[chartYear] }}
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -227,9 +280,37 @@
             <div class="col-lg-12">
               <div class="card shadow border-0 mb-5">
                 <div class="card-body p-4">
-                  <div class="container text-center">
-                    <div class="ms-5 fs-30px fw-bold text-black-400">
-                      Map of Areas Climbed
+                  <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                      <div class="container text-center">
+                        <div class="fs-30px fw-bold text-black-400">
+                          Map of Areas Climbed
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="row pb-3">
+                        <div class="col-lg-6"></div>
+                        <div class="col-lg-6">
+                          <div
+                            class="
+                              w-65px
+                              h-40px
+                              rounded-2
+                              bg-gray-400
+                              text-gray-600
+                              d-md-flex
+                              align-items-center
+                              justify-content-center
+                            "
+                          >
+                            <div class="fw-bold text-gray-800 fs-16px">
+                              {{ areas.length }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div id="map"></div>
@@ -804,7 +885,9 @@ export default {
   data: function () {
     return {
       allClimbs: [],
+      totalClimbsAll: 0,
       sentClimbs: [],
+      totalClimbsSent: 0,
       days2019: [],
       days2020: [],
       days2021: [],
@@ -814,6 +897,7 @@ export default {
         legend: { position: "none" },
         hAxis: { position: "none" },
       },
+      areas: [],
       user: {},
       editUserParams: {},
       edit: false,
@@ -829,12 +913,13 @@ export default {
     });
     axios.get("/grades_all").then((response) => {
       console.log("All grades array", response.data);
-      this.allClimbs = response.data;
+      this.allClimbs = response.data.grades;
+      this.totalClimbsAll = response.data.total;
     });
     axios.get("/grades_sent").then((response) => {
       console.log("Sent grades array", response.data);
-      this.sentClimbs = response.data;
-      console.log(this.weatherAPI);
+      this.sentClimbs = response.data.grades;
+      this.totalClimbsSent = response.data.total;
     });
     axios.get("/climbing_days").then((response) => {
       console.log("Climbing days", response.data);
@@ -878,6 +963,7 @@ export default {
   mounted: function () {
     axios.get("/areas_climbed_map").then((response) => {
       console.log("Areas climbed", response.data);
+      this.areas = response.data;
       var places = response.data;
       places.forEach((place) => {
         var popup = new mapboxgl.Popup({ offset: 25 }).setText(
