@@ -365,11 +365,12 @@
               href="#"
               class="btn-close"
               data-bs-dismiss="modal"
-              @click="editClose()"
+              @click="clearEditParams()"
             ></a>
           </div>
           <div class="modal-body p-0">
             <div class="row gx-0">
+              <!-- BEGIN Record Show -->
               <div
                 class="col-md-8 p-4 border-end fs-14px line-h-16"
                 v-if="!this.editToggle"
@@ -377,16 +378,56 @@
                 <div class="h5 mb-3">Comments:</div>
                 {{ currentRecord.comments }}
                 <hr class="my-4" />
-                <div class="h5 mb-3">Result: {{ currentRecord.result }}</div>
-                <div class="h5 mb-3">
-                  In Progress: {{ currentRecord.in_progress }}
+                <div class="row gx-3 mb-2">
+                  <label class="form-label col-form-label col-lg-3">Date</label>
+                  <div class="col-lg-9 h4 mt-2">
+                    {{ currentRecord.date }}
+                  </div>
                 </div>
-                <div class="h5 mb-3">Rating: {{ currentRecord.rating }}</div>
-                <div class="h5 mb-3">Partner: {{ currentRecord.partner }}</div>
-                <div class="h5 mb-3" v-if="currentRecord.collection">
-                  Collection: {{ currentRecord.collection.name }}
+                <div class="row gx-3 mb-2">
+                  <label class="form-label col-form-label col-lg-3"
+                    >Result</label
+                  >
+                  <div class="col-lg-4 h4 mt-2">
+                    {{ currentRecord.result }}
+                  </div>
+                  <div class="col-lg-5"></div>
+                </div>
+                <div class="row gx-3 mb-2" v-if="currentRecord.in_progress">
+                  <label class="form-label col-form-label col-lg-3"
+                    >In Progress</label
+                  >
+                  <div class="col-lg-9 h4 mt-2">
+                    {{ currentRecord.in_progress }}
+                  </div>
+                </div>
+                <div class="row gx-3 mb-2" v-if="currentRecord.rating">
+                  <label class="form-label col-form-label col-lg-3"
+                    >Rating</label
+                  >
+                  <div class="col-lg-9 h4 mt-2">
+                    {{ currentRecord.rating }}
+                  </div>
+                </div>
+                <div class="row gx-3 mb-2">
+                  <label class="form-label col-form-label col-lg-3"
+                    >Partner</label
+                  >
+                  <div class="col-lg-9 h4 mt-2">
+                    {{ currentRecord.partner }}
+                  </div>
+                </div>
+                <div class="row gx-3 mb-2" v-if="currentRecord.collection">
+                  <label class="form-label col-form-label col-lg-3"
+                    >Collection</label
+                  >
+                  <div class="col-lg-9 h4 mt-2">
+                    {{ currentRecord.collection.name }}
+                  </div>
                 </div>
               </div>
+              <!-- END Record Show -->
+              <!-- BEGIN Record Edit -->
               <div
                 class="col-md-8 p-4 border-end fs-14px line-h-16"
                 v-if="this.editToggle"
@@ -402,6 +443,18 @@
                   ></textarea>
                 </div>
                 <hr class="my-4" />
+                <div class="row gx-3 mb-2">
+                  <label class="form-label col-form-label col-md-3">Date</label>
+                  <div class="col-lg-4 mb-2">
+                    <input
+                      type="text"
+                      class="form-control form-control-md rounded-2"
+                      placeholder="YYYY-MM-DD"
+                      v-model="editRecordParams.date"
+                    />
+                  </div>
+                  <div class="col-lg-5"></div>
+                </div>
                 <div class="row gx-3 mb-2">
                   <label class="form-label col-form-label col-md-3"
                     >Result</label
@@ -473,6 +526,7 @@
                   Collection: {{ currentRecord.collection.name }}
                 </div>
               </div>
+              <!-- END Record Edit -->
               <div class="col-md-8 p-4 border-end fs-14px line-h-16">
                 <hr class="my-4" />
                 <div class="row">
@@ -511,7 +565,7 @@
                   </div>
                   <div class="col-xl-4" v-if="!editToggle">
                     <button
-                      @click="stopEdit()"
+                      @click="clearEditParams()"
                       type="button"
                       class="
                         btn btn-lg btn-secondary
@@ -886,7 +940,10 @@ export default {
     },
     recordShow: function (record) {
       this.currentRecord = Object.assign(this.currentRecord, record);
-      this.editRecordParams = this.currentRecord;
+      this.editRecordParams = Object.assign(
+        this.editRecordParams,
+        this.currentRecord
+      );
       this.index = this.records.indexOf(record);
       console.log(this.index);
       console.log(this.currentRecord);
@@ -921,12 +978,12 @@ export default {
       this.serach = "";
       this.cragFilter = "";
       this.areaFilter = "";
-      var inputs = document.getElementsByTagName("input");
-      for (let i = 0; i < inputs.length; i++) {
-        if (inputs[i].type === "checkbox") {
-          inputs[i].checked = false;
-        }
-      }
+      // var inputs = document.getElementsByTagName("input");
+      // for (let i = 0; i < inputs.length; i++) {
+      //   if (inputs[i].type === "checkbox") {
+      //     inputs[i].checked = false;
+      //   }
+      // }
     },
     clearNewParams: function () {
       this.newRecordParams = { result: "", in_progress: false, rating: "" };
@@ -934,26 +991,23 @@ export default {
       this.routeSelectedObject = {};
     },
     clearEditParams: function () {
-      this.editRecordParams = {};
+      this.editRecordParams = this.currentRecord;
       this.addToCollection = false;
       this.editToggle = false;
     },
     edit: function () {
       this.editToggle = !this.editToggle;
     },
-    editClose: function () {
-      this.editToggle = false;
-    },
     addCollection: function () {
       this.addToCollection = true;
     },
-    changeProgressFilter: function () {
-      if (this.progressFilter === null) {
-        this.progressFilter = true;
-      } else {
-        this.progressFilter = null;
-      }
-    },
+    // changeProgressFilter: function () {
+    //   if (this.progressFilter === null) {
+    //     this.progressFilter = true;
+    //   } else {
+    //     this.progressFilter = null;
+    //   }
+    // },
     setSelectedObject: function () {
       this.routeSelectedObject = this.routes.find(
         (route) => route.name === this.routeSelected

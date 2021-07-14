@@ -141,7 +141,7 @@
                               justify-content-center
                             "
                           >
-                            <div class="fw-bold text-gray-800 fs-16px">
+                            <div class="fw-bold text-gray-800 fs-18px">
                               {{ totalClimbsAll }}
                             </div>
                           </div>
@@ -179,14 +179,14 @@
                               w-65px
                               h-40px
                               rounded-2
-                              bg-blue-500
-                              text-white-600
+                              bg-gray-400
+                              text-gray-600
                               d-md-flex
                               align-items-center
                               justify-content-center
                             "
                           >
-                            <div class="fw-bold text-white fs-20px">
+                            <div class="fw-bold text-gray-800 fs-18px">
                               {{ totalClimbsSent }}
                             </div>
                           </div>
@@ -240,7 +240,7 @@
                               justify-content-center
                             "
                           >
-                            <div class="fw-bold text-gray-800 fs-16px">
+                            <div class="fw-bold text-gray-800 fs-18px">
                               {{ totalDays[chartYear] }}
                             </div>
                           </div>
@@ -305,7 +305,7 @@
                               justify-content-center
                             "
                           >
-                            <div class="fw-bold text-gray-800 fs-16px">
+                            <div class="fw-bold text-gray-800 fs-18px">
                               {{ areas.length }}
                             </div>
                           </div>
