@@ -55,6 +55,7 @@
                     placeholder="Grade"
                   >
                     <option value="" disabled selected hidden>Grade</option>
+                    <option value=""></option>
                     <option v-for="grade in grades" v-bind:key="grade">
                       {{ grade }}
                     </option>
@@ -63,6 +64,7 @@
                 <div class="col-xl-2">
                   <select class="form-select" v-model="resultFilter">
                     <option value="" disabled selected hidden>Result</option>
+                    <option value=""></option>
                     <option value="onsight">onsight</option>
                     <option value="flash">flash</option>
                     <option value="redpoint">redpoint</option>
@@ -76,6 +78,7 @@
                     <option value="null" disabled selected hidden>
                       Rating
                     </option>
+                    <option value="null"></option>
                     <option value="0.0">0.0</option>
                     <option value="0.5">0.5</option>
                     <option value="1.0">1.0</option>
@@ -132,6 +135,7 @@
                 <div class="col-xl-2">
                   <select class="form-select" v-model="partnerFilter">
                     <option value="" disabled selected hidden>Partner</option>
+                    <option value=""></option>
                     <option v-for="partner in partners" v-bind:key="partner">
                       {{ partner }}
                     </option>
@@ -374,12 +378,10 @@
                 {{ currentRecord.comments }}
                 <hr class="my-4" />
                 <div class="h5 mb-3">Result: {{ currentRecord.result }}</div>
-                <div class="h5 mb-3" v-if="currentRecord.in_progress">
+                <div class="h5 mb-3">
                   In Progress: {{ currentRecord.in_progress }}
                 </div>
-                <div class="h5 mb-3" v-if="currentRecord.rating">
-                  Rating: {{ currentRecord.rating }}
-                </div>
+                <div class="h5 mb-3">Rating: {{ currentRecord.rating }}</div>
                 <div class="h5 mb-3">Partner: {{ currentRecord.partner }}</div>
                 <div class="h5 mb-3" v-if="currentRecord.collection">
                   Collection: {{ currentRecord.collection.name }}
@@ -400,9 +402,11 @@
                   ></textarea>
                 </div>
                 <hr class="my-4" />
-                <div class="h5 mb-3">
-                  Result:
-                  <div class="col-lg-3 mb-2">
+                <div class="row gx-3 mb-2">
+                  <label class="form-label col-form-label col-md-3"
+                    >Result</label
+                  >
+                  <div class="col-lg-4 mb-2">
                     <select
                       class="form-select"
                       v-model="editRecordParams.result"
@@ -416,38 +420,25 @@
                     </select>
                   </div>
                 </div>
-                <div class="h5 mb-3" v-if="editRecordParams.in_progress">
-                  In Progress:
-                  <div
-                    class="col-lg-3 mb-2"
-                    v-if="
-                      editRecordParams.result === '1 fall' ||
-                      editRecordParams.result === '2 falls' ||
-                      editRecordParams.result === 'beta'
-                    "
+                <div class="row gx-3 mb-2">
+                  <label class="form-label col-form-label col-md-3"
+                    >In Progress</label
                   >
+                  <div class="col-lg-4 mb-2">
                     <select
                       class="form-select"
                       v-model="editRecordParams.in_progress"
                     >
-                      <option value="" disabled selected hidden>
-                        In Progress
-                      </option>
+                      <option value="null"></option>
                       <option value="true">true</option>
-                      <option value="false">false</option>
                     </select>
                   </div>
                 </div>
-                <div class="h5 mb-3" v-if="editRecordParams.rating">
-                  Rating:
-                  <div
-                    class="col-lg-3 mb-2"
-                    v-if="
-                      editRecordParams.result === 'onsight' ||
-                      editRecordParams.result === 'flash' ||
-                      editRecordParams.result === 'redpoint'
-                    "
+                <div class="row gx-3 mb-2">
+                  <label class="form-label col-form-label col-md-3"
+                    >Rating</label
                   >
+                  <div class="col-lg-4 mb-2">
                     <select
                       class="form-select"
                       v-model="editRecordParams.rating"
@@ -465,15 +456,16 @@
                     </select>
                   </div>
                 </div>
-                <div class="h5 mb-3">
-                  Partner:
-                  <div class="col-lg-3 mb-2">
+                <div class="row gx-3 mb-2">
+                  <label class="form-label col-form-label col-md-3"
+                    >Partner</label
+                  >
+                  <div class="col-lg-4 mb-2">
                     <input
                       type="text"
                       v-model="editRecordParams.partner"
-                      class="form-control form-control-lg rounded-2"
+                      class="form-control form-control-md rounded-2"
                       placeholder="Partner"
-                      name="partner"
                     />
                   </div>
                 </div>
@@ -484,7 +476,7 @@
               <div class="col-md-8 p-4 border-end fs-14px line-h-16">
                 <hr class="my-4" />
                 <div class="row">
-                  <div class="col-xl-4" v-if="!this.editToggle">
+                  <div class="col-xl-4" v-if="!editToggle">
                     <button
                       @click="edit()"
                       type="button"
@@ -500,7 +492,7 @@
                       Edit
                     </button>
                   </div>
-                  <div class="col-xl-4" v-if="this.editToggle">
+                  <div class="col-xl-4" v-if="editToggle">
                     <button
                       type="button"
                       class="
@@ -517,9 +509,9 @@
                       Update
                     </button>
                   </div>
-                  <div class="col-xl-4" v-if="!this.editToggle">
+                  <div class="col-xl-4" v-if="!editToggle">
                     <button
-                      @click="recordDestroy(currentRecord)"
+                      @click="stopEdit()"
                       type="button"
                       class="
                         btn btn-lg btn-secondary
@@ -531,12 +523,29 @@
                       "
                       data-bs-dismiss="modal"
                     >
+                      Close
+                    </button>
+                  </div>
+                  <div class="col-xl-4" v-if="!editToggle">
+                    <button
+                      @click="recordDestroy(currentRecord)"
+                      type="button"
+                      class="
+                        btn btn-xs btn-danger
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                      data-bs-dismiss="modal"
+                    >
                       Delete
                     </button>
                   </div>
-                  <div class="col-xl-4" v-if="this.editToggle">
+                  <div class="col-xl-4" v-if="editToggle">
                     <button
-                      @click="edit()"
+                      @click="clearEditParams()"
                       type="button"
                       class="
                         btn btn-lg btn-secondary
@@ -813,7 +822,12 @@ export default {
       crags: [],
       areas: [],
       collections: [],
-      currentRecord: { route: { name: "" }, collection: { name: "" } },
+      currentRecord: {
+        in_progress: "",
+        rating: "",
+        route: { name: "" },
+        collection: { name: "" },
+      },
       addToCollection: false,
       index: 0,
       routes: [],
@@ -884,6 +898,7 @@ export default {
           console.log(response.data);
           this.records.splice(this.index, 1, response.data);
           this.editRecordParams = {};
+          this.editToggle = false;
           this.addToCollection = false;
         })
         .catch((error) => {
@@ -921,6 +936,7 @@ export default {
     clearEditParams: function () {
       this.editRecordParams = {};
       this.addToCollection = false;
+      this.editToggle = false;
     },
     edit: function () {
       this.editToggle = !this.editToggle;
@@ -942,7 +958,6 @@ export default {
       this.routeSelectedObject = this.routes.find(
         (route) => route.name === this.routeSelected
       );
-      console.log(this.routeSelectedObject);
     },
   },
 };
