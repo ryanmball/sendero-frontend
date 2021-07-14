@@ -38,12 +38,17 @@
                     <div class="col-lg-6">
                       <h1>{{ user.first_name }} {{ user.last_name }}</h1>
                       <div>
-                        <a
-                          href="#"
-                          data-bs-toggle="modal"
-                          data-bs-target="#modalDetail"
-                          ><i class="fas fa-external-link-alt h-40px"></i
-                        ></a>
+                        <ul class="list-unstyled fw-bold pb-3">
+                          <li class="mb-2">
+                            <a
+                              href="#"
+                              class="text-decoration-none text-gray-600"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalDetail"
+                              ><i class="fas fa-cog me-1"></i>Account Info</a
+                            >
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -86,7 +91,7 @@
                   </a>
                 </li>
               </ul>
-              <!-- <div class="tab-content bg-white p-3 ms-3">
+              <div class="tab-content bg-white p-3 ms-3">
                 <div class="tab-pane fade active show" id="default-tab-1">
                   <div
                     id="openweathermap-widget-1"
@@ -105,7 +110,7 @@
                     class="d-flex w-100 mb-3"
                   ></div>
                 </div>
-              </div> -->
+              </div>
             </div>
             <!-- END weather widget -->
           </div>
@@ -603,253 +608,11 @@
       </div>
     </div>
     <!-- END account info and edit/delete modal -->
-
-    <!-- BEGIN section -->
-    <!-- <div class="section pt-0">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card shadow border-0 mb-5">
-              <div class="card-body p-4">
-                <div
-                  class="
-                    mb-3
-                    w-50px
-                    h-50px
-                    rounded-3
-                    bg-indigo
-                    text-white
-                    d-flex
-                    align-items-center
-                    justify-content-center
-                    position-relative
-                  "
-                >
-                  <i class="fab fa-bootstrap fs-28px"></i>
-                  <span
-                    class="
-                      badge
-                      position-absolute
-                      mt-n5
-                      me-n5
-                      bg-indigo-700
-                      rounded-1
-                    "
-                    >5.0</span
-                  >
-                </div>
-                <h4>Bootstrap 5 Template</h4>
-                <p class="fw-bold text-gray-700 mb-0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </p>
-                <a href="#" class="stretched-link"></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card shadow border-0 mb-5">
-              <div class="card-body p-4">
-                <div
-                  class="
-                    mb-3
-                    w-50px
-                    h-50px
-                    rounded-3
-                    bg-primary
-                    text-white
-                    d-flex
-                    align-items-center
-                    justify-content-center
-                    position-relative
-                  "
-                >
-                  <i class="fa fa-code-branch fs-28px"></i>
-                </div>
-                <h4>Cross Platform Ready</h4>
-                <p class="fw-bold text-gray-600 mb-0">
-                  Sed vehicula eu justo nec rutrum. Vivamus dignissim leo ac
-                  quam iaculis rutrum.
-                </p>
-                <a href="#" class="stretched-link"></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card shadow border-0 mb-5">
-              <div class="card-body p-4">
-                <div
-                  class="
-                    mb-3
-                    w-50px
-                    h-50px
-                    rounded-3
-                    bg-gray-500
-                    text-white
-                    d-flex
-                    align-items-center
-                    justify-content-center
-                    position-relative
-                  "
-                >
-                  <i class="fa fa-headset fs-28px"></i>
-                </div>
-                <h4>Continuous Support</h4>
-                <p class="fw-bold text-gray-600 mb-0">
-                  Cras lacus diam, rhoncus et iaculis nec, aliquam id mauris.
-                </p>
-                <a href="#" class="stretched-link"></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card shadow border-0 mb-5">
-              <div class="card-body p-4">
-                <div
-                  class="
-                    mb-3
-                    w-50px
-                    h-50px
-                    rounded-3
-                    bg-teal
-                    text-white
-                    d-flex
-                    align-items-center
-                    justify-content-center
-                    position-relative
-                  "
-                >
-                  <i class="fa fa-pen fs-28px"></i>
-                </div>
-                <h4>Well documented</h4>
-                <p class="fw-bold text-gray-600 mb-0">
-                  Nulla faucibus, lorem eu placerat mollis, odio velit efficitur
-                  lorem
-                </p>
-                <a href="#" class="stretched-link"></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card shadow border-0 mb-5">
-              <div class="card-body p-4">
-                <div
-                  class="
-                    mb-3
-                    w-50px
-                    h-50px
-                    rounded-3
-                    bg-orange
-                    text-white
-                    d-flex
-                    align-items-center
-                    justify-content-center
-                    position-relative
-                  "
-                >
-                  <i class="fa fa-lightbulb fs-28px"></i>
-                </div>
-                <h4>Easy to Understand</h4>
-                <p class="fw-bold text-gray-600 mb-0">
-                  Sed porttitor odio eu mi sollicitudin scelerisque id sed
-                  lacus.
-                </p>
-                <a href="#" class="stretched-link"></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card shadow border-0 mb-5">
-              <div class="card-body p-4">
-                <div
-                  class="
-                    mb-3
-                    w-50px
-                    h-50px
-                    rounded-3
-                    bg-red
-                    text-white
-                    d-flex
-                    align-items-center
-                    justify-content-center
-                    position-relative
-                  "
-                >
-                  <i class="fa fa-bug fs-28px"></i>
-                </div>
-                <h4>Bugs Free</h4>
-                <p class="fw-bold text-gray-600 mb-0">
-                  Mauris vehicula ultrices arcu, vitae tristique massa egestas
-                  vitae.
-                </p>
-                <a href="#" class="stretched-link"></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card shadow border-0 mb-5">
-              <div class="card-body p-4">
-                <div
-                  class="
-                    mb-3
-                    w-50px
-                    h-50px
-                    rounded-3
-                    bg-info
-                    text-white
-                    d-flex
-                    align-items-center
-                    justify-content-center
-                    position-relative
-                  "
-                >
-                  <i class="fa fa-layer-group fs-28px"></i>
-                </div>
-                <h4>Unlimited Widget</h4>
-                <p class="fw-bold text-gray-600 mb-0">
-                  Suspendisse feugiat lectus ac nulla semper, in tincidunt odio
-                  tempor.
-                </p>
-                <a href="#" class="stretched-link"></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card shadow border-0 mb-5">
-              <div class="card-body p-4">
-                <div
-                  class="
-                    mb-3
-                    w-50px
-                    h-50px
-                    rounded-3
-                    bg-yellow
-                    text-black
-                    d-flex
-                    align-items-center
-                    justify-content-center
-                    position-relative
-                  "
-                >
-                  <i class="fa fa-check fs-28px"></i>
-                </div>
-                <h4>JSHint Valid</h4>
-                <p class="fw-bold text-gray-600 mb-0">
-                  Aenean interdum eros ligula, vitae ornare tortor sagittis in.
-                </p>
-                <a href="#" class="stretched-link"></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!-- END section -->
   </div>
 </template>
 
 <style>
 .profile-pic {
-  border-radius: 50%;
   width: 100%;
 }
 #map {
@@ -1019,7 +782,7 @@ export default {
     },
     profilePicUpdate: function (user_id) {
       var formData = new FormData();
-      formData.append("profile_pic", this.image);
+      formData.append("image", this.image);
       formData.append("user_id", user_id);
       axios
         .patch(`/users/${user_id}`, formData)
@@ -1044,9 +807,11 @@ export default {
     },
     editUser: function () {
       this.edit = true;
+      this.editUserParams = {};
     },
     stopEdit: function () {
       this.edit = false;
+      this.editUserParams = {};
     },
   },
 };
