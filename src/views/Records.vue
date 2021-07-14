@@ -381,7 +381,7 @@
                 <div class="row gx-3 mb-2">
                   <label class="form-label col-form-label col-lg-3">Date</label>
                   <div class="col-lg-9 h4 mt-2">
-                    {{ currentRecord.date }}
+                    {{ recordDate(currentRecord.date) }}
                   </div>
                 </div>
                 <div class="row gx-3 mb-2">
@@ -425,7 +425,68 @@
                     {{ currentRecord.collection.name }}
                   </div>
                 </div>
+                <hr class="my-4" />
+                <div class="row" v-if="!editToggle">
+                  <div class="col-lg-4">
+                    <button
+                      @click="edit()"
+                      type="button"
+                      class="
+                        btn btn-lg btn-primary
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                    >
+                      Edit
+                    </button>
+                  </div>
+                  <div class="col-lg-4">
+                    <button
+                      @click="clearEditParams()"
+                      type="button"
+                      class="
+                        btn btn-lg btn-secondary
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                  <div class="col-lg-4">
+                    <button
+                      @click="recordDestroy(currentRecord)"
+                      type="button"
+                      class="
+                        btn btn-xs btn-danger
+                        d-block
+                        w-100
+                        fw-bold
+                        rounded-2
+                        height-50px
+                      "
+                      data-bs-dismiss="modal"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
               </div>
+              <div
+                class="col-md-4 p-4 section-bg"
+                style="
+                  background-image: url(/assets/img/bg/portraitmtn8.jpeg);
+                  background-size: cover;
+                "
+                v-if="!this.editToggle"
+              ></div>
               <!-- END Record Show -->
               <!-- BEGIN Record Edit -->
               <div
@@ -525,28 +586,9 @@
                 <div class="h5 mb-3" v-if="currentRecord.collection">
                   Collection: {{ currentRecord.collection.name }}
                 </div>
-              </div>
-              <!-- END Record Edit -->
-              <div class="col-md-8 p-4 border-end fs-14px line-h-16">
                 <hr class="my-4" />
-                <div class="row">
-                  <div class="col-xl-4" v-if="!editToggle">
-                    <button
-                      @click="edit()"
-                      type="button"
-                      class="
-                        btn btn-lg btn-primary
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
-                    >
-                      Edit
-                    </button>
-                  </div>
-                  <div class="col-xl-4" v-if="editToggle">
+                <div class="row" v-if="editToggle">
+                  <div class="col-lg-4">
                     <button
                       type="button"
                       class="
@@ -563,41 +605,7 @@
                       Update
                     </button>
                   </div>
-                  <div class="col-xl-4" v-if="!editToggle">
-                    <button
-                      @click="clearEditParams()"
-                      type="button"
-                      class="
-                        btn btn-lg btn-secondary
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                  </div>
-                  <div class="col-xl-4" v-if="!editToggle">
-                    <button
-                      @click="recordDestroy(currentRecord)"
-                      type="button"
-                      class="
-                        btn btn-xs btn-danger
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
-                      data-bs-dismiss="modal"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                  <div class="col-xl-4" v-if="editToggle">
+                  <div class="col-lg-4">
                     <button
                       @click="clearEditParams()"
                       type="button"
@@ -615,7 +623,15 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-4 p-4">put a picture or icon here</div>
+              <div
+                class="col-md-4 p-4 section-bg"
+                style="
+                  background-image: url(/assets/img/bg/portraitmtn4.jpeg);
+                  background-size: cover;
+                "
+                v-if="this.editToggle"
+              ></div>
+              <!-- END Record Edit -->
             </div>
           </div>
         </div>
