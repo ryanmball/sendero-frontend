@@ -91,7 +91,7 @@
                   </a>
                 </li>
               </ul>
-              <!-- <div class="tab-content bg-white p-3 ms-3">
+              <div class="tab-content bg-white p-3 ms-3">
                 <div class="tab-pane fade active show" id="default-tab-1">
                   <div
                     id="openweathermap-widget-1"
@@ -110,7 +110,7 @@
                     class="d-flex w-100 mb-3"
                   ></div>
                 </div>
-              </div> -->
+              </div>
             </div>
             <!-- END weather widget -->
           </div>
@@ -665,7 +665,7 @@ export default {
       editUserParams: {},
       edit: false,
       image: "",
-      // weatherAPI: process.env.VUE_APP_OPENWEATHER_ACCESS_TOKEN,
+      weatherAPI: process.env.VUE_APP_OPENWEATHER_ACCESS_TOKEN,
     };
   },
 
