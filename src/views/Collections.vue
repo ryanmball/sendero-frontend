@@ -36,7 +36,7 @@
                       <img
                         style="background-image"
                         :src="collection.images[0].url"
-                        alt=""
+                        alt="Cover Photo"
                       />
                     </div>
                   </div>
@@ -156,7 +156,6 @@ export default {
       collections: [],
       newCollectionParams: {},
       errors: [],
-      collection: {},
       image: "",
     };
   },
@@ -164,6 +163,7 @@ export default {
     axios.get("/collections").then((response) => {
       console.log(response.data);
       this.collections = response.data;
+      console.log(this.collections[0].images[0].url);
     });
   },
   methods: {
