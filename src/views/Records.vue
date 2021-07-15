@@ -831,6 +831,7 @@
                     <textarea
                       class="form-control"
                       rows="5"
+                      placeholder="Comments"
                       v-model="newRecordParams.comments"
                     ></textarea>
                   </div>
@@ -872,7 +873,12 @@ export default {
   data: function () {
     return {
       records: [],
-      newRecordParams: { result: "", in_progress: "", rating: "" },
+      newRecordParams: {
+        comments: "",
+        result: "",
+        in_progress: "",
+        rating: "",
+      },
       errors: [],
       editRecordParams: {},
       editToggle: false,
@@ -1000,7 +1006,12 @@ export default {
       // }
     },
     clearNewParams: function () {
-      this.newRecordParams = { result: "", in_progress: false, rating: "" };
+      this.newRecordParams = {
+        comments: "",
+        result: "",
+        in_progress: false,
+        rating: "",
+      };
       this.routeSelected = "";
       this.routeSelectedObject = {};
     },
