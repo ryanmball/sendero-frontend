@@ -832,8 +832,6 @@
                       class="form-control"
                       rows="5"
                       v-model="newRecordParams.comments"
-                      name="comments"
-                      placeholder="Comments"
                     ></textarea>
                   </div>
                   <button

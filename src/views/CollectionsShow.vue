@@ -14,37 +14,100 @@
     </div>
     <!-- END Title -->
 
-    <!-- BEGIN section -->
     <div class="section pt-5">
-      <!-- BEGIN container -->
       <div class="container">
-        <!-- BEGIN row -->
         <div class="row">
-          <!-- BEGIN col-4 -->
+          <!-- BEGIN Collection Show & Edit -->
           <div class="col-lg-4">
-            <!-- BEGIN card -->
             <div class="card shadow border-0">
               <div class="card-body p-4">
                 <div class="news p-0 mb-3">
                   <div class="news-label p-0 m-0">
                     <span class="bg-blue-200 text-blue-800 fs-18px"
-                      >Collection Details</span
-                    >
+                      >Collection Details
+                    </span>
+                    <div>
+                      <a
+                        href="#"
+                        @click="editToggle()"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDetail"
+                        ><i class="ps-3 far fa-edit"></i
+                      ></a>
+                    </div>
                   </div>
                 </div>
-                <div class="h5 ms-2">Highlights</div>
-                <div class="p-2">{{ collection.highlights }}</div>
-                <hr class="my-3" />
-                <div class="h5 ms-2">Partners</div>
-                <div class="p-2">{{ collection.partners }}</div>
+                <div v-if="edit">
+                  <div class="h5 ms-2">Highlights</div>
+                  <div class="p-2">
+                    <textarea
+                      class="form-control"
+                      rows="7"
+                      v-model="editCollectionParams.highlights"
+                    ></textarea>
+                  </div>
+                  <hr class="my-3" />
+                  <div class="h5 ms-2">Partners</div>
+                  <div class="p-2">
+                    <textarea
+                      class="form-control"
+                      rows="2"
+                      v-model="editCollectionParams.partners"
+                    ></textarea>
+                  </div>
+                  <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-5">
+                      <button
+                        @click="collectionUpdate()"
+                        type="button"
+                        class="
+                          btn btn-xs btn-primary
+                          d-block
+                          w-100
+                          fw-bold
+                          rounded-2
+                          height-50px
+                        "
+                        data-bs-dismiss="modal"
+                      >
+                        Update
+                      </button>
+                    </div>
+                    <div class="col-5">
+                      <button
+                        @click="collectionDestroy()"
+                        type="button"
+                        class="
+                          btn btn-xs btn-danger
+                          d-block
+                          w-100
+                          fw-bold
+                          rounded-2
+                          height-50px
+                        "
+                        data-bs-dismiss="modal"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                    <div class="col-1"></div>
+                  </div>
+                </div>
+                <div v-if="!edit">
+                  <div class="h5 ms-2">Highlights</div>
+                  <div class="p-2">{{ collection.highlights }}</div>
+                  <hr class="my-3" />
+                  <div class="h5 ms-2">Partners</div>
+                  <div class="p-2">{{ collection.partners }}</div>
+                </div>
               </div>
             </div>
-            <!-- END card -->
           </div>
-          <!-- END col-4 -->
-          <!-- BEGIN col-4 -->
+          <!-- END Collection Show & Edit -->
+
+          <!-- BEGIN Collection Route Records -->
           <div class="col-lg-8">
-            <!-- BEGIN card -->
             <div class="card shadow border-0">
               <div class="card-body p-4">
                 <div class="news p-0 mb-3">
@@ -80,110 +143,78 @@
                 </div>
               </div>
             </div>
-            <!-- END card -->
           </div>
-          <!-- END col-4 -->
+          <!-- End Route Records -->
         </div>
-        <!-- END row -->
-        <!-- END container -->
-        <!-- END section -->
 
-        <div class="container pt-5">
-          <div class="row gx-3">
-            <div
-              class="col-sm-6 col-md-4 col-lg-3"
-              v-for="image in collection.images"
-              v-bind:key="image.id"
-            >
-              <!-- BEGIN news -->
-              <div class="news mb-3">
-                <div class="news-media mb-2">
-                  <div>
-                    <img style="background-image" :src="image.url" alt="" />
+        <!-- BEGIN Images Index & Upload/Delete -->
+        <div>
+          <div class="container pt-5">
+            <div class="row gx-3">
+              <div
+                class="col-sm-6 col-md-4 col-lg-3"
+                v-for="image in collection.images"
+                v-bind:key="image.id"
+              >
+                <div class="news mb-3">
+                  <div class="news-media mb-2">
+                    <div>
+                      <img style="background-image" :src="image.url" alt="" />
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-3"></div>
-                  <div class="col-6">
-                    <button
-                      @click="imageDestroy(image)"
-                      type="button"
-                      class="
-                        btn btn-xs btn-secondary
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
-                      data-bs-dismiss="modal"
-                    >
-                      Delete
-                    </button>
+                  <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-6">
+                      <button
+                        @click="imageDestroy(image)"
+                        type="button"
+                        class="
+                          btn btn-xs btn-secondary
+                          d-block
+                          w-100
+                          fw-bold
+                          rounded-2
+                          height-50px
+                        "
+                        data-bs-dismiss="modal"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                    <div class="col-3"></div>
                   </div>
-                  <div class="col-3"></div>
                 </div>
               </div>
-              <!-- END news -->
             </div>
           </div>
-        </div>
-        <form v-on:submit.prevent="imageCreate()">
-          <label class="form-label col-form-label col-md-12"
-            >Add New Photo</label
-          >
-          <div class="col-md-3">
-            <input
-              type="file"
-              class="form-control mb-5px"
-              v-on:change="setFile($event)"
-              ref="fileInput"
-            />
-            <button
-              type="submit"
-              class="
-                btn btn-sm btn-primary
-                d-block
-                w-50
-                fw-bold
-                rounded-2
-                height-50px
-              "
+          <form v-on:submit.prevent="imageCreate()">
+            <label class="form-label col-form-label col-md-12"
+              >Add New Photo</label
             >
-              Upload Photo
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Collection Show -->
-      <div v-if="!edit">
-        <h3>{{ collection.name }} Collection</h3>
-        <p><strong>Partners</strong><br />{{ collection.partners }}</p>
-        <p><strong>Highlights</strong><br />{{ collection.highlights }}</p>
-        <button @click="editToggle()">Edit Collection</button>
-      </div>
-
-      <!-- Collection Edit/Delete -->
-      <div v-if="edit">
-        <h3>Edit {{ collection.name }} Collection</h3>
-        <ul style="list-style-type: none">
-          <li class="text-danger" v-for="error in errors" v-bind:key="error">
-            {{ error }}
-          </li>
-        </ul>
-        <p>Name: <input type="text" v-model="editCollectionParams.name" /></p>
-        <p>
-          Partners:
-          <input type="text" v-model="editCollectionParams.partners" />
-        </p>
-        <p>
-          Highlights:
-          <input type="text" v-model="editCollectionParams.highlights" />
-        </p>
-        <button v-on:click="collectionUpdate()">Update</button>
-        <button v-on:click="collectionDestroy()">Delete</button> <br />
-        <button @click="editToggle()">Cancel</button>
+            <div class="col-md-3">
+              <input
+                type="file"
+                class="form-control mb-5px"
+                v-on:change="setFile($event)"
+                ref="fileInput"
+              />
+              <button
+                type="submit"
+                class="
+                  btn btn-sm btn-primary
+                  d-block
+                  w-50
+                  fw-bold
+                  rounded-2
+                  height-50px
+                "
+              >
+                Upload Photo
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- END Images Index & Upload/Delete -->
       </div>
     </div>
   </div>

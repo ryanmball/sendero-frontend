@@ -37,6 +37,13 @@
                         style="background-image"
                         :src="collection.images[0].url"
                         alt="Cover Photo"
+                        v-if="collection.images[0]"
+                      />
+                      <img
+                        style="background-image"
+                        src="/assets/img/corporate/default_collection_pic.jpeg"
+                        alt="Cover Photo"
+                        v-if="!collection.images[0]"
                       />
                     </div>
                   </div>
@@ -59,7 +66,7 @@
                     </div>
                     <div class="fw-bold fs-16px text-blue-700">Partners:</div>
                     <div class="news-date text-blue-700">
-                      {{ collection.partners }}{{ collection.id }}
+                      {{ collection.partners }}
                     </div>
                   </div>
                 </div>
