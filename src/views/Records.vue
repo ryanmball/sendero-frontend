@@ -375,7 +375,7 @@
                 class="col-md-8 p-4 border-end fs-14px line-h-16"
                 v-if="!this.editToggle"
               >
-                <div class="h5 mb-3">Comments:</div>
+                <div class="h5 mb-3">Comments</div>
                 {{ currentRecord.comments }}
                 <hr class="my-4" />
                 <div class="row gx-3 mb-2">

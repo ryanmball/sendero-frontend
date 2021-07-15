@@ -24,8 +24,8 @@
           <!-- BEGIN user info and weather card -->
           <div class="row">
             <!-- BEGIN user info card -->
-            <div class="col-lg-4">
-              <div class="card shadow border-0 mb-5">
+            <div class="col-lg-5">
+              <div class="card shadow border-0 mt-5">
                 <div class="card-body p-4">
                   <div class="row">
                     <div class="col-lg-6">
@@ -58,7 +58,7 @@
             <!-- END user info card -->
 
             <!-- BEGIN weather widget -->
-            <div class="col-lg-8">
+            <div class="col-lg-7">
               <ul class="nav nav-tabs ms-5">
                 <li class="nav-item">
                   <a
@@ -91,7 +91,7 @@
                   </a>
                 </li>
               </ul>
-              <div class="tab-content bg-white p-3 ms-3">
+              <!-- <div class="tab-content bg-white p-3 ms-3">
                 <div class="tab-pane fade active show" id="default-tab-1">
                   <div
                     id="openweathermap-widget-1"
@@ -110,7 +110,7 @@
                     class="d-flex w-100 mb-3"
                   ></div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <!-- END weather widget -->
           </div>
