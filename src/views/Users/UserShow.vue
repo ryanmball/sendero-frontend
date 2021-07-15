@@ -38,17 +38,22 @@
                     <div class="col-lg-6">
                       <h1>{{ user.first_name }} {{ user.last_name }}</h1>
                       <div>
-                        <ul class="list-unstyled fw-bold pb-3">
-                          <li class="mb-2">
-                            <a
-                              href="#"
-                              class="text-decoration-none text-gray-600"
-                              data-bs-toggle="modal"
-                              data-bs-target="#modalDetail"
-                              ><i class="fas fa-cog me-1"></i>Account Info</a
+                        <a
+                          href="#"
+                          class="text-decoration-none fw-bold"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalDetail"
+                          ><i class="fas fa-cog me-1"></i>Account Info</a
+                        >
+                        <div class="mt-3">
+                          <p>
+                            <em
+                              >"Better we raise our skill than lower the
+                              climb."</em
                             >
-                          </li>
-                        </ul>
+                          </p>
+                          <p><em>- Royal Robbins</em></p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -613,6 +618,7 @@
 
 <style>
 .profile-pic {
+  border-radius: 50%;
   width: 100%;
 }
 #map {

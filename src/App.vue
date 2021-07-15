@@ -9,7 +9,8 @@
         <div class="container d-flex">
           <div class="header-logo">
             <router-link :to="`/users/${userID()}`" class="logo-link"
-              ><span class="logo"></span><b>Sendero</b></router-link
+              ><span><img src="/assets/img/icon/mountain3.png" alt="" /></span
+              ><span class="ms-2"><b>Sendero</b></span></router-link
             >
           </div>
           <div class="header-nav">

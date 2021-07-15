@@ -23,9 +23,8 @@
         <div class="login-header mb-30px">
           <div class="brand">
             <div class="d-flex align-items-center">
-              <span class="logo"></span>
-
-              <b>Sendero</b>
+              <span><img src="/assets/img/icon/mountain3.png" alt="" /></span>
+              <span class="ms-2"><b>Sendero</b></span>
             </div>
           </div>
           <div class="icon">
