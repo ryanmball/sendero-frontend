@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="icon">
-            <i class="fa fa-kiwi-bird"></i>
+            <!-- <i class="fas fa-sign-in-alt"></i> -->
           </div>
         </div>
         <div class="register-header mb-25px h1">

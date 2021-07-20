@@ -995,9 +995,9 @@ export default {
       this.resultFilter = "";
       this.ratingFilter = null;
       this.partnerFilter = "";
-      this.serach = "";
       this.cragFilter = "";
       this.areaFilter = "";
+      this.search = "";
       // var inputs = document.getElementsByTagName("input");
       // for (let i = 0; i < inputs.length; i++) {
       //   if (inputs[i].type === "checkbox") {
