@@ -12,7 +12,9 @@ import VueGoogleCharts from "vue-google-charts";
 Vue.use(VueGoogleCharts);
 
 axios.defaults.baseURL =
-  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "/";
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://blooming-peak-28194.herokuapp.com";
 
 var jwt = localStorage.getItem("jwt");
 if (jwt) {
