@@ -27,13 +27,15 @@
               <span class="ms-2"><b>Sendero</b></span>
             </div>
           </div>
-          <div class="icon">
-            <!-- <i class="fas fa-sign-in-alt"></i> -->
-          </div>
         </div>
         <div class="register-header mb-25px h1">
           <div class="mb-1">Sign In</div>
         </div>
+        <p>
+          <b><u>Demo Account</u></b
+          ><br /><b>Email:</b> sendero_demo@gmail.com<br /><b>Password:</b>
+          demoaccount1
+        </p>
 
         <div class="login-content">
           <div
