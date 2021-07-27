@@ -74,7 +74,7 @@ export default {
       return localStorage.getItem("jwt");
     },
     userID: function () {
-      return "1";
+      return localStorage.getItem("user_id");
     },
   },
 };
