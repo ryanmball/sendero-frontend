@@ -1,6 +1,7 @@
 <template>
   <div class="collections-show">
     <!-- BEGIN Title -->
+    <!-- This code looks similar across your views, can it be re-used? -->
     <br /><br /><br /><br /><br />
     <div class="section py-5">
       <div
@@ -233,6 +234,7 @@
 <script>
 import axios from "axios";
 import Vue2Filters from "vue2-filters";
+// Moment is a widely used library but an interesting choice for a new project. https://momentjs.com/docs/#/-project-status/
 import moment from "moment";
 
 export default {
@@ -280,6 +282,7 @@ export default {
       if (confirm("Are you sure you want to delete this photo?")) {
         axios.delete(`/images/${image.id}`).then((response) => {
           console.log(response.data);
+          // This feels so foreign to me to mutate state but looks like that's the Vue way
           var index = this.collection.images.indexOf(image);
           this.collection.images.splice(index, 1);
         });

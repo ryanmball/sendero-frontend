@@ -8,12 +8,12 @@ import VueGoogleCharts from "vue-google-charts";
 Vue.use(VueGoogleCharts);
 
 axios.defaults.baseURL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://sendero-backend.herokuapp.com";
+  // when this goes to prod these should be env variables
+  "https://sendero-backend.herokuapp.com";
 
 var jwt = localStorage.getItem("jwt");
 if (jwt) {
+  // I see most people doing this with template strings these days `Bearer ${jwt}`
   axios.defaults.headers.common["Authorization"] = "Bearer " + jwt;
 }
 

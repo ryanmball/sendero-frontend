@@ -1,3 +1,5 @@
+<!-- This file is huge! If there is a way to break it into smaller, atomic components, that would be a big win for readability and maintainability  -->
+<!-- You have nice comments show different sections, maybe those are good blocks to break apart-->
 <template>
   <div class="records-index">
     <!-- BEGIN Title -->
@@ -147,6 +149,8 @@
 
             <!-- BEGIN Records Index -->
             <br /><br />
+            <!-- This v-for would  be better broken apart, this is difficult to understand what is happening, 
+            also difficult to make updates to and feel comfortable with your changes-->
             <div
               class="
                 p-4

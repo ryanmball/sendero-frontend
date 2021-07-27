@@ -59,23 +59,22 @@
 import axios from "axios";
 
 export default {
-  data: function () {
-    return {
-      user: {},
-    };
+  // most people will write this in es6 these days
+  data: () => ({}),
+  created: async () => {
+    const response = await axios.get(
+      `/users/${localStorage.getItem("user_id")}`
+    );
+    console.log(response.data);
+    this.user = response.data;
   },
-  created: function () {
-    axios.get(`/users/${localStorage.getItem("user_id")}`).then((response) => {
-      console.log(response.data);
-      this.user = response.data;
-    });
-  },
+
   methods: {
     isLoggedIn: function () {
       return localStorage.getItem("jwt");
     },
     userID: function () {
-      return localStorage.getItem("user_id");
+      return "1";
     },
   },
 };

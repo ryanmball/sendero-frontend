@@ -17,6 +17,7 @@ const routes = [
     component: UserShow,
   },
   {
+    // it's a common pattern to make these consts so they can be shared and prevent typos
     path: "/signup",
     name: "signup",
     component: Signup,
