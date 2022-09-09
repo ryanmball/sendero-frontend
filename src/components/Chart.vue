@@ -4,15 +4,7 @@
     <h2>{{ msg }}</h2>
     <svg :height="height" :width="width">
       <g transform="translate(50,50)">
-        <circle
-          v-for="c in output"
-          :key="c.id"
-          :r="c.r"
-          :cx="c.x"
-          :cy="c.y"
-          :fill="c.fill"
-          :stroke="c.stroke"
-        ></circle>
+        <circle v-for="c in output" :key="c.id" :r="c.r" :cx="c.x" :cy="c.y" :fill="c.fill" :stroke="c.stroke"></circle>
       </g>
     </svg>
   </div>
@@ -31,9 +23,7 @@ export default {
     };
   },
   created() {
-    this.colourScale = d3
-      .scaleOrdinal()
-      .range(["#5EAFC6", "#FE9922", "#93c464", "#75739F"]);
+    this.colourScale = d3.scaleOrdinal().range(["#5EAFC6", "#FE9922", "#93c464", "#75739F"]);
   },
   methods: {
     packChart() {
@@ -63,9 +53,7 @@ export default {
       const packableTweets = { id: "All Tweets", values: nestedTweets };
       return d3
         .hierarchy(packableTweets, (d) => d.values)
-        .sum((d) =>
-          d.retweets ? d.retweets.length + d.favorites.length + 1 : 1
-        );
+        .sum((d) => (d.retweets ? d.retweets.length + d.favorites.length + 1 : 1));
     },
     output() {
       return this.packChart();

@@ -1,12 +1,13 @@
 <template>
   <div class="records-index">
     <!-- BEGIN Title -->
-    <br /><br /><br /><br /><br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <div class="section py-5">
-      <div
-        class="section-bg"
-        style="background-image: url(/assets/img/corporate/mtn3.jpeg)"
-      ></div>
+      <div class="section-bg" style="background-image: url(/assets/img/corporate/mtn3.jpeg)"></div>
       <div class="section-bg bg-gray-800 opacity-3"></div>
 
       <div class="container position-relative text-white text-center">
@@ -28,32 +29,16 @@
                     data-bs-toggle="modal"
                     data-bs-target="#modalCreate"
                     type="button"
-                    class="
-                      btn btn-md btn-primary
-                      d-block
-                      w-100
-                      fw-bold
-                      rounded-2
-                      height-50px
-                    "
+                    class="btn btn-md btn-primary d-block w-100 fw-bold rounded-2 height-50px"
                   >
                     Create New
                   </button>
                 </div>
                 <div class="col-xl-4">
-                  <input
-                    type="text"
-                    class="form-control mb-5px"
-                    v-model="search"
-                    placeholder="Search"
-                  />
+                  <input type="text" class="form-control mb-5px" v-model="search" placeholder="Search" />
                 </div>
                 <div class="col-xl-2">
-                  <select
-                    class="form-select"
-                    v-model="gradeFilter"
-                    placeholder="Grade"
-                  >
+                  <select class="form-select" v-model="gradeFilter" placeholder="Grade">
                     <option value="" disabled selected hidden>Grade</option>
                     <option value=""></option>
                     <option v-for="grade in grades" v-bind:key="grade">
@@ -75,9 +60,7 @@
                 </div>
                 <div class="col-xl-2">
                   <select class="form-select" v-model="ratingFilter">
-                    <option value="null" disabled selected hidden>
-                      Rating
-                    </option>
+                    <option value="null" disabled selected hidden>Rating</option>
                     <option value="null"></option>
                     <option value="0.0">0.0</option>
                     <option value="0.5">0.5</option>
@@ -96,24 +79,13 @@
                   <button
                     @click="clearFilters"
                     type="button"
-                    class="
-                      btn btn-md btn-secondary
-                      d-block
-                      w-100
-                      fw-bold
-                      rounded-2
-                      height-50px
-                    "
+                    class="btn btn-md btn-secondary d-block w-100 fw-bold rounded-2 height-50px"
                   >
                     Clear Filters
                   </button>
                 </div>
                 <div class="col-xl-4">
-                  <select
-                    class="form-select"
-                    v-model="cragFilter"
-                    placeholder="Crag"
-                  >
+                  <select class="form-select" v-model="cragFilter" placeholder="Crag">
                     <option value="" disabled selected hidden>Crag</option>
                     <option v-for="crag in crags" v-bind:key="crag">
                       {{ crag }}
@@ -121,11 +93,7 @@
                   </select>
                 </div>
                 <div class="col-xl-4">
-                  <select
-                    class="form-select"
-                    v-model="areaFilter"
-                    placeholder="Area"
-                  >
+                  <select class="form-select" v-model="areaFilter" placeholder="Area">
                     <option value="" disabled selected hidden>Area</option>
                     <option v-for="area in areas" v-bind:key="area">
                       {{ area }}
@@ -146,26 +114,17 @@
             <!-- END Filters -->
 
             <!-- BEGIN Records Index -->
-            <br /><br />
+            <br />
+            <br />
             <div
-              class="
-                p-4
-                bg-gray-200
-                position-relative
-                border-start border-5 border-info
-                mb-2
-              "
+              class="p-4 bg-gray-200 position-relative border-start border-5 border-info mb-2"
               v-for="record in orderBy(
                 filterBy(
                   filterBy(
                     filterBy(
                       filterBy(
                         filterBy(
-                          filterBy(
-                            filterBy(records, areaFilter, 'route'),
-                            cragFilter,
-                            'route'
-                          ),
+                          filterBy(filterBy(records, areaFilter, 'route'), cragFilter, 'route'),
                           search,
                           'route',
                           'result',
@@ -207,13 +166,9 @@
                 <div class="col-1">
                   <div class="d-flex align-items-center">
                     <div class="fs-16px line-h-16">
-                      <a
-                        href="#"
-                        @click="recordShow(record)"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalDetail"
-                        ><i class="ps-3 fas fa-external-link-alt h-40px"></i
-                      ></a>
+                      <a href="#" @click="recordShow(record)" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                        <i class="ps-3 fas fa-external-link-alt h-40px"></i>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -252,9 +207,7 @@
                 <div class="col-1">
                   <div class="d-flex align-items-center">
                     <div>
-                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
-                        Result
-                      </div>
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">Result</div>
                       <div class="fw-bold text-gray-800 fs-16px">
                         {{ record.result }}
                       </div>
@@ -264,13 +217,8 @@
                 <div class="col-1">
                   <div class="d-flex align-items-center">
                     <div>
-                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
-                        In Progress
-                      </div>
-                      <div
-                        v-if="record.in_progress"
-                        class="fw-bold text-gray-800 fs-16px"
-                      >
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">In Progress</div>
+                      <div v-if="record.in_progress" class="fw-bold text-gray-800 fs-16px">
                         {{ record.in_progress }}
                       </div>
                     </div>
@@ -279,13 +227,8 @@
                 <div class="col-1">
                   <div class="d-flex align-items-center">
                     <div>
-                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
-                        Rating
-                      </div>
-                      <div
-                        v-if="record.rating"
-                        class="fw-bold text-gray-800 fs-16px"
-                      >
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">Rating</div>
+                      <div v-if="record.rating" class="fw-bold text-gray-800 fs-16px">
                         {{ record.rating }}
                       </div>
                     </div>
@@ -294,9 +237,7 @@
                 <div class="col-2">
                   <div class="d-flex align-items-center">
                     <div>
-                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
-                        Partner
-                      </div>
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">Partner</div>
                       <div class="fw-bold text-gray-800 fs-16px">
                         {{ record.partner }}
                       </div>
@@ -306,13 +247,8 @@
                 <div class="col-3">
                   <div class="d-flex align-items-center">
                     <div>
-                      <div class="fw-bold text-gray-600 fs-12px line-h-12">
-                        Collection
-                      </div>
-                      <div
-                        v-if="record.collection"
-                        class="fw-bold text-gray-800 fs-16px"
-                      >
+                      <div class="fw-bold text-gray-600 fs-12px line-h-12">Collection</div>
+                      <div v-if="record.collection" class="fw-bold text-gray-800 fs-16px">
                         {{ record.collection.name }}
                       </div>
                     </div>
@@ -320,11 +256,9 @@
                 </div>
                 <div class="col-1">
                   <div class="fs-16px line-h-16">
-                    <a :href="record.route.mp_url" target="_blank"
-                      ><img
-                        src="/assets_admin/img/logo/mtnproject.png"
-                        class="ps-1 rounded h-40px"
-                    /></a>
+                    <a :href="record.route.mp_url" target="_blank">
+                      <img src="/assets_admin/img/logo/mtnproject.png" class="ps-1 rounded h-40px" />
+                    </a>
                   </div>
                 </div>
               </div>
@@ -341,9 +275,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header px-4">
-            <div class="fs-24px fw-bolder">
-              {{ currentRecord.route.name }}&nbsp;&nbsp;&nbsp;
-            </div>
+            <div class="fs-24px fw-bolder">{{ currentRecord.route.name }}&nbsp;&nbsp;&nbsp;</div>
             <div
               class="
                 me-3
@@ -361,20 +293,12 @@
                 {{ currentRecord.grade }}
               </div>
             </div>
-            <a
-              href="#"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              @click="clearEditParams()"
-            ></a>
+            <a href="#" class="btn-close" data-bs-dismiss="modal" @click="clearEditParams()"></a>
           </div>
           <div class="modal-body p-0">
             <div class="row gx-0">
               <!-- BEGIN Record Show -->
-              <div
-                class="col-md-8 p-4 border-end fs-14px line-h-16"
-                v-if="!this.editToggle"
-              >
+              <div class="col-md-8 p-4 border-end fs-14px line-h-16" v-if="!this.editToggle">
                 <div class="h5 mb-3">Comments</div>
                 {{ currentRecord.comments }}
                 <hr class="my-4" />
@@ -385,42 +309,32 @@
                   </div>
                 </div>
                 <div class="row gx-3 mb-2">
-                  <label class="form-label col-form-label col-lg-3"
-                    >Result</label
-                  >
+                  <label class="form-label col-form-label col-lg-3">Result</label>
                   <div class="col-lg-4 h4 mt-2">
                     {{ currentRecord.result }}
                   </div>
                   <div class="col-lg-5"></div>
                 </div>
                 <div class="row gx-3 mb-2" v-if="currentRecord.in_progress">
-                  <label class="form-label col-form-label col-lg-3"
-                    >In Progress</label
-                  >
+                  <label class="form-label col-form-label col-lg-3">In Progress</label>
                   <div class="col-lg-9 h4 mt-2">
                     {{ currentRecord.in_progress }}
                   </div>
                 </div>
                 <div class="row gx-3 mb-2" v-if="currentRecord.rating">
-                  <label class="form-label col-form-label col-lg-3"
-                    >Rating</label
-                  >
+                  <label class="form-label col-form-label col-lg-3">Rating</label>
                   <div class="col-lg-9 h4 mt-2">
                     {{ currentRecord.rating }}
                   </div>
                 </div>
                 <div class="row gx-3 mb-2">
-                  <label class="form-label col-form-label col-lg-3"
-                    >Partner</label
-                  >
+                  <label class="form-label col-form-label col-lg-3">Partner</label>
                   <div class="col-lg-9 h4 mt-2">
                     {{ currentRecord.partner }}
                   </div>
                 </div>
                 <div class="row gx-3 mb-2" v-if="currentRecord.collection">
-                  <label class="form-label col-form-label col-lg-3"
-                    >Collection</label
-                  >
+                  <label class="form-label col-form-label col-lg-3">Collection</label>
                   <div class="col-lg-9 h4 mt-2">
                     {{ currentRecord.collection.name }}
                   </div>
@@ -431,14 +345,7 @@
                     <button
                       @click="edit()"
                       type="button"
-                      class="
-                        btn btn-lg btn-primary
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
+                      class="btn btn-lg btn-primary d-block w-100 fw-bold rounded-2 height-50px"
                     >
                       Edit
                     </button>
@@ -447,14 +354,7 @@
                     <button
                       @click="clearEditParams()"
                       type="button"
-                      class="
-                        btn btn-lg btn-secondary
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
+                      class="btn btn-lg btn-secondary d-block w-100 fw-bold rounded-2 height-50px"
                       data-bs-dismiss="modal"
                     >
                       Close
@@ -464,14 +364,7 @@
                     <button
                       @click="recordDestroy(currentRecord)"
                       type="button"
-                      class="
-                        btn btn-xs btn-danger
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
+                      class="btn btn-xs btn-danger d-block w-100 fw-bold rounded-2 height-50px"
                       data-bs-dismiss="modal"
                     >
                       Delete
@@ -481,18 +374,12 @@
               </div>
               <div
                 class="col-md-4 p-4 section-bg"
-                style="
-                  background-image: url(/assets/img/bg/portraitmtn8.jpeg);
-                  background-size: cover;
-                "
+                style="background-image: url(/assets/img/bg/portraitmtn8.jpeg); background-size: cover"
                 v-if="!this.editToggle"
               ></div>
               <!-- END Record Show -->
               <!-- BEGIN Record Edit -->
-              <div
-                class="col-md-8 p-4 border-end fs-14px line-h-16"
-                v-if="this.editToggle"
-              >
+              <div class="col-md-8 p-4 border-end fs-14px line-h-16" v-if="this.editToggle">
                 <div class="h5 mb-3">Comments:</div>
                 <div class="mb-20px pb-4px">
                   <textarea
@@ -517,14 +404,9 @@
                   <div class="col-lg-5"></div>
                 </div>
                 <div class="row gx-3 mb-2">
-                  <label class="form-label col-form-label col-md-3"
-                    >Result</label
-                  >
+                  <label class="form-label col-form-label col-md-3">Result</label>
                   <div class="col-lg-4 mb-2">
-                    <select
-                      class="form-select"
-                      v-model="editRecordParams.result"
-                    >
+                    <select class="form-select" v-model="editRecordParams.result">
                       <option value="onsight">onsight</option>
                       <option value="flash">flash</option>
                       <option value="redpoint">redpoint</option>
@@ -535,28 +417,18 @@
                   </div>
                 </div>
                 <div class="row gx-3 mb-2">
-                  <label class="form-label col-form-label col-md-3"
-                    >In Progress</label
-                  >
+                  <label class="form-label col-form-label col-md-3">In Progress</label>
                   <div class="col-lg-4 mb-2">
-                    <select
-                      class="form-select"
-                      v-model="editRecordParams.in_progress"
-                    >
+                    <select class="form-select" v-model="editRecordParams.in_progress">
                       <option value="null"></option>
                       <option value="true">true</option>
                     </select>
                   </div>
                 </div>
                 <div class="row gx-3 mb-2">
-                  <label class="form-label col-form-label col-md-3"
-                    >Rating</label
-                  >
+                  <label class="form-label col-form-label col-md-3">Rating</label>
                   <div class="col-lg-4 mb-2">
-                    <select
-                      class="form-select"
-                      v-model="editRecordParams.rating"
-                    >
+                    <select class="form-select" v-model="editRecordParams.rating">
                       <option value=""></option>
                       <option value="0.0">0.0</option>
                       <option value="0.5">0.5</option>
@@ -571,9 +443,7 @@
                   </div>
                 </div>
                 <div class="row gx-3 mb-2">
-                  <label class="form-label col-form-label col-md-3"
-                    >Partner</label
-                  >
+                  <label class="form-label col-form-label col-md-3">Partner</label>
                   <div class="col-lg-4 mb-2">
                     <input
                       type="text"
@@ -591,14 +461,7 @@
                   <div class="col-lg-4">
                     <button
                       type="button"
-                      class="
-                        btn btn-lg btn-primary
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
+                      class="btn btn-lg btn-primary d-block w-100 fw-bold rounded-2 height-50px"
                       @click="recordUpdate()"
                       data-bs-dismiss="modal"
                     >
@@ -609,14 +472,7 @@
                     <button
                       @click="clearEditParams()"
                       type="button"
-                      class="
-                        btn btn-lg btn-secondary
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
+                      class="btn btn-lg btn-secondary d-block w-100 fw-bold rounded-2 height-50px"
                     >
                       Cancel
                     </button>
@@ -625,10 +481,7 @@
               </div>
               <div
                 class="col-md-4 p-4 section-bg"
-                style="
-                  background-image: url(/assets/img/bg/portraitmtn4.jpeg);
-                  background-size: cover;
-                "
+                style="background-image: url(/assets/img/bg/portraitmtn4.jpeg); background-size: cover"
                 v-if="this.editToggle"
               ></div>
               <!-- END Record Edit -->
@@ -645,12 +498,7 @@
         <div class="modal-content">
           <div class="modal-header px-4">
             <div class="fs-24px fw-bolder">New Climbing Record</div>
-            <a
-              href="#"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              @click="clearNewParams()"
-            ></a>
+            <a href="#" class="btn-close" data-bs-dismiss="modal" @click="clearNewParams()"></a>
           </div>
           <div class="modal-body p-0">
             <div class="row gx-0">
@@ -662,9 +510,7 @@
                     </option>
                   </datalist>
                   <div class="row gx-3 mb-2">
-                    <label class="form-label col-form-label col-md-1"
-                      >Date</label
-                    >
+                    <label class="form-label col-form-label col-md-1">Date</label>
                     <div class="col-lg-3 mb-2">
                       <input
                         type="text"
@@ -678,23 +524,14 @@
                       <button
                         @click="clearNewParams()"
                         type="button"
-                        class="
-                          btn btn-lg btn-secondary
-                          d-block
-                          w-100
-                          fw-bold
-                          rounded-2
-                          height-50px
-                        "
+                        class="btn btn-lg btn-secondary d-block w-100 fw-bold rounded-2 height-50px"
                       >
                         Clear All
                       </button>
                     </div>
                   </div>
                   <div class="row gx-3 mb-2">
-                    <label class="form-label col-form-label col-md-1"
-                      >Route</label
-                    >
+                    <label class="form-label col-form-label col-md-1">Route</label>
                     <div class="col-lg-6 mb-2">
                       <input
                         type="text"
@@ -706,9 +543,7 @@
                     </div>
                   </div>
                   <div class="row gx-3 mb-2">
-                    <label class="form-label col-form-label col-md-1"
-                      >Crag</label
-                    >
+                    <label class="form-label col-form-label col-md-1">Crag</label>
                     <div class="col-lg-5 mb-2">
                       <input
                         type="text"
@@ -717,9 +552,7 @@
                         readonly
                       />
                     </div>
-                    <label class="form-label col-form-label col-md-1 text-end"
-                      >Area</label
-                    >
+                    <label class="form-label col-form-label col-md-1 text-end">Area</label>
                     <div class="col-lg-5 mb-2">
                       <input
                         type="text"
@@ -730,9 +563,7 @@
                     </div>
                   </div>
                   <div class="row gx-3 mb-2">
-                    <label class="form-label col-form-label col-md-1"
-                      >Grade</label
-                    >
+                    <label class="form-label col-form-label col-md-1">Grade</label>
                     <div class="col-lg-3 mb-2">
                       <input
                         type="text"
@@ -740,9 +571,7 @@
                         class="form-control form-control-lg rounded-2"
                       />
                     </div>
-                    <label class="form-label col-form-label col-md-1 text-end"
-                      >Partner</label
-                    >
+                    <label class="form-label col-form-label col-md-1 text-end">Partner</label>
                     <div class="col-lg-3 mb-2">
                       <input
                         type="text"
@@ -752,15 +581,9 @@
                     </div>
                   </div>
                   <div class="row gx-3 mb-2">
-                    <label class="form-label col-form-label col-md-1"
-                      >Result</label
-                    >
+                    <label class="form-label col-form-label col-md-1">Result</label>
                     <div class="col-lg-2 mb-2">
-                      <select
-                        searchable="search"
-                        class="form-select"
-                        v-model="newRecordParams.result"
-                      >
+                      <select searchable="search" class="form-select" v-model="newRecordParams.result">
                         <option value=""></option>
                         <option value="onsight">onsight</option>
                         <option value="flash">flash</option>
@@ -779,15 +602,9 @@
                       "
                     >
                       <div class="row gx-3">
-                        <label
-                          class="form-label col-form-label col-md-4 text-end"
-                          >In progress</label
-                        >
+                        <label class="form-label col-form-label col-md-4 text-end">In progress</label>
                         <div class="col-lg-8">
-                          <select
-                            class="form-select"
-                            v-model="newRecordParams.in_progress"
-                          >
+                          <select class="form-select" v-model="newRecordParams.in_progress">
                             <option value="null"></option>
                             <option value="true">true</option>
                           </select>
@@ -803,15 +620,9 @@
                       "
                     >
                       <div class="row gx-3">
-                        <label
-                          class="form-label col-form-label col-md-4 text-end"
-                          >Rating</label
-                        >
+                        <label class="form-label col-form-label col-md-4 text-end">Rating</label>
                         <div class="col-lg-8">
-                          <select
-                            class="form-select"
-                            v-model="newRecordParams.rating"
-                          >
+                          <select class="form-select" v-model="newRecordParams.rating">
                             <option value="null"></option>
                             <option value="0.0">0.0</option>
                             <option value="0.5">0.5</option>
@@ -836,16 +647,7 @@
                     ></textarea>
                   </div>
                   <button
-                    class="
-                      btn btn-lg
-                      d-block
-                      w-100
-                      btn-outline-success
-                      rounded-2
-                      fw-bold
-                      fs-16px
-                      py-3
-                    "
+                    class="btn btn-lg d-block w-100 btn-outline-success rounded-2 fw-bold fs-16px py-3"
                     data-bs-dismiss="modal"
                   >
                     Create Climbing Record
@@ -960,10 +762,7 @@ export default {
     },
     recordShow: function (record) {
       this.currentRecord = Object.assign(this.currentRecord, record);
-      this.editRecordParams = Object.assign(
-        this.editRecordParams,
-        this.currentRecord
-      );
+      this.editRecordParams = Object.assign(this.editRecordParams, this.currentRecord);
       this.index = this.records.indexOf(record);
       console.log(this.index);
       console.log(this.currentRecord);
@@ -1034,9 +833,7 @@ export default {
     //   }
     // },
     setSelectedObject: function () {
-      this.routeSelectedObject = this.routes.find(
-        (route) => route.name === this.routeSelected
-      );
+      this.routeSelectedObject = this.routes.find((route) => route.name === this.routeSelected);
     },
   },
 };

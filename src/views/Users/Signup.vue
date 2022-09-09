@@ -2,19 +2,17 @@
   <div class="signup">
     <div class="register register-with-news-feed">
       <div class="news-feed">
-        <div
-          class="news-image"
-          style="
-            background-image: url(/assets_admin/img/login-bg/dolomites.jpeg);
-          "
-        ></div>
+        <div class="news-image" style="background-image: url(/assets_admin/img/login-bg/dolomites.jpeg)"></div>
         <div class="news-caption">
           <h4 class="caption-title"><b>Sendero</b></h4>
           <p>
-            Look back on the <b>path</b> you have taken during your climbing
-            journey
+            Look back on the
+            <b>path</b>
+            you have taken during your climbing journey
             <br />
-            Blaze a <b>trail</b> forward to your next adventure
+            Blaze a
+            <b>trail</b>
+            forward to your next adventure
           </p>
         </div>
       </div>
@@ -36,25 +34,19 @@
         </div>
 
         <div class="register-content">
-          <div
-            class="alert alert-danger alert-dismissible fade show"
-            v-if="errors[0]"
-          >
+          <div class="alert alert-danger alert-dismissible fade show" v-if="errors[0]">
             <span v-for="error in errors" v-bind:key="error">
-              {{ error }} <br />
+              {{ error }}
+              <br />
             </span>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="alert"
-              @click="closeAlert"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" @click="closeAlert"></button>
           </div>
           <form v-on:submit.prevent="submit()">
             <div class="mb-3">
-              <label class="mb-2"
-                >Name <span class="text-danger">*</span></label
-              >
+              <label class="mb-2">
+                Name
+                <span class="text-danger">*</span>
+              </label>
               <div class="row gx-3">
                 <div class="col-md-6 mb-2 mb-md-0">
                   <input
@@ -75,9 +67,10 @@
               </div>
             </div>
             <div class="mb-3">
-              <label class="mb-2"
-                >Email <span class="text-danger">*</span></label
-              >
+              <label class="mb-2">
+                Email
+                <span class="text-danger">*</span>
+              </label>
               <input
                 type="text"
                 class="form-control fs-13px"
@@ -86,9 +79,10 @@
               />
             </div>
             <div class="mb-3">
-              <label class="mb-2"
-                >Password <span class="text-danger">*</span></label
-              >
+              <label class="mb-2">
+                Password
+                <span class="text-danger">*</span>
+              </label>
               <input
                 type="password"
                 class="form-control fs-13px"
@@ -97,9 +91,10 @@
               />
             </div>
             <div class="mb-4">
-              <label class="mb-2"
-                >Confirm Password <span class="text-danger">*</span></label
-              >
+              <label class="mb-2">
+                Confirm Password
+                <span class="text-danger">*</span>
+              </label>
               <input
                 type="password"
                 class="form-control fs-13px"
@@ -108,12 +103,7 @@
               />
             </div>
             <div class="form-check mb-4">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="agreementCheckbox"
-              />
+              <input class="form-check-input" type="checkbox" value="" id="agreementCheckbox" />
               <label class="form-check-label" for="agreementCheckbox">
                 I agree to the
                 <a href="javascript:;">Terms and Conditions</a>
@@ -122,12 +112,7 @@
               </label>
             </div>
             <div class="mb-4">
-              <button
-                type="submit"
-                class="btn btn-success d-block w-100 btn-lg h-45px fs-13px"
-              >
-                Sign Up
-              </button>
+              <button type="submit" class="btn btn-success d-block w-100 btn-lg h-45px fs-13px">Sign Up</button>
             </div>
             <div class="mb-4 pb-5">
               Already have an account? Click

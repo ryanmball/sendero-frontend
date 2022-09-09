@@ -1,12 +1,13 @@
 <template>
   <div class="collections-show">
     <!-- BEGIN Title -->
-    <br /><br /><br /><br /><br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <div class="section py-5">
-      <div
-        class="section-bg"
-        style="background-image: url(/assets/img/corporate/mtn3.jpeg)"
-      ></div>
+      <div class="section-bg" style="background-image: url(/assets/img/corporate/mtn3.jpeg)"></div>
       <div class="section-bg bg-gray-800 opacity-3"></div>
       <div class="container position-relative text-white text-center">
         <div class="display-6 fw-bolder">{{ collection.name }}</div>
@@ -23,37 +24,23 @@
               <div class="card-body p-4">
                 <div class="news p-0 mb-3">
                   <div class="news-label p-0 m-0">
-                    <span class="bg-blue-200 text-blue-800 fs-18px"
-                      >Collection Details
-                    </span>
+                    <span class="bg-blue-200 text-blue-800 fs-18px">Collection Details</span>
                     <div>
-                      <a
-                        href="#"
-                        @click="editToggle()"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalDetail"
-                        ><i class="ps-3 far fa-edit"></i
-                      ></a>
+                      <a href="#" @click="editToggle()" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                        <i class="ps-3 far fa-edit"></i>
+                      </a>
                     </div>
                   </div>
                 </div>
                 <div v-if="edit">
                   <div class="h5 ms-2">Highlights</div>
                   <div class="p-2">
-                    <textarea
-                      class="form-control"
-                      rows="7"
-                      v-model="editCollectionParams.highlights"
-                    ></textarea>
+                    <textarea class="form-control" rows="7" v-model="editCollectionParams.highlights"></textarea>
                   </div>
                   <hr class="my-3" />
                   <div class="h5 ms-2">Partners</div>
                   <div class="p-2">
-                    <textarea
-                      class="form-control"
-                      rows="2"
-                      v-model="editCollectionParams.partners"
-                    ></textarea>
+                    <textarea class="form-control" rows="2" v-model="editCollectionParams.partners"></textarea>
                   </div>
                   <div class="row">
                     <div class="col-1"></div>
@@ -61,14 +48,7 @@
                       <button
                         @click="collectionUpdate()"
                         type="button"
-                        class="
-                          btn btn-xs btn-primary
-                          d-block
-                          w-100
-                          fw-bold
-                          rounded-2
-                          height-50px
-                        "
+                        class="btn btn-xs btn-primary d-block w-100 fw-bold rounded-2 height-50px"
                         data-bs-dismiss="modal"
                       >
                         Update
@@ -78,14 +58,7 @@
                       <button
                         @click="collectionDestroy()"
                         type="button"
-                        class="
-                          btn btn-xs btn-danger
-                          d-block
-                          w-100
-                          fw-bold
-                          rounded-2
-                          height-50px
-                        "
+                        class="btn btn-xs btn-danger d-block w-100 fw-bold rounded-2 height-50px"
                         data-bs-dismiss="modal"
                       >
                         Delete
@@ -112,9 +85,7 @@
               <div class="card-body p-4">
                 <div class="news p-0 mb-3">
                   <div class="news-label p-0 m-0">
-                    <span class="bg-blue-200 text-blue-800 fs-18px"
-                      >Routes</span
-                    >
+                    <span class="bg-blue-200 text-blue-800 fs-18px">Routes</span>
                   </div>
                 </div>
                 <div class="row">
@@ -123,11 +94,7 @@
                   <div class="col-2"><div class="h5">Grade</div></div>
                   <div class="col-4"><div class="h5">Crag</div></div>
                 </div>
-                <div
-                  class="row"
-                  v-for="record in orderBy(collection.records, 'date', -1)"
-                  v-bind:key="record.id"
-                >
+                <div class="row" v-for="record in orderBy(collection.records, 'date', -1)" v-bind:key="record.id">
                   <div class="col-2">
                     {{ recordDate(record.date) }}
                   </div>
@@ -151,11 +118,7 @@
         <div>
           <div class="container pt-5">
             <div class="row gx-3">
-              <div
-                class="col-sm-6 col-md-4 col-lg-3"
-                v-for="image in collection.images"
-                v-bind:key="image.id"
-              >
+              <div class="col-sm-6 col-md-4 col-lg-3" v-for="image in collection.images" v-bind:key="image.id">
                 <div class="news mb-3">
                   <div class="news-media mb-2">
                     <div>
@@ -168,14 +131,7 @@
                       <button
                         @click="imageDestroy(image)"
                         type="button"
-                        class="
-                          btn btn-xs btn-secondary
-                          d-block
-                          w-100
-                          fw-bold
-                          rounded-2
-                          height-50px
-                        "
+                        class="btn btn-xs btn-secondary d-block w-100 fw-bold rounded-2 height-50px"
                         data-bs-dismiss="modal"
                       >
                         Delete
@@ -188,27 +144,10 @@
             </div>
           </div>
           <form v-on:submit.prevent="imageCreate()">
-            <label class="form-label col-form-label col-md-12"
-              >Add New Photo</label
-            >
+            <label class="form-label col-form-label col-md-12">Add New Photo</label>
             <div class="col-md-3">
-              <input
-                type="file"
-                class="form-control mb-5px"
-                v-on:change="setFile($event)"
-                ref="fileInput"
-              />
-              <button
-                type="submit"
-                class="
-                  btn btn-sm btn-primary
-                  d-block
-                  w-50
-                  fw-bold
-                  rounded-2
-                  height-50px
-                "
-              >
+              <input type="file" class="form-control mb-5px" v-on:change="setFile($event)" ref="fileInput" />
+              <button type="submit" class="btn btn-sm btn-primary d-block w-50 fw-bold rounded-2 height-50px">
                 Upload Photo
               </button>
             </div>
@@ -287,42 +226,27 @@ export default {
     },
     collectionUpdate: function () {
       axios
-        .patch(
-          `/collections/${this.$route.params.id}`,
-          this.editCollectionParams
-        )
+        .patch(`/collections/${this.$route.params.id}`, this.editCollectionParams)
         .then((response) => {
           console.log(response.data);
           this.edit = !this.edit;
-          this.collection = Object.assign(
-            this.collection,
-            this.editCollectionParams
-          );
+          this.collection = Object.assign(this.collection, this.editCollectionParams);
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
         });
     },
     collectionDestroy: function () {
-      if (
-        confirm(
-          "Are you sure you want to delete this collection? \r\nAll associated photos will also be deleted."
-        )
-      ) {
-        axios
-          .delete(`/collections/${this.$route.params.id}`)
-          .then((response) => {
-            console.log(response.data);
-            this.$router.push("/collections");
-          });
+      if (confirm("Are you sure you want to delete this collection? \r\nAll associated photos will also be deleted.")) {
+        axios.delete(`/collections/${this.$route.params.id}`).then((response) => {
+          console.log(response.data);
+          this.$router.push("/collections");
+        });
       }
     },
     editToggle: function () {
       this.edit = !this.edit;
-      this.editCollectionParams = Object.assign(
-        this.editCollectionParams,
-        this.collection
-      );
+      this.editCollectionParams = Object.assign(this.editCollectionParams, this.collection);
     },
   },
 };

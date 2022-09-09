@@ -1,24 +1,24 @@
 <template>
   <div>
     <div id="page-container">
-      <br /><br /><br /><br /><br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <!-- BEGIN Header -->
       <div class="section py-5">
-        <div
-          class="section-bg"
-          style="background-image: url(/assets/img/corporate/mtn3.jpeg)"
-        ></div>
+        <div class="section-bg" style="background-image: url(/assets/img/corporate/mtn3.jpeg)"></div>
         <div class="section-bg bg-gray-800 opacity-3"></div>
 
         <div class="container position-relative text-white text-center">
-          <div class="display-6 fw-bolder">
-            {{ user.first_name }}'s Profile Page
-          </div>
+          <div class="display-6 fw-bolder">{{ user.first_name }}'s Profile Page</div>
         </div>
       </div>
       <!-- END Header -->
 
-      <br /><br />
+      <br />
+      <br />
       <div class="section pt-0">
         <div class="container">
           <!-- BEGIN user info and weather card -->
@@ -29,11 +29,7 @@
                 <div class="card-body p-4">
                   <div class="row">
                     <div class="col-lg-6">
-                      <img
-                        class="profile-pic"
-                        :src="user.profile_pic"
-                        alt="Profile Pic"
-                      />
+                      <img class="profile-pic" :src="user.profile_pic" alt="Profile Pic" />
                     </div>
                     <div class="col-lg-6">
                       <h1>{{ user.first_name }} {{ user.last_name }}</h1>
@@ -43,14 +39,13 @@
                           class="text-decoration-none fw-bold"
                           data-bs-toggle="modal"
                           data-bs-target="#modalDetail"
-                          ><i class="fas fa-cog me-1"></i>Account Info</a
                         >
+                          <i class="fas fa-cog me-1"></i>
+                          Account Info
+                        </a>
                         <div class="mt-3">
                           <p>
-                            <em
-                              >"Better we raise our skill than lower the
-                              climb."</em
-                            >
+                            <em>"Better we raise our skill than lower the climb."</em>
                           </p>
                           <p><em>- Royal Robbins</em></p>
                         </div>
@@ -66,31 +61,19 @@
             <div class="col-lg-7">
               <ul class="nav nav-tabs ms-5">
                 <li class="nav-item">
-                  <a
-                    href="#default-tab-1"
-                    data-bs-toggle="tab"
-                    class="nav-link active"
-                  >
+                  <a href="#default-tab-1" data-bs-toggle="tab" class="nav-link active">
                     <span class="d-sm-none">Tab 1</span>
                     <span class="d-sm-block d-none">Estes Park</span>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a
-                    href="#default-tab-2"
-                    data-bs-toggle="tab"
-                    class="nav-link"
-                  >
+                  <a href="#default-tab-2" data-bs-toggle="tab" class="nav-link">
                     <span class="d-sm-none">Tab 2</span>
                     <span class="d-sm-block d-none">Boulder</span>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a
-                    href="#default-tab-3"
-                    data-bs-toggle="tab"
-                    class="nav-link"
-                  >
+                  <a href="#default-tab-3" data-bs-toggle="tab" class="nav-link">
                     <span class="d-sm-none">Tab 3</span>
                     <span class="d-sm-block d-none">Red Rock Canyon</span>
                   </a>
@@ -98,22 +81,13 @@
               </ul>
               <div class="tab-content bg-white p-3 ms-3">
                 <div class="tab-pane fade active show" id="default-tab-1">
-                  <div
-                    id="openweathermap-widget-1"
-                    class="d-flex w-100 mb-3"
-                  ></div>
+                  <div id="openweathermap-widget-1" class="d-flex w-100 mb-3"></div>
                 </div>
                 <div class="tab-pane fade" id="default-tab-2">
-                  <div
-                    id="openweathermap-widget-2"
-                    class="d-flex w-100 mb-3"
-                  ></div>
+                  <div id="openweathermap-widget-2" class="d-flex w-100 mb-3"></div>
                 </div>
                 <div class="tab-pane fade" id="default-tab-3">
-                  <div
-                    id="openweathermap-widget-3"
-                    class="d-flex w-100 mb-3"
-                  ></div>
+                  <div id="openweathermap-widget-3" class="d-flex w-100 mb-3"></div>
                 </div>
               </div>
             </div>
@@ -130,9 +104,7 @@
                     <div class="col-lg-3"></div>
                     <div class="col-lg-6">
                       <div class="container text-center">
-                        <div class="fs-30px fw-bold text-black-400">
-                          All Climbs
-                        </div>
+                        <div class="fs-30px fw-bold text-black-400">All Climbs</div>
                       </div>
                     </div>
                     <div class="col-lg-3">
@@ -175,9 +147,7 @@
                     <div class="col-lg-3"></div>
                     <div class="col-lg-6">
                       <div class="container text-center">
-                        <div class="fs-30px fw-bold text-black-400">
-                          Sent Climbs
-                        </div>
+                        <div class="fs-30px fw-bold text-black-400">Sent Climbs</div>
                       </div>
                     </div>
                     <div class="col-lg-3">
@@ -220,18 +190,13 @@
                     <div class="col-lg-3"></div>
                     <div class="col-lg-6">
                       <div class="container text-center">
-                        <div class="fs-30px fw-bold text-black-400">
-                          Climbing Days Per Year
-                        </div>
+                        <div class="fs-30px fw-bold text-black-400">Climbing Days Per Year</div>
                       </div>
                     </div>
                     <div class="col-lg-3">
                       <div class="row pt-1 pb-3">
                         <div class="col-lg-6">
-                          <select
-                            class="form-select form-select-lg w-100px"
-                            v-model="chartYear"
-                          >
+                          <select class="form-select form-select-lg w-100px" v-model="chartYear">
                             <option value="2021">2021</option>
                             <option value="2020">2020</option>
                             <option value="2019">2019</option>
@@ -294,9 +259,7 @@
                     <div class="col-lg-3"></div>
                     <div class="col-lg-6">
                       <div class="container text-center">
-                        <div class="fs-30px fw-bold text-black-400">
-                          Map of Areas Climbed
-                        </div>
+                        <div class="fs-30px fw-bold text-black-400">Map of Areas Climbed</div>
                       </div>
                     </div>
                     <div class="col-lg-3">
@@ -340,81 +303,40 @@
           <div class="modal-header px-4">
             <div v-if="!edit" class="fs-24px fw-bolder">Account Info</div>
             <div v-if="edit" class="fs-24px fw-bolder">Edit Account Info</div>
-            <a
-              href="#"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              @click="stopEdit()"
-            ></a>
+            <a href="#" class="btn-close" data-bs-dismiss="modal" @click="stopEdit()"></a>
           </div>
           <div class="modal-body p-0">
             <div class="row gx-0">
               <div class="col-md-7 p-4 border-end fs-14px line-h-16">
                 <div v-if="!edit">
                   <div class="row mb-15px">
-                    <label class="form-label col-form-label col-md-3"
-                      >First name</label
-                    >
+                    <label class="form-label col-form-label col-md-3">First name</label>
                     <div class="col-md-9">
-                      <div
-                        class="
-                          fw-bold
-                          text-blue-700
-                          fs-20px
-                          col-form-label col-md-9
-                        "
-                      >
+                      <div class="fw-bold text-blue-700 fs-20px col-form-label col-md-9">
                         {{ user.first_name }}
                       </div>
                     </div>
                   </div>
                   <div class="row mb-15px">
-                    <label class="form-label col-form-label col-md-3"
-                      >Last name</label
-                    >
+                    <label class="form-label col-form-label col-md-3">Last name</label>
                     <div class="col-md-9">
-                      <div
-                        class="
-                          fw-bold
-                          text-blue-700
-                          fs-20px
-                          col-form-label col-md-9
-                        "
-                      >
+                      <div class="fw-bold text-blue-700 fs-20px col-form-label col-md-9">
                         {{ user.last_name }}
                       </div>
                     </div>
                   </div>
                   <div class="row mb-15px">
-                    <label class="form-label col-form-label col-md-3"
-                      >Email address</label
-                    >
+                    <label class="form-label col-form-label col-md-3">Email address</label>
                     <div class="col-md-9">
-                      <div
-                        class="
-                          fw-bold
-                          text-blue-700
-                          fs-20px
-                          col-form-label col-md-9
-                        "
-                      >
+                      <div class="fw-bold text-blue-700 fs-20px col-form-label col-md-9">
                         {{ user.email }}
                       </div>
                     </div>
                   </div>
                   <div class="row mb-15px">
-                    <label class="form-label col-form-label col-md-3"
-                      >Account created</label
-                    >
+                    <label class="form-label col-form-label col-md-3">Account created</label>
                     <div class="col-md-9">
-                      <div
-                        class="
-                          fw-bold
-                          text-blue-700
-                          fs-20px
-                          col-form-label col-md-9
-                        "
-                      >
+                      <div class="fw-bold text-blue-700 fs-20px col-form-label col-md-9">
                         {{ accountCreated(user.created_at) }}
                       </div>
                     </div>
@@ -422,9 +344,7 @@
                 </div>
                 <div v-if="edit">
                   <div class="row mb-15px">
-                    <label class="form-label col-form-label col-md-3"
-                      >First name</label
-                    >
+                    <label class="form-label col-form-label col-md-3">First name</label>
                     <div class="col-md-9">
                       <input
                         type="text"
@@ -435,9 +355,7 @@
                     </div>
                   </div>
                   <div class="row mb-15px">
-                    <label class="form-label col-form-label col-md-3"
-                      >Last name</label
-                    >
+                    <label class="form-label col-form-label col-md-3">Last name</label>
                     <div class="col-md-9">
                       <input
                         type="text"
@@ -448,9 +366,7 @@
                     </div>
                   </div>
                   <div class="row mb-15px">
-                    <label class="form-label col-form-label col-md-3"
-                      >Email address</label
-                    >
+                    <label class="form-label col-form-label col-md-3">Email address</label>
                     <div class="col-md-9">
                       <input
                         type="email"
@@ -461,21 +377,13 @@
                     </div>
                   </div>
                   <div class="row mb-15px">
-                    <label class="form-label col-form-label col-md-3"
-                      >Password</label
-                    >
+                    <label class="form-label col-form-label col-md-3">Password</label>
                     <div class="col-md-9">
-                      <input
-                        type="password"
-                        class="form-control mb-5px"
-                        v-model="editUserParams.password"
-                      />
+                      <input type="password" class="form-control mb-5px" v-model="editUserParams.password" />
                     </div>
                   </div>
                   <div class="row mb-15px">
-                    <label class="form-label col-form-label col-md-3"
-                      >Confirm password</label
-                    >
+                    <label class="form-label col-form-label col-md-3">Confirm password</label>
                     <div class="col-md-9">
                       <input
                         type="password"
@@ -491,14 +399,7 @@
                     <button
                       @click="editUser()"
                       type="button"
-                      class="
-                        btn btn-lg btn-primary
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
+                      class="btn btn-lg btn-primary d-block w-100 fw-bold rounded-2 height-50px"
                     >
                       Edit
                     </button>
@@ -507,14 +408,7 @@
                     <button
                       @click="stopEdit()"
                       type="button"
-                      class="
-                        btn btn-lg btn-secondary
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
+                      class="btn btn-lg btn-secondary d-block w-100 fw-bold rounded-2 height-50px"
                       data-bs-dismiss="modal"
                     >
                       Close
@@ -523,14 +417,7 @@
                   <div class="col-xl-4" v-if="edit">
                     <button
                       type="button"
-                      class="
-                        btn btn-lg btn-primary
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
+                      class="btn btn-lg btn-primary d-block w-100 fw-bold rounded-2 height-50px"
                       @click="userUpdate(user.id)"
                       data-bs-dismiss="modal"
                     >
@@ -541,14 +428,7 @@
                     <button
                       @click="stopEdit()"
                       type="button"
-                      class="
-                        btn btn-lg btn-secondary
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
+                      class="btn btn-lg btn-secondary d-block w-100 fw-bold rounded-2 height-50px"
                     >
                       Cancel
                     </button>
@@ -557,14 +437,7 @@
                     <button
                       @click="userDestroy(user.id)"
                       type="button"
-                      class="
-                        btn btn-xs btn-danger
-                        d-block
-                        w-100
-                        fw-bold
-                        rounded-2
-                        height-50px
-                      "
+                      class="btn btn-xs btn-danger d-block w-100 fw-bold rounded-2 height-50px"
                       data-bs-dismiss="modal"
                     >
                       Delete Account
@@ -573,34 +446,13 @@
                 </div>
               </div>
               <div class="col-md-5 p-4">
-                <img
-                  class="profile-pic"
-                  :src="user.profile_pic"
-                  alt="Profile Pic"
-                />
+                <img class="profile-pic" :src="user.profile_pic" alt="Profile Pic" />
                 <div class="row gx-0" v-if="edit">
                   <form v-on:submit.prevent="profilePicUpdate(user.id)">
-                    <label class="form-label col-form-label col-md-12"
-                      >Update profile picture</label
-                    >
+                    <label class="form-label col-form-label col-md-12">Update profile picture</label>
                     <div class="col-md-12">
-                      <input
-                        type="file"
-                        class="form-control mb-5px"
-                        v-on:change="setFile($event)"
-                        ref="fileInput"
-                      />
-                      <button
-                        type="submit"
-                        class="
-                          btn btn-sm btn-primary
-                          d-block
-                          w-50
-                          fw-bold
-                          rounded-2
-                          height-50px
-                        "
-                      >
+                      <input type="file" class="form-control mb-5px" v-on:change="setFile($event)" ref="fileInput" />
+                      <button type="submit" class="btn btn-sm btn-primary d-block w-50 fw-bold rounded-2 height-50px">
                         Upload Photo
                       </button>
                     </div>
@@ -723,8 +575,7 @@ export default {
       var script = document.createElement("script");
       script.async = true;
       script.characterSet = "utf-8";
-      script.src =
-        "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+      script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(script, s);
     })();
@@ -735,13 +586,8 @@ export default {
       this.areas = response.data;
       var places = response.data;
       places.forEach((place) => {
-        var popup = new mapboxgl.Popup({ offset: 25 }).setText(
-          place.description
-        );
-        new mapboxgl.Marker()
-          .setLngLat([place.lng, place.lat])
-          .setPopup(popup)
-          .addTo(map);
+        var popup = new mapboxgl.Popup({ offset: 25 }).setText(place.description);
+        new mapboxgl.Marker().setLngLat([place.lng, place.lat]).setPopup(popup).addTo(map);
       });
     });
     mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_ACCESS_TOKEN;
