@@ -197,6 +197,7 @@
                       <div class="row pt-1 pb-3">
                         <div class="col-lg-6">
                           <select class="form-select form-select-lg w-100px" v-model="chartYear">
+                            <option value="2022">2022</option>
                             <option value="2021">2021</option>
                             <option value="2020">2020</option>
                             <option value="2019">2019</option>
@@ -241,6 +242,13 @@
                     v-if="chartYear === '2021'"
                     :settings="{ packages: ['bar'] }"
                     :data="days2021"
+                    :options="chartOptions"
+                    :createChart="(el, google) => new google.charts.Bar(el)"
+                  />
+                  <GChart
+                    v-if="chartYear === '2022'"
+                    :settings="{ packages: ['bar'] }"
+                    :data="days2022"
                     :options="chartOptions"
                     :createChart="(el, google) => new google.charts.Bar(el)"
                   />
@@ -512,8 +520,9 @@ export default {
       days2019: [],
       days2020: [],
       days2021: [],
+      days2022: [],
       totalDays: {},
-      chartYear: "2021",
+      chartYear: "2022",
       chartOptions: {
         legend: { position: "none" },
         hAxis: { position: "none" },
@@ -547,6 +556,7 @@ export default {
       this.days2019 = response.data.days_per_month["2019"];
       this.days2020 = response.data.days_per_month["2020"];
       this.days2021 = response.data.days_per_month["2021"];
+      this.days2022 = response.data.days_per_month["2022"];
       this.totalDays = response.data.days_per_year;
     });
     window.myWidgetParam ? window.myWidgetParam : (window.myWidgetParam = []);
